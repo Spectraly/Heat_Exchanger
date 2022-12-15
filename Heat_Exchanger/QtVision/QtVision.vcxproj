@@ -10,21 +10,42 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="src\qt_openglwidget.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Include\qt_aboutscenewidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\qt_cursors.h" />
+    <ClInclude Include="Include\qt_openglcontext.h" />
+    <ClInclude Include="Include\qt_openglwidgetprivate.h" />
+    <ClInclude Include="Include\qt_resstream.h" />
+    <ClInclude Include="Include\qt_visiondef.h" />
+    <QtMoc Include="Include\qt_openglwidget.h" />
+    <QtMoc Include="Include\qt_licensewnd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\qt_aboutscenewidget.cpp" />
+    <ClCompile Include="src\qt_cursors.cpp" />
+    <ClCompile Include="src\qt_licensewnd.cpp" />
+    <ClCompile Include="src\qt_openglcontext.cpp" />
+    <ClCompile Include="src\qt_openglwidget.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{68B9B4D3-3C50-4268-9B53-3AD5CB09E900}</ProjectGuid>
+    <ProjectGuid>{24FBAF90-E7BC-4DF9-892B-9882E21A1CD0}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
-    <ProjectName>Heat_Exchanger</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -56,34 +77,44 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <IncludePath>$(ProjectDir)Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <IncludePath>$(ProjectDir)Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)C3D\Vision\Include;$(SolutionDir)C3D\Kernel\Include;$(SolutionDir)QtVision\Include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)C3D\Vision\Include;$(SolutionDir)C3D\Kernel\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)C3D\Vision\$(Configuration);$(SolutionDir)C3D\Kernel\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>c3d.lib;c3dvision.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)C3D\Kernel\$(Configuration);$(SolutionDir)C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PreBuildEvent>
-      <Command>xcopy /y "$(SolutionDir)C3D\Vision\$(Configuration)\c3dvision.dll" "$(SolutionDir)$(Platform)\$(Configuration)"
-xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Platform)\$(Configuration)"</Command>
-    </PreBuildEvent>
+    <Lib>
+      <AdditionalDependencies>c3dvision.lib;c3d.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)C3D\Kernel\$(Configuration);$(SolutionDir)C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)C3D\Vision\Include;$(SolutionDir)C3D\Kernel\Include;$(SolutionDir)QtVision\Include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)C3D\Vision\Include;$(SolutionDir)C3D\Kernel\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)C3D\Vision\$(Configuration);$(SolutionDir)C3D\Kernel\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>c3d.lib;c3dvision.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)C3D\Kernel\$(Configuration);$(SolutionDir)C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PreBuildEvent>
-      <Command>xcopy /y "$(SolutionDir)C3D\Vision\$(Configuration)\c3dvision.dll" "$(SolutionDir)$(Platform)\$(Configuration)"
-xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Platform)\$(Configuration)"</Command>
-    </PreBuildEvent>
+    <Lib>
+      <AdditionalDependencies>c3dvision.lib;c3d.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)C3D\Kernel\$(Configuration);$(SolutionDir)C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -92,6 +123,7 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;_DRAWGI;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;UNICODE;_UNICODE;__USE_QT__;QT_NO_DEPRECATED_WARNINGS;_WIN32_WINNT=0X0502;_BUILDQTVISIONDLL;__TEST_ONLY__;OGLFT_NO_QT;OGLFT_NO_SOLID;VSN_COMPILER_EXPLICIT_OVERRIDES;NOMINMAX;VSN_OS_WIN32;VSN_OS_WIN;VSN_DEBUG;qtvision_EXPORTS</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,44 +137,13 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_SECURE_SCL=0;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;UNICODE;_UNICODE;__USE_QT__;QT_NO_DEPRECATED_WARNINGS;_WIN32_WINNT=0X0502;_BUILDQTVISIONDLL;__TEST_ONLY__;OGLFT_NO_QT;OGLFT_NO_SOLID;VSN_COMPILER_EXPLICIT_OVERRIDES;NOMINMAX;VSN_OS_WIN32;VSN_OS_WIN;VSN_DEBUG;QT_NO_DEBUG;qtvision_EXPORTS</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Build_Assembly.cpp" />
-    <ClCompile Include="Build_Base.cpp" />
-    <ClCompile Include="FileController.cpp" />
-    <ClCompile Include="ParamsWidget.cpp" />
-    <ClCompile Include="Viewer.cpp" />
-    <QtRcc Include="MainWindow.qrc" />
-    <QtUic Include="MainWindow.ui" />
-    <QtMoc Include="MainWindow.h" />
-    <ClCompile Include="BuildMathModel.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="main.cpp" />
-    <QtUic Include="ParamsWidget.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BuildMathModel.h" />
-    <ClInclude Include="BuildParams.h" />
-    <ClInclude Include="colorDef.h" />
-    <ClInclude Include="SceneParams.h" />
-    <QtMoc Include="ParamsWidget.h" />
-    <ClInclude Include="FileController.h" />
-    <ClInclude Include="resource.h" />
-    <QtMoc Include="Viewer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Heat_Exchanger.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QtVision\QtVision.vcxproj">
-      <Project>{24fbaf90-e7bc-4df9-892b-9882e21a1cd0}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />
