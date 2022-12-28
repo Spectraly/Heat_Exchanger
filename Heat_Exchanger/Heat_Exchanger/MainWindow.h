@@ -37,7 +37,7 @@ private:
 	void unsetCurrentModel();
 
 private slots:
-	void makeCylinderMathModelSlot();
+	void makeExchangerMathModelSlot();
 	void setupViewerSceneSlot();
 	void clearModelSlot();
 	void aboutSlot();

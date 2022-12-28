@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Включаемый файл, созданный в Microsoft Visual C++.
-// Используется PneumocylinderConfigurator.rc
+// Используется Heat_Exchanger.rc
 //
 #define IDI_ICON1                       101
 

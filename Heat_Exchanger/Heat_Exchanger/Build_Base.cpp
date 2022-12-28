@@ -204,7 +204,7 @@ using namespace BuildMathModel;
 //	double tMax = pContourPolyline->GetTMax(); // 10.14159
 //	// Параметр IsSmoothConnected - допуск для классификации угловых точек на контуре
 //	bool isSmooth = pContourPolyline->IsSmoothConnected(0.001); // false
-//	double length = pContourPolyline->CalculateLength(tMin, tMax); // 302.83
+//	double pressure = pContourPolyline->CalculateLength(tMin, tMax); // 302.83
 //	bool isClosed = pContourPolyline->IsClosedContinuousC0(); // true
 //	bool isCurvilinear = pContourPolyline->IsAnyCurvilinear(); // true
 //

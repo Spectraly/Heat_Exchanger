@@ -11,9 +11,9 @@ MainWindow::MainWindow(QWidget* parent)
 	paramsWidget = ui.widget_params;
 
 	//запуск создания сцены
-	connect(paramsWidget, &ParamsWidget::buildSignal, this, &MainWindow::makeCylinderMathModelSlot);
+	connect(paramsWidget, &ParamsWidget::buildSignal, this, &MainWindow::makeExchangerMathModelSlot);
 	connect(paramsWidget, &ParamsWidget::setupSceneSignal, this, &MainWindow::setupViewerSceneSlot);
-	connect(ui.action_build_heatex, &QAction::triggered, this, &MainWindow::makeCylinderMathModelSlot);
+	connect(ui.action_build_heatex, &QAction::triggered, this, &MainWindow::makeExchangerMathModelSlot);
 	connect(ui.action_clear, &QAction::triggered, this, &MainWindow::clearModelSlot);
 
 	connect(ui.action_about, &QAction::triggered, this, &MainWindow::aboutSlot);
@@ -43,7 +43,7 @@ void MainWindow::drawMathModel(bool fit)
 	if (fit)viewer->fitSceneSlot();
 }
 
-void MainWindow::makeCylinderMathModelSlot()
+void MainWindow::makeExchangerMathModelSlot()
 {
 	BuildMathModel::BuildParams modelParams = paramsWidget->getParams_model();
 	MbModel* cylModel = BuildMathModel::ParametricModelCreator::CreateHeatExchangerModel(modelParams);
@@ -99,12 +99,14 @@ void MainWindow::showParamsSlot()
 
 void MainWindow::saveFileSlot()
 {
-	fileController.saveModel(currentMathModel);
-	drawMathModel();
+	QMessageBox::warning(this, u8"Внимание", u8"Модель не экспортирована,постройте модель");
+	//fileController.saveModel(currentMathModel);
+	//drawMathModel();
 }
 
 void MainWindow::openFileSlot()
 {
-	MbModel* openedModel = fileController.openModel();
-	if (openedModel) setCurrentModel(openedModel);
+	QMessageBox::warning(this, u8"Внимание", u8"Расчет не экспортирован,проведите расчет");
+	//MbModel* openedModel = fileController.openModel();
+	//if (openedModel) setCurrentModel(openedModel);
 }

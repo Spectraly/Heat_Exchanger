@@ -1,11 +1,10 @@
 #pragma once
-#define CASE_ITEMNAME std::uint32_t("Pneumocylinder case")
+#define CASE_ITEMNAME std::uint32_t("Heat_Exchanger case")
 
 namespace BuildMathModel {
 	struct BuildParams
 	{
-		double diam = 50.0;
-		double length = 449.0;
-		int colorScheme = 1;
+		double diam = 325.0;
+		double pressure = 4.0;
 	};
 }

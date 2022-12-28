@@ -9,7 +9,7 @@ int ParametricModelCreator::colorScheme = 0;
 
 MbModel* ParametricModelCreator::CreateHeatExchangerModel(BuildParams params)
 {
-	ParametricModelCreator::colorScheme = params.colorScheme;
+	//ParametricModelCreator::colorScheme = params.colorScheme;
 	MbModel* model = new MbModel();
 	auto heatexchangerAssembly = CreateHeatExchangerAssembly(params);
 	model->AddItem(*heatexchangerAssembly);

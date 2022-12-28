@@ -189,10 +189,11 @@ namespace BuildMathModel {
 		static MbAssembly* CreateHeatExchangerAssembly(BuildParams params);
 	private:
 		static void CreateBase(MbAssembly* pAsm, double ratio);
-		//Переменные для поршня
-		/*static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001();
-		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005();
-		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004();*/
+		static SPtr<MbSolid> ParametricModelCreator::Kozhuh();
+		static SPtr<MbSolid> ParametricModelCreator::Kamera();
+		static SPtr<MbSolid> ParametricModelCreator::KrishkaKamera();
+		static SPtr<MbSolid> ParametricModelCreator::KrishkaKozhuh();
+
 
 	};
 }

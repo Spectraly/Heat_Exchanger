@@ -6,65 +6,43 @@ using namespace BuildMathModel;
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerAssembly(BuildParams params)
 {
-//    //Переменные для подсборки Поршень
-//    SPtr<MbSolid> Yaganov1 = LIS_ME22_3_002_01_001();
-//    Yaganov1->SetColor(255, 255, 0);
-//    SPtr<MbSolid> Morozova1 = LIS_ME22_3_002_01_002();
-//    Morozova1->SetColor(255, 255, 255);
-//    SPtr<MbSolid> Zarubin1 = LIS_ME22_3_002_01_003();
-//    Zarubin1->SetColor(255, 255, 0);
-//    SPtr<MbSolid> Shepovalova1 = LIS_ME22_3_002_01_004();
-//    Shepovalova1->SetColor(0, 0, 0);
-//    Shepovalova1->SetVisual(0, 0, 0, 0, 0.8, 0, 0);
-//    SPtr<MbSolid> Fukina1 = LIS_ME22_3_002_01_005();
-//    Fukina1->SetColor(0, 236, 236);
-//    SPtr<MbSolid> Aleksanyan1 = LIS_ME22_3_002_01_006();
-//    Aleksanyan1->SetColor(255, 173, 91);
-//    SPtr<MbSolid> Aleksanyan2 = LIS_ME22_3_002_01_007();
-//    Aleksanyan2->SetColor(140, 70, 0);
-//    SPtr<MbSolid> Aleksanyan3 = LIS_ME22_3_002_01_008();
-//    Aleksanyan3->SetColor(255, 58, 58);
-//    /*-------------------------------------------------------------------------*/
-//    //Переменные для подсборки Поршень
-//    MbPlacement3D lcs;
-//    InstanceSPtr Porshen(new MbInstance(*Yaganov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    InstanceSPtr Porshen1(new MbInstance(*Morozova1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    InstanceSPtr Porshen2(new MbInstance(*Zarubin1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    InstanceSPtr Porshen3(new MbInstance(*Shepovalova1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    InstanceSPtr Porshen4(new MbInstance(*Fukina1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    InstanceSPtr Porshen5(new MbInstance(*Aleksanyan1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    InstanceSPtr Porshen6(new MbInstance(*Aleksanyan2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    InstanceSPtr Porshen7(new MbInstance(*Aleksanyan3, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-//    /*-------------------------------------------------------------------------*/
-//    //Переменные для подсборки Поршень
-//    SPtr<MbInstance> PorshenComp(new MbInstance(*Porshen, lcs));
-//    SPtr<MbInstance> Porshen1Comp(new MbInstance(*Porshen1, lcs));
-//    SPtr<MbInstance> Porshen2Comp(new MbInstance(*Porshen2, lcs));
-//    SPtr<MbInstance> Porshen3Comp(new MbInstance(*Porshen3, lcs));
-//    SPtr<MbInstance> Porshen41Comp(new MbInstance(*Porshen4, lcs));
-//    SPtr<MbInstance> Porshen42Comp(new MbInstance(*Porshen4, lcs));
-//    SPtr<MbInstance> Porshen43Comp(new MbInstance(*Porshen4, lcs));
-//    SPtr<MbInstance> Porshen44Comp(new MbInstance(*Porshen4, lcs));
-//    SPtr<MbInstance> Porshen5Comp(new MbInstance(*Porshen5, lcs));
-//    SPtr<MbInstance> Porshen6Comp(new MbInstance(*Porshen6, lcs));
-//    SPtr<MbInstance> Porshen7Comp(new MbInstance(*Porshen7, lcs));
-//    /*-------------------------------------------------------------------------*/
-//    //Переменные для подсборки Поршень
-//    vector<SPtr<MbInstance>> pair;
-//    pair.push_back(PorshenComp);
-//    pair.push_back(Porshen1Comp);
-//    pair.push_back(Porshen2Comp);
-//    pair.push_back(Porshen3Comp);
-//    pair.push_back(Porshen41Comp);
-//    pair.push_back(Porshen42Comp);
-//    pair.push_back(Porshen43Comp);
-//    pair.push_back(Porshen44Comp);
-//    pair.push_back(Porshen5Comp);
-//    pair.push_back(Porshen6Comp);
-//    pair.push_back(Porshen7Comp);
-//
-//    MbAssembly* assm = new MbAssembly(pair);
-//
+
+	SPtr<MbSolid> Kozh = Kozhuh();
+	Kozh->SetColor(255, 0, 255);
+    SPtr<MbSolid> Kam = Kamera();
+    Kam->SetColor(0, 0, 255);
+    SPtr<MbSolid> KKam = KrishkaKamera();
+    KKam->SetColor(0, 255, 0);
+    SPtr<MbSolid> KKozh = KrishkaKozhuh();
+    KKozh->SetColor(255, 0, 0);
+
+
+    /*-------------------------------------------------------------------------*/
+
+    MbPlacement3D lcs;
+    InstanceSPtr Kozhu(new MbInstance(*Kozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Kame(new MbInstance(*Kam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr KKozhu(new MbInstance(*KKozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr KKame(new MbInstance(*KKam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
+    /*-------------------------------------------------------------------------*/
+
+    SPtr<MbInstance> KozhuComp(new MbInstance(*Kozhu, lcs));
+    SPtr<MbInstance> KameComp(new MbInstance(*Kame, lcs));
+    SPtr<MbInstance> KKozhuComp(new MbInstance(*KKozhu, lcs));
+    SPtr<MbInstance> KKameComp(new MbInstance(*KKame, lcs));
+
+    /*-------------------------------------------------------------------------*/
+
+    vector<SPtr<MbInstance>> pair;
+    pair.push_back(KozhuComp);
+    pair.push_back(KameComp);
+    pair.push_back(KKozhuComp);
+    pair.push_back(KKameComp);
+
+
+    MbAssembly* assm = new MbAssembly(pair);
+
 //#pragma region Porshen-Krishki and cylinder
 //    //Параметр расстояния от крышек до цилиндра
 //    double Val1 = 0;
@@ -184,7 +162,5 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerAssembly(BuildParams para
 //    assm->EvaluateConstraints();
 //
 //
-//	return assm;
-
-	return 0;
+	return assm;
 }

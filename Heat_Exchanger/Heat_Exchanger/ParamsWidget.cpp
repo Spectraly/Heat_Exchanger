@@ -1,6 +1,7 @@
 #include "ParamsWidget.h"
+#include <QMessageBox>
 
-const bool PARAMETRIZE_DIAM = true;
+const bool PARAMETRIZE = true;
 
 ParamsWidget::ParamsWidget(QWidget* parent)
 	: QWidget(parent)
@@ -15,13 +16,12 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 	ui.comboBox_lighttype->addItem("spot", QVariant(2));
 	ui.comboBox_section->addItem("false", QVariant(0));
 	ui.comboBox_section->addItem("true", QVariant(1));
-	ui.comboBox_colorScheme->addItem("Green", QVariant(0));
-	ui.comboBox_colorScheme->addItem("Red", QVariant(1));
-	ui.pushButton->setText("frfrf");
+	//ui.pushButton->setText("frfrf");
 
 	setupForm_model();
 	setupForm_scene();
-	ui.doubleSpinBox_diam->setDisabled(!PARAMETRIZE_DIAM);// � ����� � ���������������� ��������������
+	ui.dSB_diam->setDisabled(!PARAMETRIZE);
+	ui.dSB_pressure->setDisabled(!PARAMETRIZE);
 	connect(ui.pushButton_build, &QPushButton::clicked, this, &ParamsWidget::applyAndBuild);
 	connect(ui.pushButton_reset, &QPushButton::clicked, this, &ParamsWidget::reset);
 	connect(ui.pushButton_sceneset, &QPushButton::clicked, this, &ParamsWidget::sceneset);
@@ -45,16 +45,16 @@ SceneParams ParamsWidget::getParams_scene()
 
 void ParamsWidget::updateParams_model()
 {
-	modelParams.diam = ui.doubleSpinBox_diam->value();
-	modelParams.length = ui.doubleSpinBox_length->value();
-	modelParams.colorScheme = ui.comboBox_colorScheme->currentIndex();
+	modelParams.diam = ui.dSB_diam->value();
+	modelParams.pressure = ui.dSB_pressure->value();
+	//modelParams.colorScheme = ui.comboBox_colorScheme->currentIndex();
 }
 
 void ParamsWidget::setupForm_model()
 {
-	ui.doubleSpinBox_diam->setValue(modelParams.diam);
-	ui.doubleSpinBox_length->setValue(modelParams.length);
-	ui.comboBox_colorScheme->setCurrentIndex(modelParams.colorScheme ? 1 : 0);
+	ui.dSB_diam->setValue(modelParams.diam);
+	ui.dSB_pressure->setValue(modelParams.pressure);
+	//ui.comboBox_colorScheme->setCurrentIndex(modelParams.colorScheme ? 1 : 0);
 }
 
 void ParamsWidget::updateParams_scene()
@@ -91,14 +91,19 @@ void ParamsWidget::toggleViewSectionSlot()
 
 void ParamsWidget::applyAndBuild()
 {
+	/*QMessageBox::critical(this, "Ошибка","Проектирование модели вызвало критическую ошибку");
+	QMessageBox::critical(this, "Ошибка","Расчет модели вызвал критическую ошибку");
+	QMessageBox::critical(this, "Ошибка","Экспорт модели вызвал критическую ошибку");
+	QMessageBox::critical(this, "Ошибка","Экспорт расчетов вызвал критическую ошибку");*/
 	updateParams_model();
 	emit buildSignal();
 }
 
 void ParamsWidget::reset()
 {
-	modelParams = BuildMathModel::BuildParams();
-	setupForm_model();
+	/*QMessageBox::warning(this, "Внимание", "Модель успешно сброшена");*/
+	//modelParams = BuildMathModel::BuildParams();
+	//setupForm_model();
 }
 
 void ParamsWidget::sceneset()
