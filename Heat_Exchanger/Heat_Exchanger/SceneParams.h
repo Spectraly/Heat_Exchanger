@@ -2,10 +2,10 @@
 #include "BuildParams.h"
 
 struct SceneParams {
-	bool doubleSided = true;
+
 	bool edges = false;
 	int lightType = 1;
 	bool section = false;
-	int frameTransp = 10;
+	int plain = 2;
 	std::vector<std::uint32_t> hideIndexes = std::vector<std::uint32_t>{ CASE_ITEMNAME };
 };

@@ -4,9 +4,8 @@ using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;
 
-MbAssembly* ParametricModelCreator::CreateHeatExchangerAssembly(BuildParams params)
+MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams params)
 {
-
 	SPtr<MbSolid> Kozh = Kozhuh();
 	Kozh->SetColor(255, 0, 255);
     SPtr<MbSolid> Kam = Kamera();
@@ -163,4 +162,83 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerAssembly(BuildParams para
 //
 //
 	return assm;
+}
+
+MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams params)
+{
+    SPtr<MbSolid> Kozh = Kozhuh();
+    Kozh->SetColor(0, 0, 0);
+    SPtr<MbSolid> Kam = Kamera();
+    Kam->SetColor(0, 0, 255);
+    SPtr<MbSolid> KKam = KrishkaKamera();
+    KKam->SetColor(0, 255, 0);
+    SPtr<MbSolid> KKozh = KrishkaKozhuh();
+    KKozh->SetColor(255, 0, 0);
+
+
+    /*-------------------------------------------------------------------------*/
+
+    MbPlacement3D lcs;
+    InstanceSPtr Kozhu(new MbInstance(*Kozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Kame(new MbInstance(*Kam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr KKozhu(new MbInstance(*KKozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr KKame(new MbInstance(*KKam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
+    /*-------------------------------------------------------------------------*/
+
+    SPtr<MbInstance> KozhuComp(new MbInstance(*Kozhu, lcs));
+    SPtr<MbInstance> KameComp(new MbInstance(*Kame, lcs));
+    SPtr<MbInstance> KKozhuComp(new MbInstance(*KKozhu, lcs));
+    SPtr<MbInstance> KKameComp(new MbInstance(*KKame, lcs));
+
+    /*-------------------------------------------------------------------------*/
+
+    vector<SPtr<MbInstance>> pair;
+    pair.push_back(KozhuComp);
+    pair.push_back(KameComp);
+    pair.push_back(KKozhuComp);
+    pair.push_back(KKameComp);
+
+
+    MbAssembly* assm = new MbAssembly(pair);
+    return assm;
+}
+MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams params)
+{
+    SPtr<MbSolid> Kozh = Kozhuh();
+    Kozh->SetColor(255, 255, 255);
+    SPtr<MbSolid> Kam = Kamera();
+    Kam->SetColor(0, 0, 255);
+    SPtr<MbSolid> KKam = KrishkaKamera();
+    KKam->SetColor(0, 255, 0);
+    SPtr<MbSolid> KKozh = KrishkaKozhuh();
+    KKozh->SetColor(255, 0, 0);
+
+
+    /*-------------------------------------------------------------------------*/
+
+    MbPlacement3D lcs;
+    InstanceSPtr Kozhu(new MbInstance(*Kozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Kame(new MbInstance(*Kam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr KKozhu(new MbInstance(*KKozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr KKame(new MbInstance(*KKam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
+    /*-------------------------------------------------------------------------*/
+
+    SPtr<MbInstance> KozhuComp(new MbInstance(*Kozhu, lcs));
+    SPtr<MbInstance> KameComp(new MbInstance(*Kame, lcs));
+    SPtr<MbInstance> KKozhuComp(new MbInstance(*KKozhu, lcs));
+    SPtr<MbInstance> KKameComp(new MbInstance(*KKame, lcs));
+
+    /*-------------------------------------------------------------------------*/
+
+    vector<SPtr<MbInstance>> pair;
+    pair.push_back(KozhuComp);
+    pair.push_back(KameComp);
+    pair.push_back(KKozhuComp);
+    pair.push_back(KKameComp);
+
+
+    MbAssembly* assm = new MbAssembly(pair);
+    return assm;
 }

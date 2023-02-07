@@ -180,13 +180,17 @@
 #include "gcm_types.h"
 
 
+
 namespace BuildMathModel {
 	class ParametricModelCreator {
 		static int colorScheme; // статическое поле инициализируется вне класса, в .cpp
 	public:
 		static MbModel* CreateHeatExchangerModel(BuildParams params);
+
 	private:
-		static MbAssembly* CreateHeatExchangerAssembly(BuildParams params);
+		static MbAssembly* CreateHeatExchangerHPGAssembly(BuildParams params);
+		static MbAssembly* CreateHeatExchangerKPAssembly(BuildParams params);
+		static MbAssembly* CreateHeatExchangerTUAssembly(BuildParams params);
 	private:
 		static void CreateBase(MbAssembly* pAsm, double ratio);
 		static SPtr<MbSolid> ParametricModelCreator::Kozhuh();

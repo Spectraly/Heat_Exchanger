@@ -1,7 +1,9 @@
 #include "Viewer.h"
 
+
 Viewer::Viewer(QWidget* parent) : QtVision::QtOpenGLSceneWidget(parent)
 {
+
 	rootSceneSegment = this->sceneContent()->GetRootSegment();
 	Q_ASSERT(rootSceneSegment != nullptr);
 
@@ -14,40 +16,9 @@ Viewer::Viewer(QWidget* parent) : QtVision::QtOpenGLSceneWidget(parent)
 Viewer::~Viewer()
 {
 }
-/*
-NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment)
-{
-	
-	if (!sceneSegment) sceneSegment = rootSceneSegment;
 
-	NodeKeyVector keys;
 
-	if (item->Type() == MbeSpaceType::st_Assembly) {
-		//разделение сборки на составные элементы, тк MbAssembly отображается бесцветной
-		RPArray<MbItem> subitems;
-		SArray<MbMatrix3D> matrs;
-		MbMatrix3D matrFrom;
-		item->GetMatrixFrom(matrFrom);
-		item->GetItems(MbeSpaceType::st_Item, matrFrom, subitems, matrs);
 
-		for (auto subitem : subitems) {
-			NodeKeyVector subkeys = addMathGeoms(subitem, sceneSegment);
-			keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
-		}
-	}
-	else {
-		//item ->Transform(matrFrom, )
-		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(new MbSpaceInstance(*pSurface), CommandType::Synchronous), rootSegment);
-		SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
-		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
-		segSinSurface->SetObjectName(VSN::String(item->GetItemName()));
-		checkHideElement(segSinSurface);
-		keys.push_back(segSinSurface->GetUniqueKey());
-	}
-
-	return keys;
-}
-*/
 NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegment)
 {
 	if (!sceneSegment) sceneSegment = rootSceneSegment;
@@ -57,19 +28,12 @@ NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegme
 	SArray<MbMatrix3D> matrs;
 	model->GetItems(MbeSpaceType::st_SpaceItem, subitems, matrs);
 
-#if 1 //two ways to add model to view
+    //two ways to add model to view
 	for (int i = 0; i < subitems.size(); i++) {
 		NodeKeyVector subkeys = addMathGeoms(subitems[i], sceneSegment, matrs[i]);
 		keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
 	}
-#else
-	MbAssembly* assemblyToView = new MbAssembly;
-	for (auto subitem : subitems) {
-		assemblyToView->AddItem(*subitem);
-	}
-	NodeKeyVector subkeys = addMathGeoms(assemblyToView, sceneSegment);
-	keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
-#endif
+
 	updHideElements();
 	return keys;
 }
@@ -139,12 +103,20 @@ void Viewer::nextOrientationSlot()
 
 void Viewer::changeSectionPlaneSlot()
 {
+	
 	if (auto tool = graphicsScene()->GetCuttingTool()) {
-		bool state = tool->IsEnabled(m_sectionPlaneIdArr[sectionId]);
-		tool->SetEnable(m_sectionPlaneIdArr[sectionId], false);
-		sectionId = sectionId == 0 ? 1 : 0;
-		tool->SetEnable(m_sectionPlaneIdArr[sectionId], state);
-		this->update();
+		if (tool->IsEnabled(m_sectionPlaneIdArr[sectionId])) {
+
+			tool->SetEnable(m_sectionPlaneIdArr[sectionId], false);
+			if (sectionId == 2)
+				sectionId = 0;
+			else
+				sectionId++;
+			tool->SetEnable(m_sectionPlaneIdArr[sectionId], true);
+			sceneParams.plain = sectionId;
+			this->update();
+			
+		}
 	}
 }
 
@@ -152,7 +124,6 @@ void Viewer::prepareSceneBackground()
 {
 	this->graphicsView()->SetRenderMode(sceneParams.edges ? RenderMode::rm_ShadedWithEdges : RenderMode::rm_Shaded);
 	this->mainLight()->SetType((Light::LightTypes)(sceneParams.lightType));
-	this->mainLight()->SetDoubleSided(sceneParams.doubleSided);
 	this->viewport()->SetGradientBackgroundColour(Color(255, 255, 255), Color(255, 255, 255));
 }
 
@@ -164,13 +135,19 @@ void Viewer::prepareSectionPlane()
 			MbCartPoint3D(0, 0, 1),
 			MbCartPoint3D(0, 0, 0)
 		));
-		tool->SetEnable(m_sectionPlaneIdArr[0], false);
+		tool->SetEnable(m_sectionPlaneIdArr[1], false);
 		m_sectionPlaneIdArr[1] = tool->AddSectionPlane(MbPlacement3D(
 			MbCartPoint3D(0, 0, 1),
 			MbCartPoint3D(0, 1, 0),
 			MbCartPoint3D(0, 0, 0)
 		));
 		tool->SetEnable(m_sectionPlaneIdArr[1], false);
+		m_sectionPlaneIdArr[2] = tool->AddSectionPlane(MbPlacement3D(
+			MbCartPoint3D(0, 1, 0),
+			MbCartPoint3D(1, 0, 0),
+			MbCartPoint3D(0, 0, 0)
+		));
+		tool->SetEnable(m_sectionPlaneIdArr[2], false);
 	}
 }
 
@@ -179,9 +156,15 @@ void Viewer::updSectionState()
 	if (auto tool = graphicsScene()->GetCuttingTool()) {
 		if (tool->IsEnabled(m_sectionPlaneIdArr[sectionId]) != sceneParams.section) {
 			tool->SetEnable(m_sectionPlaneIdArr[sectionId], sceneParams.section);
-			//this->update();
+		}
+		else
+		{
+			tool->SetEnable(m_sectionPlaneIdArr[sectionId], false);
+			sectionId = sceneParams.plain;
+			tool->SetEnable(m_sectionPlaneIdArr[sectionId], sceneParams.section);
 		}
 	}
+
 }
 
 void Viewer::updHideElements()
@@ -203,7 +186,7 @@ void Viewer::checkHideElement(VSN::SceneSegment* seg)
 		Q_ASSERT(it != set.end());
 		VSN::Material* m_pMaterial = *it;
 
-		double value = static_cast<double>(sceneParams.frameTransp) / 100;
+		double value = static_cast<double>(10) / 100;
 		m_pMaterial->SetOpacity(value);
 	}
 }

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Конфигуратор модели Холодильник с плавающей головкой горизонтальный</string>
+   <string>Приложение-конфигуратор параметрической модели типовых теплообменных апаратов типа ХПГ КП ТУ</string>
   </property>
   <property name="windowIcon">
    <iconset resource="MainWindow.qrc">
@@ -79,7 +79,6 @@
     </property>
     <addaction name="action_centralyze"/>
     <addaction name="action_nextOrientation"/>
-    <addaction name="action_transp"/>
     <addaction name="action_section"/>
     <addaction name="action_changeSectionPlane"/>
     <addaction name="action_params"/>
@@ -187,7 +186,7 @@
     <string>Окно параметров</string>
    </property>
    <property name="shortcut">
-    <string>F7</string>
+    <string>F5</string>
    </property>
   </action>
   <action name="action_section">
@@ -203,7 +202,7 @@
     <string>Другое сечение</string>
    </property>
    <property name="shortcut">
-    <string>F6</string>
+    <string>F4</string>
    </property>
   </action>
   <action name="action_transp">

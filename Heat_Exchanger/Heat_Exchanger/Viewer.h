@@ -6,6 +6,8 @@
 #include <model.h>
 #include "SceneParams.h"
 
+
+
 class Viewer : public QtVision::QtOpenGLSceneWidget
 {
 	Q_OBJECT
@@ -26,9 +28,9 @@ public slots:
 	void changeSectionPlaneSlot();
 
 private:
-	int sectionId = 0;
-	SectionPlaneId m_sectionPlaneIdArr[2]{ 0,0 };
+	SectionPlaneId m_sectionPlaneIdArr[3]{ 0,0,0 };
 	SceneParams sceneParams;
+	int sectionId = sceneParams.plain;
 	VSN::Orientation orientation = VSN::Orientation::IsoXYZ;
 	VSN::SceneSegment* rootSceneSegment = nullptr;
 	void prepareSceneBackground();

@@ -22,8 +22,8 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui.action_centralyze, &QAction::triggered, viewer, &Viewer::fitSceneSlot);
 	connect(ui.action_nextOrientation, &QAction::triggered, viewer, &Viewer::nextOrientationSlot);
 	connect(ui.action_changeSectionPlane, &QAction::triggered, viewer, &Viewer::changeSectionPlaneSlot);
+	connect(ui.action_changeSectionPlane, &QAction::triggered, paramsWidget, &ParamsWidget::setupForm_scene);
 	connect(ui.action_section, &QAction::triggered, paramsWidget, &ParamsWidget::toggleViewSectionSlot);
-	connect(ui.action_transp, &QAction::triggered, paramsWidget, &ParamsWidget::toggleCaseTranspSlot);
 
 	connect(ui.action_params, &QAction::triggered, this, &MainWindow::showParamsSlot);
 
@@ -79,7 +79,7 @@ void MainWindow::aboutSlot()
 	const QString GitRepo("https://github.com/Spectraly/Heat_Exchanger");
 	QString str;
 	str += "<h3>" + QApplication::applicationName() + "</h3>";
-	str += u8"<p>Приложение-конфигуратор параметрической модели 'Холодильник с плавающей головкой горизонтальный'< / p><br/>";
+	str += u8"<p>Приложение-конфигуратор параметрической модели типовых теплообменных апаратов типа ХПГ КП ТУ< / p><br/>";
 	str += u8"На базе <a href=\"https://c3dlabs.com/ru/products/c3d-toolkit/\">C3D Toolkit</a> , Vision 2.6.4.6<br/>";
 	str += u8"Подробнее на странице GitHub <a href=\"" + GitRepo + u8"\">репозитория</a><br/>";
 	str += u8"Версия: " + QApplication::applicationVersion() + "<hr/>";
