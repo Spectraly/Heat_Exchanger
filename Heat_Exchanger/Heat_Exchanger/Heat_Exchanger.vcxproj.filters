@@ -58,16 +58,16 @@
     <ClCompile Include="FileController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Kozhuh.cpp">
+    <ClCompile Include="Сasing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Kamera.cpp">
+    <ClCompile Include="Distribution_Chamber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KrishkaKamera.cpp">
+    <ClCompile Include="Distribution_Chamber_Cover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KrishkaKozhuh.cpp">
+    <ClCompile Include="Сasing_Cover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

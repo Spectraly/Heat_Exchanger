@@ -2,7 +2,7 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::KrishkaKozhuh()
+SPtr<MbSolid> ParametricModelCreator::Сasing_Cover()
 {
    float DV,RV,LK,L,B1,B2;
     DV = 325; //Внутренний диаметр

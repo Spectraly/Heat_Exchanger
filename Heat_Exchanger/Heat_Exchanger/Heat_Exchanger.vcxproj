@@ -115,10 +115,10 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="Build_Assembly.cpp" />
     <ClCompile Include="Build_Base.cpp" />
     <ClCompile Include="FileController.cpp" />
-    <ClCompile Include="Kamera.cpp" />
-    <ClCompile Include="Kozhuh.cpp" />
-    <ClCompile Include="KrishkaKamera.cpp" />
-    <ClCompile Include="KrishkaKozhuh.cpp" />
+    <ClCompile Include="Distribution_Chamber.cpp" />
+    <ClCompile Include="Сasing.cpp" />
+    <ClCompile Include="Distribution_Chamber_Cover.cpp" />
+    <ClCompile Include="Сasing_Cover.cpp" />
     <ClCompile Include="ParamsWidget.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="MainWindow.qrc" />

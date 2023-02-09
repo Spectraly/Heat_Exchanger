@@ -193,10 +193,10 @@ namespace BuildMathModel {
 		static MbAssembly* CreateHeatExchangerTUAssembly(BuildParams params);
 	private:
 		static void CreateBase(MbAssembly* pAsm, double ratio);
-		static SPtr<MbSolid> ParametricModelCreator::Kozhuh();
-		static SPtr<MbSolid> ParametricModelCreator::Kamera();
-		static SPtr<MbSolid> ParametricModelCreator::KrishkaKamera();
-		static SPtr<MbSolid> ParametricModelCreator::KrishkaKozhuh();
+		static SPtr<MbSolid> ParametricModelCreator::Ñasing();
+		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber();
+		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover();
+		static SPtr<MbSolid> ParametricModelCreator::Ñasing_Cover();
 
 
 	};

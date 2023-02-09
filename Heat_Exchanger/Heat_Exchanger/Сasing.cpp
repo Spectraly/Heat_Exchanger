@@ -91,7 +91,7 @@ void CreateSketch2(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-SPtr<MbSolid> ParametricModelCreator::Kozhuh()
+SPtr<MbSolid> ParametricModelCreator::Сasing()
 {
     float DV,RV,LK,L2,A1,A2;
     DV = 325; //Внутренний диамерт

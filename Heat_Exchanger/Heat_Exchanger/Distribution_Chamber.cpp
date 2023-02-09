@@ -89,7 +89,7 @@ void CreateSketchK2(RPArray<MbContour>& _arrContours)
     _arrContours.push_back(pContourPolyline);
 }
 
-SPtr<MbSolid> ParametricModelCreator::Kamera()
+SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber()
 {
     float DV,RV,LK,L2;
     DV = 325; //Внутренний диамерт

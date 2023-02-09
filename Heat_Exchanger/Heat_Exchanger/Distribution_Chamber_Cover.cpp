@@ -34,7 +34,7 @@ void CreateSketchKK(RPArray<MbContour>& _arrContours)
     _arrContours.push_back(pContourPolyline);
 }
 
-SPtr<MbSolid> ParametricModelCreator::KrishkaKamera()
+SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover()
 {
     float LK;
     LK = 400;

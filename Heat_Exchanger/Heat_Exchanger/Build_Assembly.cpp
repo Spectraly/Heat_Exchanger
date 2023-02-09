@@ -6,38 +6,38 @@ using namespace BuildMathModel;
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams params)
 {
-	SPtr<MbSolid> Kozh = Kozhuh();
-	Kozh->SetColor(255, 0, 255);
-    SPtr<MbSolid> Kam = Kamera();
-    Kam->SetColor(0, 0, 255);
-    SPtr<MbSolid> KKam = KrishkaKamera();
-    KKam->SetColor(0, 255, 0);
-    SPtr<MbSolid> KKozh = KrishkaKozhuh();
-    KKozh->SetColor(255, 0, 0);
+	SPtr<MbSolid> mSСasing = Сasing();
+	mSСasing->SetColor(255, 0, 255);
+    SPtr<MbSolid> mSDistribution_Chamber = Distribution_Chamber();
+    mSDistribution_Chamber->SetColor(0, 0, 255);
+    SPtr<MbSolid> mSDistribution_Chamber_Cover = Distribution_Chamber_Cover();
+    mSDistribution_Chamber_Cover->SetColor(0, 255, 0);
+    SPtr<MbSolid> mSСasing_Cover = Сasing_Cover();
+    mSСasing_Cover->SetColor(255, 0, 0);
 
 
     /*-------------------------------------------------------------------------*/
 
     MbPlacement3D lcs;
-    InstanceSPtr Kozhu(new MbInstance(*Kozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr Kame(new MbInstance(*Kam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr KKozhu(new MbInstance(*KKozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr KKame(new MbInstance(*KKam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPСasing(new MbInstance(*mSСasing, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPDistribution_Chamber(new MbInstance(*mSDistribution_Chamber, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPDistribution_Chamber_Cover(new MbInstance(*mSDistribution_Chamber_Cover, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPСasing_Cover(new MbInstance(*mSСasing_Cover, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
 
     /*-------------------------------------------------------------------------*/
 
-    SPtr<MbInstance> KozhuComp(new MbInstance(*Kozhu, lcs));
-    SPtr<MbInstance> KameComp(new MbInstance(*Kame, lcs));
-    SPtr<MbInstance> KKozhuComp(new MbInstance(*KKozhu, lcs));
-    SPtr<MbInstance> KKameComp(new MbInstance(*KKame, lcs));
+    SPtr<MbInstance> p_IPСasing(new MbInstance(*iPСasing, lcs));
+    SPtr<MbInstance> p_IPDistribution_Chamber(new MbInstance(*iPDistribution_Chamber, lcs));
+    SPtr<MbInstance> p_IPDistribution_Chamber_Cover(new MbInstance(*iPDistribution_Chamber_Cover, lcs));
+    SPtr<MbInstance> p_IPСasing_Cover(new MbInstance(*iPСasing_Cover, lcs));
 
     /*-------------------------------------------------------------------------*/
 
     vector<SPtr<MbInstance>> pair;
-    pair.push_back(KozhuComp);
-    pair.push_back(KameComp);
-    pair.push_back(KKozhuComp);
-    pair.push_back(KKameComp);
+    pair.push_back(p_IPСasing);
+    pair.push_back(p_IPDistribution_Chamber);
+    pair.push_back(p_IPDistribution_Chamber_Cover);
+    pair.push_back(p_IPСasing_Cover);
 
 
     MbAssembly* assm = new MbAssembly(pair);
@@ -166,13 +166,13 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams params)
 {
-    SPtr<MbSolid> Kozh = Kozhuh();
+    SPtr<MbSolid> Kozh = Сasing();
     Kozh->SetColor(0, 0, 0);
-    SPtr<MbSolid> Kam = Kamera();
+    SPtr<MbSolid> Kam = Distribution_Chamber();
     Kam->SetColor(0, 0, 255);
-    SPtr<MbSolid> KKam = KrishkaKamera();
+    SPtr<MbSolid> KKam = Distribution_Chamber_Cover();
     KKam->SetColor(0, 255, 0);
-    SPtr<MbSolid> KKozh = KrishkaKozhuh();
+    SPtr<MbSolid> KKozh = Сasing_Cover();
     KKozh->SetColor(255, 0, 0);
 
 
@@ -205,13 +205,13 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
 }
 MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams params)
 {
-    SPtr<MbSolid> Kozh = Kozhuh();
+    SPtr<MbSolid> Kozh = Сasing();
     Kozh->SetColor(255, 255, 255);
-    SPtr<MbSolid> Kam = Kamera();
+    SPtr<MbSolid> Kam = Distribution_Chamber();
     Kam->SetColor(0, 0, 255);
-    SPtr<MbSolid> KKam = KrishkaKamera();
+    SPtr<MbSolid> KKam = Distribution_Chamber_Cover();
     KKam->SetColor(0, 255, 0);
-    SPtr<MbSolid> KKozh = KrishkaKozhuh();
+    SPtr<MbSolid> KKozh = Сasing_Cover();
     KKozh->SetColor(255, 0, 0);
 
 
