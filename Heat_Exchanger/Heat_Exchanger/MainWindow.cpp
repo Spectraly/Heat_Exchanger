@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget* parent)
 	//запуск создания сцены
 	connect(paramsWidget, &ParamsWidget::buildSignal, this, &MainWindow::makeExchangerMathModelSlot);
 	connect(paramsWidget, &ParamsWidget::setupSceneSignal, this, &MainWindow::setupViewerSceneSlot);
+	connect(paramsWidget, SIGNAL(tabSignal(int i)), this, SLOT(changeTab(int i)));
 	connect(ui.action_build_heatex, &QAction::triggered, this, &MainWindow::makeExchangerMathModelSlot);
 	connect(ui.action_clear, &QAction::triggered, this, &MainWindow::clearModelSlot);
 
@@ -25,10 +26,12 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui.action_changeSectionPlane, &QAction::triggered, paramsWidget, &ParamsWidget::setupForm_scene);
 	connect(ui.action_section, &QAction::triggered, paramsWidget, &ParamsWidget::toggleViewSectionSlot);
 
+
 	connect(ui.action_params, &QAction::triggered, this, &MainWindow::showParamsSlot);
 
 	connect(ui.action_save, &QAction::triggered, this, &MainWindow::saveFileSlot);
 	connect(ui.action_open, &QAction::triggered, this, &MainWindow::openFileSlot);
+
 }
 
 MainWindow::~MainWindow()
@@ -109,4 +112,11 @@ void MainWindow::openFileSlot()
 	QMessageBox::warning(this, u8"Внимание", u8"Расчет не экспортирован,проведите расчет");
 	//MbModel* openedModel = fileController.openModel();
 	//if (openedModel) setCurrentModel(openedModel);
+}
+
+void MainWindow::changeTab(int tab)
+{
+	
+	QMessageBox::warning(this, u8"Внимание", (QString)tab);
+
 }

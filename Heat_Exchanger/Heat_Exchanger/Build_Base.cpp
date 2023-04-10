@@ -4,6 +4,8 @@ using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;
 
+
+
 //void CreateSketch(RPArray<MbContour>* ptrContours, double SqureSize ,double diamMain)
 //{
 //	// Создание массива точек квадрата, к которому в дальнейшем добавятся скругления.

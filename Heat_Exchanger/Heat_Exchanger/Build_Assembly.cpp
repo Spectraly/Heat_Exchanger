@@ -6,15 +6,15 @@ using namespace BuildMathModel;
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams params)
 {
-	SPtr<MbSolid> mSСasing = Сasing();
-	mSСasing->SetColor(255, 0, 255);
-    SPtr<MbSolid> mSDistribution_Chamber = Distribution_Chamber();
-    mSDistribution_Chamber->SetColor(0, 0, 255);
-    SPtr<MbSolid> mSDistribution_Chamber_Cover = Distribution_Chamber_Cover();
-    mSDistribution_Chamber_Cover->SetColor(0, 255, 0);
-    SPtr<MbSolid> mSСasing_Cover = Сasing_Cover();
-    mSСasing_Cover->SetColor(255, 0, 0);
-
+	SPtr<MbSolid> mSСasing = Casing(params);
+	mSСasing->SetColor(190, 190, 190);
+    SPtr<MbSolid> mSDistribution_Chamber = Distribution_Chamber(params);
+    mSDistribution_Chamber->SetColor(190, 190, 190);
+    SPtr<MbSolid> mSDistribution_Chamber_Cover = Distribution_Chamber_Cover(params);
+    mSDistribution_Chamber_Cover->SetColor(190, 190, 190);
+    SPtr<MbSolid> mSСasing_Cover = Casing_Cover(params);
+    mSСasing_Cover->SetColor(190, 190, 190);
+    
 
     /*-------------------------------------------------------------------------*/
 
@@ -166,14 +166,14 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams params)
 {
-    SPtr<MbSolid> Kozh = Сasing();
-    Kozh->SetColor(0, 0, 0);
-    SPtr<MbSolid> Kam = Distribution_Chamber();
-    Kam->SetColor(0, 0, 255);
-    SPtr<MbSolid> KKam = Distribution_Chamber_Cover();
-    KKam->SetColor(0, 255, 0);
-    SPtr<MbSolid> KKozh = Сasing_Cover();
-    KKozh->SetColor(255, 0, 0);
+    SPtr<MbSolid> Kozh = Casing(params);
+    Kozh->SetColor(190, 0, 0);
+    SPtr<MbSolid> Kam = Distribution_Chamber(params);
+    Kam->SetColor(190, 190, 190);
+    SPtr<MbSolid> KKam = Distribution_Chamber_Cover(params);
+    KKam->SetColor(190, 190, 190);
+    SPtr<MbSolid> KKozh = Casing_Cover(params);
+    KKozh->SetColor(190, 190, 190);
 
 
     /*-------------------------------------------------------------------------*/
@@ -205,14 +205,11 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
 }
 MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams params)
 {
-    SPtr<MbSolid> Kozh = Сasing();
-    Kozh->SetColor(255, 255, 255);
-    SPtr<MbSolid> Kam = Distribution_Chamber();
-    Kam->SetColor(0, 0, 255);
-    SPtr<MbSolid> KKam = Distribution_Chamber_Cover();
-    KKam->SetColor(0, 255, 0);
-    SPtr<MbSolid> KKozh = Сasing_Cover();
-    KKozh->SetColor(255, 0, 0);
+    SPtr<MbSolid> Kozh = CasingTY(params.diam.toDouble(), params.length.toDouble());
+    Kozh->SetColor(190, 190, 190);
+    SPtr<MbSolid> Kam = Distribution_ChamberTY(params.length.toDouble());
+    Kam->SetColor(190, 190, 190);
+
 
 
     /*-------------------------------------------------------------------------*/
@@ -220,23 +217,19 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams pa
     MbPlacement3D lcs;
     InstanceSPtr Kozhu(new MbInstance(*Kozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Kame(new MbInstance(*Kam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr KKozhu(new MbInstance(*KKozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr KKame(new MbInstance(*KKam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
 
     /*-------------------------------------------------------------------------*/
 
     SPtr<MbInstance> KozhuComp(new MbInstance(*Kozhu, lcs));
     SPtr<MbInstance> KameComp(new MbInstance(*Kame, lcs));
-    SPtr<MbInstance> KKozhuComp(new MbInstance(*KKozhu, lcs));
-    SPtr<MbInstance> KKameComp(new MbInstance(*KKame, lcs));
+
 
     /*-------------------------------------------------------------------------*/
 
     vector<SPtr<MbInstance>> pair;
     pair.push_back(KozhuComp);
     pair.push_back(KameComp);
-    pair.push_back(KKozhuComp);
-    pair.push_back(KKameComp);
 
 
     MbAssembly* assm = new MbAssembly(pair);

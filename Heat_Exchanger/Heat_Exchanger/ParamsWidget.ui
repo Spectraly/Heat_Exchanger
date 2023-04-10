@@ -23,7 +23,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_model_hpg">
       <attribute name="title">
@@ -66,6 +66,16 @@
           <number>7</number>
          </property>
          <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Давление Py МПа не более</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEditPressurerH"/>
+         </item>
+         <item row="1" column="0">
           <widget class="QLabel" name="label">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -74,22 +84,62 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Внутренний диаметр</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox_HDiam"/>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Давление Py МПа не более</string>
+            <string>Dv</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox_HPress"/>
+          <widget class="QLineEdit" name="lineEditDiamH"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>L</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEditLengthH"/>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>H</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEditHeightH"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>A</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="lineEditAH"/>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Dy</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="lineEditDyH"/>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Dy1</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="lineEditDy1H"/>
          </item>
         </layout>
        </item>
@@ -208,10 +258,10 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox_KDiam"/>
+          <widget class="QLineEdit" name="lineEditDiamK"/>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox_KPress"/>
+          <widget class="QLineEdit" name="lineEditPressureK"/>
          </item>
         </layout>
        </item>
@@ -324,10 +374,10 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QComboBox" name="comboBox_UDiam"/>
+          <widget class="QLineEdit" name="lineEditDiamU"/>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox_Upress"/>
+          <widget class="QLineEdit" name="lineEditPressureU"/>
          </item>
         </layout>
        </item>
@@ -485,7 +535,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>317</height>
           </size>
          </property>
         </spacer>

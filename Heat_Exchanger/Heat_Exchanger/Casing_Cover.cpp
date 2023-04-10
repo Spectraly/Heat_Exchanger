@@ -2,15 +2,13 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::Сasing_Cover()
+SPtr<MbSolid> ParametricModelCreator::Casing_Cover(BuildParams params)
 {
    float DV,RV,LK,L,B1,B2;
-    DV = 325; //Внутренний диаметр
+    DV = params.diam.toDouble(); //Внутренний диаметр
+    L = params.length.toDouble();
     RV = DV/2; //Внутренний радиус
-    LK = 200; //Длина
-    B1 = 5; //Левый бортик
     B2 = 10; //Правый бортик
-    L = 2750;
 
     const double DEG_TO_RAD = M_PI / 180.0;
 

@@ -45,4 +45,5 @@ private slots:
 	void showParamsSlot();
 	void saveFileSlot();
 	void openFileSlot();
+	void changeTab(int);
 };

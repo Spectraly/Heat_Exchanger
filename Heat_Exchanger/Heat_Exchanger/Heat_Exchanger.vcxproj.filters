@@ -58,7 +58,7 @@
     <ClCompile Include="FileController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Сasing.cpp">
+    <ClCompile Include="Casing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Distribution_Chamber.cpp">
@@ -67,7 +67,13 @@
     <ClCompile Include="Distribution_Chamber_Cover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Сasing_Cover.cpp">
+    <ClCompile Include="Casing_Cover.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kozhuh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

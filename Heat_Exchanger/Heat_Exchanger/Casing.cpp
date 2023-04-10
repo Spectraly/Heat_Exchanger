@@ -1,33 +1,30 @@
 #include "BuildMathModel.h"
+
 using namespace BuildMathModel;
 
-void CreateSketch(RPArray<MbContour>& _arrContours)
+
+float B1 = 5; //Левый бортик
+float B2 = 10; //Правый бортик
+float A2 = 230; //Левый бортик
+
+void CreateSketch(RPArray<MbContour>& _arrContours,float RV,float L2)
 {
-    float DV,RV,LK,L2,B1,B2,A1,A2;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
-    LK = 2750; //Длина
-    L2 = LK/2; //Длина пополам
-    B1 = 5; //Левый бортик
-    B2 = 10; //Правый бортик
-    A1 = 2330; //Левый бортик
-    A2 = 230; //Левый бортик
 
     // Размер массива - 14 точек
     SArray<MbCartPoint> arrPnts(14);
-    arrPnts.Add(MbCartPoint(-L2+B1, 0));//1
-    arrPnts.Add(MbCartPoint(-L2+B1, RV+6*B1));//2
-    arrPnts.Add(MbCartPoint(-L2, RV+6*B1));//3
-    arrPnts.Add(MbCartPoint(-L2, RV+8*B1));//4
-    arrPnts.Add(MbCartPoint(-L2+3*B1, RV+8*B1));//5
-    arrPnts.Add(MbCartPoint(-L2+3*B1, RV+5*B1));//6
-    arrPnts.Add(MbCartPoint(-L2+4*B1, RV+4*B1));//7
-    arrPnts.Add(MbCartPoint(L2-4*B2, RV+4*B1));//8
-    arrPnts.Add(MbCartPoint(L2-3*B2, RV+5*B1));//9
-    arrPnts.Add(MbCartPoint(L2-3*B2, RV+7*B2));//10
-    arrPnts.Add(MbCartPoint(L2-B2, RV+7*B2));//11
-    arrPnts.Add(MbCartPoint(L2-B2, RV+4.4*B2));//12
-    arrPnts.Add(MbCartPoint(L2, RV+4.4*B2));//13
+    arrPnts.Add(MbCartPoint(-L2 + B1, 0));//1
+    arrPnts.Add(MbCartPoint(-L2 + B1, RV + 6 * B1));//2
+    arrPnts.Add(MbCartPoint(-L2, RV + 6 * B1));//3
+    arrPnts.Add(MbCartPoint(-L2, RV + 8 * B1));//4
+    arrPnts.Add(MbCartPoint(-L2 + 3 * B1, RV + 8 * B1));//5
+    arrPnts.Add(MbCartPoint(-L2 + 3 * B1, RV + 5 * B1));//6
+    arrPnts.Add(MbCartPoint(-L2 + 4 * B1, RV + 4 * B1));//7
+    arrPnts.Add(MbCartPoint(L2 - 4 * B2, RV + 4 * B1));//8
+    arrPnts.Add(MbCartPoint(L2 - 3 * B2, RV + 5 * B1));//9
+    arrPnts.Add(MbCartPoint(L2 - 3 * B2, RV + 4 * B1 + 5 * B2));//10
+    arrPnts.Add(MbCartPoint(L2 - B2, RV + 4 * B1 + 5 * B2));//11
+    arrPnts.Add(MbCartPoint(L2 - B2, RV + 4 * B1 + 2.4 * B2));//12
+    arrPnts.Add(MbCartPoint(L2, RV + 4 * B1 + 2.4 * B2));//13
     arrPnts.Add(MbCartPoint(L2, 0));//14
 
     // Построение единой ломаной внешнего контура по точкам
@@ -38,23 +35,22 @@ void CreateSketch(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-void CreateSketch1(RPArray<MbContour>& _arrContours)
+void CreateSketch1(RPArray<MbContour>& _arrContours, float RV, float L2)
 {
-    float S,DV,RV;
-    S = 1145;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус 
+
+    float S;
+    S = -L2 + A2;
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
-    arrPnts.Add(MbCartPoint(50-S, RV+70));
-    arrPnts.Add(MbCartPoint(50-S, RV+70+38));
-    arrPnts.Add(MbCartPoint(65-S, RV+70+38));
-    arrPnts.Add(MbCartPoint(70-S, RV+70+30));
-    arrPnts.Add(MbCartPoint(90-S, RV+70+30));
-    arrPnts.Add(MbCartPoint(90-S, RV+70+20));
-    arrPnts.Add(MbCartPoint(70-S, RV+70+20));
-    arrPnts.Add(MbCartPoint(65-S, RV+70));
-    
+    arrPnts.Add(MbCartPoint(S - 50, RV + 70));
+    arrPnts.Add(MbCartPoint(S - 50, RV + 70 + 38));
+    arrPnts.Add(MbCartPoint(S - 65, RV + 70 + 38));
+    arrPnts.Add(MbCartPoint(S - 70, RV + 70 + 30));
+    arrPnts.Add(MbCartPoint(S - 90, RV + 70 + 30));
+    arrPnts.Add(MbCartPoint(S - 90, RV + 70 + 20));
+    arrPnts.Add(MbCartPoint(S - 70, RV + 70 + 20));
+    arrPnts.Add(MbCartPoint(S - 65, RV + 70));
+
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -64,24 +60,22 @@ void CreateSketch1(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-void CreateSketch2(RPArray<MbContour>& _arrContours)
+
+void CreateSketch2(RPArray<MbContour>& _arrContours, float RV, float L2,float A1)
 {
-    float S,DV,RV;
-    S = 1185;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус 
- 
+    float S;
+    S = -L2 + A2 + A1;
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
-    arrPnts.Add(MbCartPoint(50+S, -RV-70));
-    arrPnts.Add(MbCartPoint(50+S, -RV-70-38));
-    arrPnts.Add(MbCartPoint(65+S, -RV-70-38));
-    arrPnts.Add(MbCartPoint(70+S, -RV-70-30));
-    arrPnts.Add(MbCartPoint(90+S, -RV-70-30));
-    arrPnts.Add(MbCartPoint(90+S, -RV-70-20));
-    arrPnts.Add(MbCartPoint(70+S, -RV-70-20));
-    arrPnts.Add(MbCartPoint(65+S, -RV-70));
-    
+    arrPnts.Add(MbCartPoint(50 + S, -RV - 70));
+    arrPnts.Add(MbCartPoint(50 + S, -RV - 70 - 38));
+    arrPnts.Add(MbCartPoint(65 + S, -RV - 70 - 38));
+    arrPnts.Add(MbCartPoint(70 + S, -RV - 70 - 30));
+    arrPnts.Add(MbCartPoint(90 + S, -RV - 70 - 30));
+    arrPnts.Add(MbCartPoint(90 + S, -RV - 70 - 20));
+    arrPnts.Add(MbCartPoint(70 + S, -RV - 70 - 20));
+    arrPnts.Add(MbCartPoint(65 + S, -RV - 70));
+
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -91,15 +85,17 @@ void CreateSketch2(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-SPtr<MbSolid> ParametricModelCreator::Сasing()
+
+SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
 {
-    float DV,RV,LK,L2,A1,A2;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
-    LK = 2750; //Длина
-    L2 = LK/2; //Длина пополам
-    A1 = 2330; //Растояние между коннекторами
-    A2 = 230; //Левый бортик
+    float DV = params.diam.toDouble(); //Внутренний диамерт
+    float LK = params.length.toDouble(); //Длина
+    float A1 = params.A.toDouble();; //Левый бортик
+    float RV = DV / 2; //Внутренний радиус
+    float L2 = LK / 2; //Длина пополам
+   
+
+   
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -108,9 +104,9 @@ SPtr<MbSolid> ParametricModelCreator::Сasing()
 
     // Вызов функции для построения образующей (из примера 6)
     RPArray<MbContour> arrContours,arrContours1,arrContours2;
-    CreateSketch(arrContours);
-    CreateSketch1(arrContours1);
-    CreateSketch2(arrContours2);
+    CreateSketch(arrContours,RV,L2);
+    CreateSketch1(arrContours1, RV, L2);
+    CreateSketch2(arrContours2, RV, L2, A1);
 
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0),MbCartPoint3D(0, 1, 0));
     MbSweptData sweptData(*pPlaneXY, arrContours);

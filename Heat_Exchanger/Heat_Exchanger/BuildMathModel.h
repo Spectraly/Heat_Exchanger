@@ -193,11 +193,14 @@ namespace BuildMathModel {
 		static MbAssembly* CreateHeatExchangerTUAssembly(BuildParams params);
 	private:
 		static void CreateBase(MbAssembly* pAsm, double ratio);
-		static SPtr<MbSolid> ParametricModelCreator::Ñasing();
-		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber();
-		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover();
-		static SPtr<MbSolid> ParametricModelCreator::Ñasing_Cover();
+		static SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Casing_Cover(BuildParams params);
 
+
+		static SPtr<MbSolid> ParametricModelCreator::CasingTY(double,double);
+		static SPtr<MbSolid> ParametricModelCreator::Distribution_ChamberTY(double);
 
 	};
 }

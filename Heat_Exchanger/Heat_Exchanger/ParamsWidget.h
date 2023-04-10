@@ -29,11 +29,12 @@ private:
 	void updateParams_modelTU();
 	void setupForm_model();
 	void updateParams_scene();
-	
+	void changeTab();
 
 public slots:
 	void toggleViewSectionSlot();
 	void setupForm_scene();
+
 
 private slots:
 	void buildHPG();
@@ -45,4 +46,5 @@ private slots:
 signals:
 	void buildSignal();
 	void setupSceneSignal();
+	void tabSignal(int);
 };

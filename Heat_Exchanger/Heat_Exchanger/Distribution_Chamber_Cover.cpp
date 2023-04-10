@@ -2,11 +2,9 @@
 using namespace BuildMathModel;
 
 // Вспомогательная функция для построения образующей в виде квадрата со скруглениями.
-void CreateSketchKK(RPArray<MbContour>& _arrContours)
+void CreateSketchKK(RPArray<MbContour>& _arrContours, float RV)
 {
-    float DV,RV,L,B1;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
+    float L,B1;
     L = 35; //Длина
     B1 = 5; //Левый бортик
 
@@ -34,9 +32,12 @@ void CreateSketchKK(RPArray<MbContour>& _arrContours)
     _arrContours.push_back(pContourPolyline);
 }
 
-SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover()
+SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams params)
 {
-    float LK;
+
+    float DV,RV,LK;
+    DV = params.diam.toDouble(); //Внутренний диамерт
+    RV = DV / 2; //Внутренний радиус
     LK = 400;
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
@@ -46,7 +47,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover()
 
     // Вызов функции для построения образующей (из примера 6)
     RPArray<MbContour> arrContours;
-    CreateSketchKK(arrContours);
+    CreateSketchKK(arrContours,RV);
 
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0),MbCartPoint3D(0, 1, 0));
     MbSweptData sweptData(*pPlaneXY, arrContours);
@@ -63,7 +64,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover()
 
     c3d::SolidSPtr MainSolid(pSolid);
     pSolid->Rotate(MbAxis3D(pl.GetAxisZ()), 180 * DEG_TO_RAD);
-    pSolid->Move(MbVector3D(-2750 / 2 - LK+5, 0, 0));
+    pSolid->Move(MbVector3D(-params.length.toDouble() / 2 - LK+5, 0, 0));
 
     ::DeleteItem(pSolid);
     return MainSolid;

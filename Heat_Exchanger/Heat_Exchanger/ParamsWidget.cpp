@@ -15,12 +15,12 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 	ui.comboBox_plain->addItem("YZ", QVariant(1));
 	ui.comboBox_plain->addItem("XY", QVariant(2));
 	ui.tabWidget->setCurrentIndex(0);
-;
+
 
 	setupForm_model();
 	setupForm_scene();
-	ui.comboBox_HDiam->setDisabled(!PARAMETRIZE);
-	ui.comboBox_HPress->setDisabled(!PARAMETRIZE);
+	//ui.comboBox_HDiam->setDisabled(!PARAMETRIZE);
+	//ui.comboBox_HPress->setDisabled(!PARAMETRIZE);
 	connect(ui.HpushButton_build, &QPushButton::clicked, this, &ParamsWidget::buildHPG);
 	connect(ui.KpushButton_build, &QPushButton::clicked, this, &ParamsWidget::buildKP);
 	connect(ui.UpushButton_build, &QPushButton::clicked, this, &ParamsWidget::buildTU);
@@ -29,6 +29,7 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 	connect(ui.comboBox_plain, &QComboBox::currentTextChanged, this, &ParamsWidget::sceneset);
 	connect(ui.checkBox_edges, &QCheckBox::stateChanged, this, &ParamsWidget::sceneset);
 	connect(ui.checkBox_section, &QCheckBox::stateChanged, this, &ParamsWidget::sceneset);
+	connect(ui.tabWidget, &QTabWidget::currentChanged, this, &ParamsWidget::changeTab);
 
 }
 
@@ -50,29 +51,36 @@ SceneParams ParamsWidget::getParams_scene()
 
 void ParamsWidget::updateParams_modelHPG()
 {
-	modelParams.type = HPG_MODEL;
-	/*modelParams.diam = ui.comboBox_HDiam->value();
-	modelParams.pressure = ui.comboBox_HPress->value();*/
+	modelParams.diam = ui.lineEditDiamH->text();
+	modelParams.length = ui.lineEditLengthH->text();
+	modelParams.height = ui.lineEditHeightH->text();
+	modelParams.A = ui.lineEditAH->text();
+	modelParams.Dy = ui.lineEditDyH->text();
+	modelParams.Dy1 = ui.lineEditDy1H->text();
 	
 }
 
 void ParamsWidget::updateParams_modelKP()
 {
-	modelParams.type = KP_MODEL;
 
 }
 
 void ParamsWidget::updateParams_modelTU()
 {
-	modelParams.type = TU_MODEL;
 
 }
 
+
 void ParamsWidget::setupForm_model()
 {
-	/*ui.comboBox_HDiam->setValue(modelParams.diam);
-	ui.comboBox_HPress->setValue(modelParams.pressure);*/
-	
+	ui.lineEditDiamH->setText(modelParams.diam);
+	ui.lineEditPressurerH->setText(modelParams.pressure);
+	ui.lineEditLengthH->setText(modelParams.length);
+	ui.lineEditHeightH->setText(modelParams.height);
+	ui.lineEditAH->setText(modelParams.A);
+	ui.lineEditDyH->setText(modelParams.Dy);
+	ui.lineEditDy1H->setText(modelParams.Dy1);
+
 }
 
 void ParamsWidget::updateParams_scene()
@@ -93,6 +101,12 @@ void ParamsWidget::setupForm_scene()
 	//ui.horizontalSlider_frameTransp->setValue(sceneParams.frameTransp);
 }
 
+void ParamsWidget::changeTab()
+{
+
+	emit tabSignal(ui.tabWidget->currentIndex());
+}
+
 
 void ParamsWidget::toggleViewSectionSlot()
 {
@@ -108,18 +122,21 @@ void ParamsWidget::toggleViewSectionSlot()
 void ParamsWidget::buildHPG()
 {
 	updateParams_modelHPG();
+	modelParams.type = HPG_MODEL;
 	emit buildSignal();
 }
 
 void ParamsWidget::buildKP()
 {
 	updateParams_modelKP();
+	modelParams.type = KP_MODEL;
 	emit buildSignal();
 }
 
 void ParamsWidget::buildTU()
 {
 	updateParams_modelTU();
+	modelParams.type = TU_MODEL;
 	emit buildSignal();
 }
 

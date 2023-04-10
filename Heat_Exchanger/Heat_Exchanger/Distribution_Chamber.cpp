@@ -1,11 +1,9 @@
 #include "BuildMathModel.h"
 using namespace BuildMathModel;
 
-void CreateSketchK(RPArray<MbContour>& _arrContours)
+void CreateSketchK(RPArray<MbContour>& _arrContours,float RV)
 {
-    float DV,RV,LK,L2,B1;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
+    float LK,L2,B1;
     LK = 400; //Длина
     L2 = LK/2; //Длина пополам
     B1 = 5; //Левый бортик
@@ -35,12 +33,8 @@ void CreateSketchK(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-void CreateSketchK1(RPArray<MbContour>& _arrContours)
+void CreateSketchK1(RPArray<MbContour>& _arrContours, float RV)
 {
-    float S,DV,RV;
-    S = 1145;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус 
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(50, RV+70));
@@ -61,13 +55,8 @@ void CreateSketchK1(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-void CreateSketchK2(RPArray<MbContour>& _arrContours)
+void CreateSketchK2(RPArray<MbContour>& _arrContours, float RV)
 {
-    float S,DV,RV;
-    S = 1185;
-    DV = 325; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус 
- 
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(50, -RV-70));
@@ -89,10 +78,10 @@ void CreateSketchK2(RPArray<MbContour>& _arrContours)
     _arrContours.push_back(pContourPolyline);
 }
 
-SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber()
+SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
 {
     float DV,RV,LK,L2;
-    DV = 325; //Внутренний диамерт
+    DV = params.diam.toDouble(); //Внутренний диамерт
     RV = DV/2; //Внутренний радиус
     LK = 400; //Длина
     L2 = LK/2; //Длина пополам
@@ -104,9 +93,9 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber()
 
     // Вызов функции для построения образующей (из примера 6)
     RPArray<MbContour> arrContours,arrContours1,arrContours2;
-    CreateSketchK(arrContours);
-    CreateSketchK1(arrContours1);
-    CreateSketchK2(arrContours2);
+    CreateSketchK(arrContours,RV);
+    CreateSketchK1(arrContours1,RV);
+    CreateSketchK2(arrContours2,RV);
 
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0),MbCartPoint3D(0, 1, 0));
     MbSweptData sweptData(*pPlaneXY, arrContours);
@@ -168,7 +157,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber()
     ::BooleanResult( *pResSolid, cm_Copy, *pConnector2, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid );
   
     c3d::SolidSPtr MainSolid(pResSolid);
-    pResSolid->Move(MbVector3D(-2750/2 - LK/2, 0, 0));
+    pResSolid->Move(MbVector3D(-params.length.toDouble()/2 - LK/2, 0, 0));
 
     // Уменьшение счетчиков ссылок динамических объектов ядра
     ::DeleteItem(pResSolid);
