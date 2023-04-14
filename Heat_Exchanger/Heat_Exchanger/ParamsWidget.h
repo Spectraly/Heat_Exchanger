@@ -5,9 +5,7 @@
 #include "BuildParams.h"
 #include "SceneParams.h"
 
-#define HPG_MODEL 0;
-#define KP_MODEL  1;
-#define TU_MODEL  2;
+
 
 class ParamsWidget : public QWidget
 {

@@ -9,20 +9,19 @@ int ParametricModelCreator::colorScheme = 0;
 
 MbModel* ParametricModelCreator::CreateHeatExchangerModel(BuildParams params)
 {
-	//ParametricModelCreator::colorScheme = params.colorScheme;
 	MbModel* model = new MbModel();
 	MbAssembly* heatexchangerAssembly;
 	switch (params.type)
 	{
-	 case 0:
+	 case HPG_MODEL:
 		 heatexchangerAssembly = CreateHeatExchangerHPGAssembly(params);
 		break;
 
-	 case 1:
+	 case KP_MODEL:
 		 heatexchangerAssembly = CreateHeatExchangerKPAssembly(params);
 		break;
 
-	 case 2:
+	 case TU_MODEL:
 		 heatexchangerAssembly = CreateHeatExchangerTUAssembly(params);
 		break;
 	}

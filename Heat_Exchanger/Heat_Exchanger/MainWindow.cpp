@@ -103,8 +103,8 @@ void MainWindow::showParamsSlot()
 void MainWindow::saveFileSlot()
 {
 	QMessageBox::warning(this, u8"Внимание", u8"Модель не экспортирована,постройте модель");
-	//fileController.saveModel(currentMathModel);
-	//drawMathModel();
+	fileController.saveModel(currentMathModel);
+	drawMathModel();
 }
 
 void MainWindow::openFileSlot()

@@ -2,24 +2,22 @@
 using namespace BuildMathModel;
 
 // Вспомогательная функция для построения образующей в виде квадрата со скруглениями.
-void CreateSketchKK(RPArray<MbContour>& _arrContours, float RV)
+void CreateSketchKK(RPArray<MbContour>& _arrContours, float RV, float DNK)
 {
     float L,B1;
-    L = 35; //Длина
+    L = 25; //Длина
     B1 = 5; //Левый бортик
 
     // Размер массива - 10 точек
-    SArray<MbCartPoint> arrPnts(10);
-    arrPnts.Add(MbCartPoint(B1, 0));
+    SArray<MbCartPoint> arrPnts(8);
+    arrPnts.Add(MbCartPoint(0, 0));
+    arrPnts.Add(MbCartPoint(0, DNK));
+    arrPnts.Add(MbCartPoint(3 * B1, DNK));
+    arrPnts.Add(MbCartPoint(3 * B1, DNK - 2 * B1));
+    arrPnts.Add(MbCartPoint(4 * B1, DNK - 2 * B1));
+    arrPnts.Add(MbCartPoint(4 * B1, RV));
+    arrPnts.Add(MbCartPoint(L, RV));
     arrPnts.Add(MbCartPoint(L, 0));
-    arrPnts.Add(MbCartPoint(L, RV+8*B1));
-    arrPnts.Add(MbCartPoint(L-5*B1, RV+8*B1));
-    arrPnts.Add(MbCartPoint(L-5*B1, RV+6.5*B1));
-    arrPnts.Add(MbCartPoint(L-6*B1, RV+6.5*B1));
-    arrPnts.Add(MbCartPoint(L-6*B1, RV+2*B1));
-    arrPnts.Add(MbCartPoint(L-7*B1, RV+2*B1));
-    arrPnts.Add(MbCartPoint(L-7*B1,2*B1));
-    arrPnts.Add(MbCartPoint(B1,2*B1));
 
 
     // Построение единой ломаной внешнего контура по точкам
@@ -35,10 +33,12 @@ void CreateSketchKK(RPArray<MbContour>& _arrContours, float RV)
 SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams params)
 {
 
-    float DV,RV,LK;
-    DV = params.diam.toDouble(); //Внутренний диамерт
+    float DV,DN,DNK,RV,LK;
+    DN = params.diam.toDouble(); //Внутренний диамерт
+    DV = DN - 25;//Наружный диаметр
+    DNK = 363 / 2 + 10;//Наружный диаметр крышки
     RV = DV / 2; //Внутренний радиус
-    LK = 400;
+    LK = 430;
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -47,7 +47,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams par
 
     // Вызов функции для построения образующей (из примера 6)
     RPArray<MbContour> arrContours;
-    CreateSketchKK(arrContours,RV);
+    CreateSketchKK(arrContours,RV, DNK);
 
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0),MbCartPoint3D(0, 1, 0));
     MbSweptData sweptData(*pPlaneXY, arrContours);
@@ -63,8 +63,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams par
     ::RevolutionSolid(sweptData, axis, revParms,operNames, cNames, pSolid);
 
     c3d::SolidSPtr MainSolid(pSolid);
-    pSolid->Rotate(MbAxis3D(pl.GetAxisZ()), 180 * DEG_TO_RAD);
-    pSolid->Move(MbVector3D(-params.length.toDouble() / 2 - LK+5, 0, 0));
+    pSolid->Move(MbVector3D(-params.length.toDouble() / 2 - LK-20, 0, 0));
 
     ::DeleteItem(pSolid);
     return MainSolid;
