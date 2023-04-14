@@ -14,7 +14,26 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     mSDistribution_Chamber_Cover->SetColor(190, 190, 190);
     SPtr<MbSolid> mSСasing_Cover = Casing_Cover(params);
     mSСasing_Cover->SetColor(190, 190, 190);
-    
+
+    SPtr<MbSolid> mSHalf_Ring = Half_Ring(params);
+    mSHalf_Ring->SetColor(190, 190, 190);
+    SPtr<MbSolid> mSFloating_Head_Cover = Floating_Head_Cover(params);
+    mSFloating_Head_Cover->SetColor(190, 190, 190);
+    SPtr<MbSolid> mSStationary_Tube_Sheet = Stationary_Tube_Sheet(params);
+    mSStationary_Tube_Sheet->SetColor(190, 190, 190);
+
+    SPtr<MbSolid> mSGasket_Casing_Cover = Gasket_Casing_Cover(params);
+    mSGasket_Casing_Cover->SetColor(0, 0, 0);
+    SPtr<MbSolid> mSGasket_Chamber_Casing = Gasket_Chamber_Casing(params);
+    mSGasket_Chamber_Casing->SetColor(0, 0, 0);
+    SPtr<MbSolid> mSGasket_Chamber_Casing1 = Gasket_Chamber_Casing(params);
+    mSGasket_Chamber_Casing1->SetColor(0, 0, 0);
+    SPtr<MbSolid> mSGasket_Cover_Chamber = Gasket_Cover_Chamber(params);
+    mSGasket_Cover_Chamber->SetColor(0, 0, 0);
+    SPtr<MbSolid> mSGasket_Floating_Head = Gasket_Floating_Head(params);
+    mSGasket_Floating_Head->SetColor(0, 0, 0);
+
+
 
     /*-------------------------------------------------------------------------*/
 
@@ -24,12 +43,30 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     InstanceSPtr iPDistribution_Chamber_Cover(new MbInstance(*mSDistribution_Chamber_Cover, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr iPСasing_Cover(new MbInstance(*mSСasing_Cover, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
 
+    InstanceSPtr iPHalf_Ring(new MbInstance(*mSHalf_Ring, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPFloating_Head_Cover(new MbInstance(*mSFloating_Head_Cover, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPGasket_Casing_Cover(new MbInstance(*mSGasket_Casing_Cover, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPGasket_Chamber_Casing(new MbInstance(*mSGasket_Chamber_Casing, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPGasket_Chamber_Casing1(new MbInstance(*mSGasket_Chamber_Casing1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPGasket_Cover_Chamber(new MbInstance(*mSGasket_Cover_Chamber, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPGasket_Floating_Head(new MbInstance(*mSGasket_Floating_Head, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr iPStationary_Tube_Sheet(new MbInstance(*mSStationary_Tube_Sheet, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
     /*-------------------------------------------------------------------------*/
 
     SPtr<MbInstance> p_IPСasing(new MbInstance(*iPСasing, lcs));
     SPtr<MbInstance> p_IPDistribution_Chamber(new MbInstance(*iPDistribution_Chamber, lcs));
     SPtr<MbInstance> p_IPDistribution_Chamber_Cover(new MbInstance(*iPDistribution_Chamber_Cover, lcs));
     SPtr<MbInstance> p_IPСasing_Cover(new MbInstance(*iPСasing_Cover, lcs));
+
+    SPtr<MbInstance> p_IPHalf_Ring(new MbInstance(*iPHalf_Ring, lcs));
+    SPtr<MbInstance> p_IPFloating_Head_Cover(new MbInstance(*iPFloating_Head_Cover, lcs));
+    SPtr<MbInstance> p_IPGasket_Casing_Cover(new MbInstance(*iPGasket_Casing_Cover, lcs));
+    SPtr<MbInstance> p_IPGasket_Chamber_Casing(new MbInstance(*iPGasket_Chamber_Casing, lcs));
+    SPtr<MbInstance> p_IPGasket_Chamber_Casing1(new MbInstance(*iPGasket_Chamber_Casing1, lcs));
+    SPtr<MbInstance> p_IPGasket_Cover_Chamber(new MbInstance(*iPGasket_Cover_Chamber, lcs));
+    SPtr<MbInstance> p_IPGasket_Floating_Head(new MbInstance(*iPGasket_Floating_Head, lcs));
+    SPtr<MbInstance> p_IPStationary_Tube_Sheet(new MbInstance(*iPStationary_Tube_Sheet, lcs));
 
     /*-------------------------------------------------------------------------*/
 
@@ -39,140 +76,65 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     pair.push_back(p_IPDistribution_Chamber_Cover);
     pair.push_back(p_IPСasing_Cover);
 
+    //pair.push_back(p_IPHalf_Ring);
+    //pair.push_back(p_IPFloating_Head_Cover);
+    pair.push_back(p_IPGasket_Casing_Cover);
+    pair.push_back(p_IPGasket_Chamber_Casing);
+    pair.push_back(p_IPGasket_Chamber_Casing1);
+    pair.push_back(p_IPGasket_Cover_Chamber);
+    //pair.push_back(p_IPGasket_Floating_Head);
+    pair.push_back(p_IPStationary_Tube_Sheet);
+
 
     MbAssembly* assm = new MbAssembly(pair);
 
-//#pragma region Porshen-Krishki and cylinder
-//    //Параметр расстояния от крышек до цилиндра
-//    double Val1 = 0;
-//    MtParVariant Arg1(Val1);
-//
-//    //Цилиндр и 2 крышки
-//    MtGeomArgument face1(Shepovalova1->GetFace(4), Porshen3Comp);
-//    MtGeomArgument face2(Yaganov1->GetFace(22), PorshenComp);
-//    MtGeomArgument face3(Shepovalova1->GetFace(2), Porshen3Comp);
-//    MtGeomArgument face4(Zarubin1->GetFace(17), Porshen2Comp);
-//    MtGeomArgument face5(Yaganov1->GetFace(8), PorshenComp);
-//    MtGeomArgument face6(Zarubin1->GetFace(1), Porshen2Comp);
-//    //Зависимость совмещения между цилиндром и крышками
-//    assm->AddConstraint(GCM_DISTANCE, face1, face2, Arg1);
-//    assm->AddConstraint(GCM_DISTANCE, face3, face4, Arg1);
-//    assm->AddConstraint(GCM_COINCIDENT, face5, face6);
-//
-//    //Отверстия крышек и цилиндра
-//    MtGeomArgument hole2(Shepovalova1->GetFace(3), Porshen3Comp);
-//    MtGeomArgument hole3(Yaganov1->GetFace(28), PorshenComp);
-//    MtGeomArgument hole4(Zarubin1->GetFace(28), Porshen2Comp);
-//    //Зависимость консентричности между крышками и цилиндром
-//    assm->AddConstraint(GCM_CONCENTRIC, hole2, hole3);
-//    assm->AddConstraint(GCM_CONCENTRIC, hole2, hole4);/*!!! Перевернули крышку (Была 1 тут, потом убрал)*/
-//#pragma endregion
-//
-//#pragma region Porshen-Krishka and sterzhni
-//    //Параметр расстояния от крышек до цилиндра
-//    double Val2 = -14;
-//    MtParVariant Arg2(Val2);
-//    //Грань цилиндра штока
-//    MtGeomArgument Planeq1(Fukina1->GetFace(0), Porshen41Comp);
-//    MtGeomArgument Planeq2(Fukina1->GetFace(0), Porshen42Comp);
-//    MtGeomArgument Planeq3(Fukina1->GetFace(0), Porshen43Comp);
-//    MtGeomArgument Planeq4(Fukina1->GetFace(0), Porshen44Comp);
-//    //отверстия в крышке
-//    MtGeomArgument Holeq1(Zarubin1->GetFace(21), Porshen2Comp);
-//    MtGeomArgument Holeq2(Zarubin1->GetFace(22), Porshen2Comp);
-//    MtGeomArgument Holeq3(Zarubin1->GetFace(23), Porshen2Comp);
-//    MtGeomArgument Holeq4(Zarubin1->GetFace(24), Porshen2Comp);
-//    //Верхняя грань штока
-//    MtGeomArgument Planeq11(Fukina1->GetFace(1), Porshen41Comp);
-//    MtGeomArgument Planeq22(Fukina1->GetFace(1), Porshen42Comp);
-//    MtGeomArgument Planeq33(Fukina1->GetFace(1), Porshen43Comp);
-//    MtGeomArgument Planeq44(Fukina1->GetFace(1), Porshen44Comp);
-//    //Верхняя грань Крышки
-//    MtGeomArgument Planeq111(Yaganov1->GetFace(0), PorshenComp);
-//    //Зависимость расстояние между штоком и крышкой 
-//    assm->AddConstraint(GCM_DISTANCE, Planeq11, Planeq111, Arg2);
-//    assm->AddConstraint(GCM_DISTANCE, Planeq22, Planeq111, Arg2);
-//    assm->AddConstraint(GCM_DISTANCE, Planeq33, Planeq111, Arg2);
-//    assm->AddConstraint(GCM_DISTANCE, Planeq44, Planeq111, Arg2);
-//    //Консентричность штоков
-//    assm->AddConstraint(GCM_CONCENTRIC, Planeq1, Holeq1);
-//    assm->AddConstraint(GCM_CONCENTRIC, Planeq2, Holeq2);
-//    assm->AddConstraint(GCM_CONCENTRIC, Planeq3, Holeq3);
-//    assm->AddConstraint(GCM_CONCENTRIC, Planeq4, Holeq4);
-//#pragma endregion
-//
-//#pragma region Porshen-Block and zazhim
-//    double Val3 = 0;
-//    MtParVariant Arg3(Val3);
-//
-//    MtGeomArgument PF1(Morozova1->GetFace(0), Porshen1Comp);
-//    MtGeomArgument PF2(Yaganov1->GetFace(0), PorshenComp);
-//    assm->AddConstraint(GCM_DISTANCE, PF1, PF2, Arg3);
-//
-//    MtGeomArgument PH1(Morozova1->GetFace(5), Porshen1Comp);
-//    MtGeomArgument PH2(Shepovalova1->GetFace(3), Porshen3Comp);
-//    assm->AddConstraint(GCM_CONCENTRIC, PH1, PH2);
-//
-//    MtGeomArgument PH3(Yaganov1->GetFace(13), PorshenComp);
-//    MtGeomArgument PH4(Shepovalova1->GetFace(1), Porshen3Comp);
-//    //assm->AddConstraint(GCM_CONCENTRIC, PH3, PH4);<!!! Не хатает зависимости совмещения зажима и блока по 4 отверстиям для выравнивания>
-//#pragma endregion
-//
-//#pragma region Porshen-Kolpachok and vtilka
-//    double Val4 = 0;
-//    MtParVariant Arg4(Val4);
-//
-//    MtGeomArgument PFQ1(Zarubin1->GetFace(16), Porshen2Comp);
-//    MtGeomArgument PFQ2(Aleksanyan1->GetFace(1), Porshen5Comp);
-//    assm->AddConstraint(GCM_DISTANCE, PFQ1, PFQ2, Arg4);
-//
-//    MtGeomArgument PHQ1(Zarubin1->GetFace(28), Porshen2Comp);
-//    MtGeomArgument PHQ2(Aleksanyan1->GetFace(0), Porshen5Comp);
-//    assm->AddConstraint(GCM_CONCENTRIC, PHQ1, PHQ2);
-//#pragma endregion
-//
-//#pragma region Porshen-Block and vtulka1
-//    double Val5 = 0;
-//    MtParVariant Arg5(Val5);
-//
-//    MtGeomArgument PFW1(Yaganov1->GetFace(27), PorshenComp);
-//    MtGeomArgument PFW2(Aleksanyan2->GetFace(17), Porshen6Comp);
-//    assm->AddConstraint(GCM_DISTANCE, PFW1, PFW2, Arg5);
-//
-//    MtGeomArgument PHW1(Yaganov1->GetFace(30), PorshenComp);
-//    MtGeomArgument PHW2(Aleksanyan2->GetFace(10), Porshen6Comp);
-//    assm->AddConstraint(GCM_CONCENTRIC, PHW1, PHW2);
-//#pragma endregion
-//
-//#pragma region Porshen-Block and vtulka2
-//    double Val6 = 0;
-//    MtParVariant Arg6(Val6);
-//
-//    MtGeomArgument PFE1(Yaganov1->GetFace(36), PorshenComp);
-//    MtGeomArgument PFE2(Aleksanyan3->GetFace(1), Porshen7Comp);
-//    assm->AddConstraint(GCM_DISTANCE, PFE1, PFE2, Arg6);
-//
-//    MtGeomArgument PHE1(Yaganov1->GetFace(28), PorshenComp);
-//    MtGeomArgument PHE2(Aleksanyan3->GetFace(0), Porshen7Comp);
-//    assm->AddConstraint(GCM_CONCENTRIC, PHE1, PHE2);
-//
-//#pragma endregion
-//
-//    assm->EvaluateConstraints();
-//
-//
+    MtGeomArgument ChamberGa(mSDistribution_Chamber->GetFace(9), p_IPDistribution_Chamber);
+    MtGeomArgument GasketCh(mSGasket_Cover_Chamber->GetFace(0), p_IPGasket_Cover_Chamber);
+    assm->AddConstraint(GCM_DISTANCE, ChamberGa, GasketCh, 0);
+
+    MtGeomArgument CoverGa(mSDistribution_Chamber_Cover->GetFace(2), p_IPDistribution_Chamber_Cover);
+    MtGeomArgument GasketCo(mSGasket_Cover_Chamber->GetFace(2), p_IPGasket_Cover_Chamber);
+    assm->AddConstraint(GCM_DISTANCE, CoverGa, GasketCo, 0);
+
+    MtGeomArgument ChamberGaR(mSDistribution_Chamber->GetFace(7), p_IPDistribution_Chamber);
+    MtGeomArgument GasketChR(mSGasket_Chamber_Casing->GetFace(2), p_IPGasket_Chamber_Casing);
+    assm->AddConstraint(GCM_DISTANCE, ChamberGaR, GasketChR, 0);
+
+    MtGeomArgument SheetGaCh(mSStationary_Tube_Sheet->GetFace(8), p_IPStationary_Tube_Sheet);
+    MtGeomArgument GasketRCh(mSGasket_Chamber_Casing->GetFace(0), p_IPGasket_Chamber_Casing);
+    assm->AddConstraint(GCM_DISTANCE, SheetGaCh, GasketRCh, 0);
+
+    MtGeomArgument CasingGaR(mSСasing->GetFace(9), p_IPСasing);
+    MtGeomArgument GasketCaR(mSGasket_Chamber_Casing1->GetFace(0), p_IPGasket_Chamber_Casing1);
+    assm->AddConstraint(GCM_DISTANCE, CasingGaR, GasketCaR, 0);
+
+    MtGeomArgument SheetGaCa(mSStationary_Tube_Sheet->GetFace(2), p_IPStationary_Tube_Sheet);
+    MtGeomArgument GasketRCa(mSGasket_Chamber_Casing1->GetFace(2), p_IPGasket_Chamber_Casing1);
+    assm->AddConstraint(GCM_DISTANCE, SheetGaCa, GasketRCa, 0);
+
+    MtGeomArgument CasingGaCo(mSСasing->GetFace(8), p_IPСasing);
+    MtGeomArgument GasketCaCo(mSGasket_Casing_Cover->GetFace(2), p_IPGasket_Casing_Cover);
+    assm->AddConstraint(GCM_DISTANCE, CasingGaCo, GasketCaCo, 0);
+
+    MtGeomArgument CoverGaCa(mSСasing_Cover->GetFace(6), p_IPСasing_Cover);
+    MtGeomArgument GasketCoCa(mSGasket_Casing_Cover->GetFace(0), p_IPGasket_Casing_Cover);
+    assm->AddConstraint(GCM_DISTANCE, CoverGaCa, GasketCoCa, 0);
+
+
+
+    assm->EvaluateConstraints();
 	return assm;
 }
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams params)
 {
-    SPtr<MbSolid> Kozh = Casing(params);
-    Kozh->SetColor(190, 0, 0);
-    SPtr<MbSolid> Kam = Distribution_Chamber(params);
+    SPtr<MbSolid> Kozh = Casing_KP(params);
+    Kozh->SetColor(190, 190, 190);
+    SPtr<MbSolid> Kam = Distribution_Chamber_KP(params);
     Kam->SetColor(190, 190, 190);
-    SPtr<MbSolid> KKam = Distribution_Chamber_Cover(params);
+    SPtr<MbSolid> KKam = Distribution_Chamber_Cover_KP(params);
     KKam->SetColor(190, 190, 190);
-    SPtr<MbSolid> KKozh = Casing_Cover(params);
+    SPtr<MbSolid> KKozh = Casing_Cover_KP(params);
     KKozh->SetColor(190, 190, 190);
 
 
@@ -201,8 +163,25 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
 
 
     MbAssembly* assm = new MbAssembly(pair);
+
+
+    MtGeomArgument Casing(Kozh->GetFace(7), KozhuComp);
+    MtGeomArgument Cover(KKozh->GetFace(6), KKozhuComp);
+    assm->AddConstraint(GCM_DISTANCE, Casing, Cover, 0);
+
+    MtGeomArgument Chamber(Kam->GetFace(22), KameComp);
+    MtGeomArgument Casing1(Kozh->GetFace(23), KozhuComp);
+    assm->AddConstraint(GCM_DISTANCE, Chamber, Casing1, 0);
+
+    MtGeomArgument Cover1(KKam->GetFace(6), KKameComp);
+    MtGeomArgument Chamber1(Kam->GetFace(9), KameComp);
+    assm->AddConstraint(GCM_DISTANCE, Chamber1, Cover1, 0);
+
+
+    assm->EvaluateConstraints();
     return assm;
 }
+
 MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams params)
 {
     SPtr<MbSolid> Kozh = CasingTY(params.diam.toDouble(), params.length.toDouble());

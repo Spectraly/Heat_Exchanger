@@ -238,7 +238,6 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
     /*::ExtrusionSolid(sweptData3, dir, nullptr, nullptr, false, extrusionParam, operNames, cNames, pPlate);
     ::BooleanResult( *pResSolid, cm_Copy, *pPlate, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid );*/
 
-    pResSolid->Move(MbVector3D(-params.length.toDouble() / 2 - LK / 2, 0, 0));
     c3d::SolidSPtr MainSolid(pResSolid);
 
     // Уменьшение счетчиков ссылок динамических объектов ядра

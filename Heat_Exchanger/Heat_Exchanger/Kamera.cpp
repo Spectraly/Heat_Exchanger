@@ -95,10 +95,10 @@ void CreateSketchCurveK(RPArray<MbContour>& _ptrContours)
     MbContour* ptrContour = new MbContour();
     //Добавление в контур сегментов
 
-    MbCartPoint p1(-L1 - L2 + B1, RV + 3 * B1); //(-295, 177.5)
+    MbCartPoint p1(-L1 - L2 + B1, RV); //(-295, 177.5)
     MbCartPoint p2(-L1 - L2 + B1, RV + 4 * B1); //(-295, 182.5)
-    MbCartPoint p3(-L1 - L2 - 65, 0); //(-365, 0)
-    MbCartPoint p4(-L1 - L2 - 55, 0); //(-355, 0)
+    MbCartPoint p3(-L1 - L2 + B1 - 65, 0); //(-365, 0)
+    MbCartPoint p4(-L1 - L2 + B1 - 55, 0); //(-355, 0)
 
     MbPlacement* plCurve = new MbPlacement(MbCartPoint(-L1 - L2 + B1, 0), MbDirection(0.0));
 
@@ -106,7 +106,7 @@ void CreateSketchCurveK(RPArray<MbContour>& _ptrContours)
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
     MbArc* Seg2 = new MbArc(-65, RV + 4 * B1, *plCurve, p2, p3, -1);
     MbLineSegment* Seg3 = new MbLineSegment(p3, p4);
-    MbArc* Seg4 = new MbArc(-55, RV + 3 * B1, *plCurve, p4, p1, 1);
+    MbArc* Seg4 = new MbArc(-55, RV, *plCurve, p4, p1, 1);
 
     ptrContour->AddSegment(Seg1);
     ptrContour->AddSegment(Seg2);

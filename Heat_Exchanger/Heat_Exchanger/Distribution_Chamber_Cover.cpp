@@ -63,7 +63,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams par
     ::RevolutionSolid(sweptData, axis, revParms,operNames, cNames, pSolid);
 
     c3d::SolidSPtr MainSolid(pSolid);
-    pSolid->Move(MbVector3D(-params.length.toDouble() / 2 - LK-20, 0, 0));
+
 
     ::DeleteItem(pSolid);
     return MainSolid;

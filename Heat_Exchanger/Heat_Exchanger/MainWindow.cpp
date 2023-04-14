@@ -70,6 +70,7 @@ void MainWindow::setCurrentModel(MbModel* model)
 	unsetCurrentModel();
 	if (model) currentMathModel = model;
 	drawMathModel();
+
 }
 
 void MainWindow::unsetCurrentModel()
@@ -102,14 +103,15 @@ void MainWindow::showParamsSlot()
 
 void MainWindow::saveFileSlot()
 {
-	QMessageBox::warning(this, u8"Внимание", u8"Модель не экспортирована,постройте модель");
+	//QMessageBox::warning(this, u8"Внимание", u8"Модель не экспортирована,постройте модель");
 	fileController.saveModel(currentMathModel);
-	drawMathModel();
+	//drawMathModel();-------------------------------------
+	makeExchangerMathModelSlot();
 }
 
 void MainWindow::openFileSlot()
 {
-	QMessageBox::warning(this, u8"Внимание", u8"Расчет не экспортирован,проведите расчет");
+	//QMessageBox::warning(this, u8"Внимание", u8"Расчет не экспортирован,проведите расчет");
 	//MbModel* openedModel = fileController.openModel();
 	//if (openedModel) setCurrentModel(openedModel);
 }

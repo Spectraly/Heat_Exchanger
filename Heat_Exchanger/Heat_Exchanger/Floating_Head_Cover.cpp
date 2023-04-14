@@ -2,52 +2,52 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::Casing_Cover(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover(BuildParams params)
 {
-   float DV,RV,LK,L, DN, Ts,B1, Rb, Rm;
-    DN = params.diam.toDouble(); //Внутренний диаметр
-    DV = DN - 25;//Наружный диаметр
-    LK = params.length.toDouble();
-    RV = DV/2+30; //Внутренний радиус
-    L = 342.5;
-    B1 = 5; //Правый бортик
-    Ts = (DN - DV) / 2;//Толщина стенки
-    Rm = 45;
-    Rb = Rm + Ts;
+   float DV,RV,LK,L2,B1,B2,A1,A2;
+    DV = 325; //Внутренний диаметр
+    RV = DV/2; //Внутренний радиус
+    LK = 200; //Длина
+    B1 = 5; //Левый бортик
+    B2 = 10; //Правый бортик
+
+    
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(-L + B1, RV);
-    MbCartPoint p2(-L + B1, RV + 5 * B1);
-    MbCartPoint p3(-L, RV + 5 * B1);
-    MbCartPoint p4(-L, RV + 9 * B1);
-    MbCartPoint p5(-L + 5 * B1, RV + 9 * B1);
-    MbCartPoint p6(-L + 5 * B1, RV + Ts);
-    MbCartPoint p7(0, RV + Ts);
-    MbCartPoint p8(Rb, 0);
-    MbCartPoint p9(Rm, 0);
-    MbCartPoint p10(0, RV);
+    MbCartPoint p1(-30,RV+5*B1);
+    MbCartPoint p2(0,RV+5*B1); 
+    
+    MbCartPoint p3(0, RV+B1);
+    MbCartPoint p4(65, 0);
+    MbCartPoint p5(45, 0);
+    MbCartPoint p6(-15, RV-3*B1);
+    
+    MbCartPoint p7(-15,RV);
+    MbCartPoint p8(-30,RV);
 
-
+    
     MbPlacement* pl = new MbPlacement();
+    MbPlacement* pl1 = new MbPlacement(MbCartPoint(-15,0),MbDirection(0.0));
 
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
     MbLineSegment* Seg2 = new MbLineSegment(p2, p3);
-    MbLineSegment* Seg3 = new MbLineSegment(p3, p4);
+ 
+    MbArc* Seg3 = new MbArc(65, RV+B1, *pl, p3, p4 ,-1);
     MbLineSegment* Seg4 = new MbLineSegment(p4, p5);
-    MbLineSegment* Seg5 = new MbLineSegment(p5, p6);
+    MbArc* Seg5 = new MbArc(60, RV-3*B1, *pl1, p5, p6 ,1);
     MbLineSegment* Seg6 = new MbLineSegment(p6, p7);
-    MbArc* Seg7 = new MbArc(Rb, RV + Ts, *pl, p7, p8, -1);
-    MbLineSegment* Seg8 = new MbLineSegment(p8, p9);
-    MbArc* Seg9 = new MbArc(Rm, RV, *pl, p9, p10, 1);
-    MbLineSegment* Seg10 = new MbLineSegment(p10, p1);
+    
+    MbLineSegment* Seg7 = new MbLineSegment(p7, p8);
+    MbLineSegment* Seg8 = new MbLineSegment(p8, p1);
 
 
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
-
+    //Добавление в контур сегментов
+    
     ptrContour->AddSegment(Seg1);
     ptrContour->AddSegment(Seg2);
     ptrContour->AddSegment(Seg3);
@@ -56,8 +56,9 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover(BuildParams params)
     ptrContour->AddSegment(Seg6);
     ptrContour->AddSegment(Seg7);
     ptrContour->AddSegment(Seg8);
-    ptrContour->AddSegment(Seg9);
-    ptrContour->AddSegment(Seg10);
+
+    
+   
 
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();
@@ -84,10 +85,10 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover(BuildParams params)
 
     // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid* m_pResSolid = nullptr;
-    MbResultType res = RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
+    ::RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
 
+    // Уменьшение счетчиков ссылок динамических объектов ядра
     c3d::SolidSPtr MainSolid(m_pResSolid);
-
     ::DeleteItem(m_pResSolid);
 
     return MainSolid;

@@ -21,6 +21,15 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Source Files\HPGDetails">
+      <UniqueIdentifier>{d6e30c54-60c2-4635-b442-6acdfa48ccb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\KPDetails">
+      <UniqueIdentifier>{97b4b72b-1e74-47f7-baf1-89d5b5f07afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TUDetails">
+      <UniqueIdentifier>{4051da51-5ebe-475d-851d-6e3d7258fde0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="MainWindow.qrc">
@@ -59,22 +68,55 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Casing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Distribution_Chamber.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Distribution_Chamber_Cover.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\HPGDetails</Filter>
     </ClCompile>
     <ClCompile Include="Casing_Cover.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\HPGDetails</Filter>
     </ClCompile>
-    <ClCompile Include="Kamera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Distribution_Chamber.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Distribution_Chamber_Cover.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Floating_Head_Cover.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Gasket_Casing_Cover.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Gasket_Chamber_Casing.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Gasket_Cover_Chamber.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Gasket_Floating_Head.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Half_Ring.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
     </ClCompile>
     <ClCompile Include="Kozhuh.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Kamera.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Stationary_Tube_Sheet.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Casing_Cover_KP.cpp">
+      <Filter>Source Files\KPDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Casing_KP.cpp">
+      <Filter>Source Files\KPDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Distribution_Chamber_Cover_KP.cpp">
+      <Filter>Source Files\KPDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Distribution_Chamber_KP.cpp">
+      <Filter>Source Files\KPDetails</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
