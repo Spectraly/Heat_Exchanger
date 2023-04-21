@@ -58,9 +58,6 @@
     <ClCompile Include="ParamsWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Build_Base.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Build_Assembly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,6 +114,12 @@
     </ClCompile>
     <ClCompile Include="Distribution_Chamber_KP.cpp">
       <Filter>Source Files\KPDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Heat_Exchanger_Supports.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Gost_Proportions.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

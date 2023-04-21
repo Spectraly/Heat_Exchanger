@@ -86,16 +86,16 @@ void CreateSketch2(RPArray<MbContour>& _arrContours, float RV, float L2,float A1
 
 SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
 {
+    float DN = params.diam.toDouble(); //Внутренний диамерт
+    float LK = params.length.toDouble(); //Длина
+    float A1 = params.A1.toDouble();; //Левый бортик
     float Dy = params.Dy.toDouble(); //Внутренний диамерт
     float Ry = Dy / 2; //Внутренний диамерт
-    float DN = params.diam.toDouble(); //Внутренний диамерт
     float DV = DN - 25;
-    float LK = params.length.toDouble(); //Длина
-    float A1 = params.A.toDouble();; //Левый бортик
     float RV = DV / 2; //Внутренний радиус
     float L2 = LK / 2; //Длина пополам
     float Ts = (DN - DV) / 2;//Толщина стенки
-    float DNK = 363 / 2 + 10;//Наружный диаметр крышки
+    float DNK = (DN+38) / 2 + 10;//Наружный диаметр крышки
 
    
     // Множитель для преобразования угловых значений из градусов в радианы

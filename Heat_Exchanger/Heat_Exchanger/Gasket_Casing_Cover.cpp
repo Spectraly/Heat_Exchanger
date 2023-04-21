@@ -4,19 +4,20 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover(BuildParams params)
 {
-   float B1;
+   float B1,DN,DV,RV;
     B1 = 5; //Левый бортик
-
-
+    DN = params.diam.toDouble(); //Внутренний диаметр
+    DV = DN - 25;//Наружный диаметр
+    RV = DV / 2 + 30; //Внутренний радиус
     
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(B1, 180);
-    MbCartPoint p2(-B1, 180);
-    MbCartPoint p3(-B1, 205);
-    MbCartPoint p4(B1, 205);
+    MbCartPoint p1(B1, RV);
+    MbCartPoint p2(-B1, RV);
+    MbCartPoint p3(-B1, RV + 5 * B1);
+    MbCartPoint p4(B1, RV + 5 * B1);
 
 
     

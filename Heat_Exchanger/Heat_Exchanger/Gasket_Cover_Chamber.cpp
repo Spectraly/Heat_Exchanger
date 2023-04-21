@@ -4,7 +4,10 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber(BuildParams params)
 {
-   float B1;
+    float B1, DN,DV, DNK;
+    DN = params.diam.toDouble();
+    DV = DN - 25;
+    DNK = (DN + 38);
     B1 = 5; //Левый бортик
 
 
@@ -13,10 +16,10 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber(BuildParams params)
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(B1/2, 300/2);
-    MbCartPoint p2(-B1/2, 300/2);
-    MbCartPoint p3(-B1/2, 363/2);
-    MbCartPoint p4(B1/2, 363/2);
+    MbCartPoint p1(B1/2, DV/2);
+    MbCartPoint p2(-B1/2, DV/2);
+    MbCartPoint p3(-B1/2, DNK / 2);
+    MbCartPoint p4(B1/2, DNK / 2);
 
 
     

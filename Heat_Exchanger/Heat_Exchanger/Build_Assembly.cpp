@@ -6,6 +6,23 @@ using namespace BuildMathModel;
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams params)
 {
+    MbPlacement3D lcs;
+    vector<SPtr<MbInstance>> pair;
+
+    SPtr<MbSolid> mSHeat_Exchanger_Supports = Heat_Exchanger_Supports(params);
+    mSHeat_Exchanger_Supports->SetColor(190, 190, 190);
+    InstanceSPtr iPHeat_Exchanger_Supports(new MbInstance(*mSHeat_Exchanger_Supports, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbInstance> p_IPHeat_Exchanger_Supports(new MbInstance(*iPHeat_Exchanger_Supports, lcs));
+    pair.push_back(p_IPHeat_Exchanger_Supports);
+
+    SPtr<MbSolid> mSHeat_Exchanger_Supports1 = Heat_Exchanger_Supports(params);
+    mSHeat_Exchanger_Supports1->SetColor(190, 190, 190);
+    InstanceSPtr iPHeat_Exchanger_Supports1(new MbInstance(*mSHeat_Exchanger_Supports1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbInstance> p_IPHeat_Exchanger_Supports1(new MbInstance(*iPHeat_Exchanger_Supports1, lcs));
+    pair.push_back(p_IPHeat_Exchanger_Supports1);
+
+
+    /*-------------------------------------------------------------------------*/
 	SPtr<MbSolid> mSСasing = Casing(params);
 	mSСasing->SetColor(190, 190, 190);
     SPtr<MbSolid> mSDistribution_Chamber = Distribution_Chamber(params);
@@ -37,7 +54,6 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
 
     /*-------------------------------------------------------------------------*/
 
-    MbPlacement3D lcs;
     InstanceSPtr iPСasing(new MbInstance(*mSСasing, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr iPDistribution_Chamber(new MbInstance(*mSDistribution_Chamber, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr iPDistribution_Chamber_Cover(new MbInstance(*mSDistribution_Chamber_Cover, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -70,7 +86,6 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
 
     /*-------------------------------------------------------------------------*/
 
-    vector<SPtr<MbInstance>> pair;
     pair.push_back(p_IPСasing);
     pair.push_back(p_IPDistribution_Chamber);
     pair.push_back(p_IPDistribution_Chamber_Cover);
@@ -120,7 +135,7 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     MtGeomArgument GasketCoCa(mSGasket_Casing_Cover->GetFace(0), p_IPGasket_Casing_Cover);
     assm->AddConstraint(GCM_DISTANCE, CoverGaCa, GasketCoCa, 0);
 
-
+    
 
     assm->EvaluateConstraints();
 	return assm;

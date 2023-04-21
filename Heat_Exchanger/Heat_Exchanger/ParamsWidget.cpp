@@ -1,5 +1,5 @@
 #include "ParamsWidget.h"
-#include <QMessageBox>
+
 
 
 const bool PARAMETRIZE = true;
@@ -21,16 +21,21 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 	setupForm_scene();
 	//ui.comboBox_HDiam->setDisabled(!PARAMETRIZE);
 	//ui.comboBox_HPress->setDisabled(!PARAMETRIZE);
-	connect(ui.HpushButton_build, &QPushButton::clicked, this, &ParamsWidget::buildHPG);
-	connect(ui.KpushButton_build, &QPushButton::clicked, this, &ParamsWidget::buildKP);
-	connect(ui.UpushButton_build, &QPushButton::clicked, this, &ParamsWidget::buildTU);
+	connect(ui.HpushButton_build, &QPushButton::clicked, this, &ParamsWidget::build);
 	connect(ui.HpushButton_reset, &QPushButton::clicked, this, &ParamsWidget::reset);
 	connect(ui.comboBox_lighttype, &QComboBox::currentTextChanged, this, &ParamsWidget::sceneset);
 	connect(ui.comboBox_plain, &QComboBox::currentTextChanged, this, &ParamsWidget::sceneset);
 	connect(ui.checkBox_edges, &QCheckBox::stateChanged, this, &ParamsWidget::sceneset);
 	connect(ui.checkBox_section, &QCheckBox::stateChanged, this, &ParamsWidget::sceneset);
-	connect(ui.tabWidget, &QTabWidget::currentChanged, this, &ParamsWidget::changeTab);
+	connect(ui.radioButtonGOST, &QRadioButton::clicked, this, &ParamsWidget::onCheckChanged);
+	connect(ui.radioButtonManual, &QRadioButton::clicked, this, &ParamsWidget::onCheckChanged);
+	connect(ui.comboBoxExchangerType, &QComboBox::currentTextChanged, this, &ParamsWidget::onTypeChanged);
 
+	ui.comboBoxExchangerType->addItem("Холодильник с плавающей головкой");
+	ui.comboBoxExchangerType->addItem("Конденсатор с плавающей головкой");
+	ui.comboBoxExchangerType->addItem("Теплообменник с U-образными трубами");
+	onCheckChanged();
+	setValidators();
 }
 
 ParamsWidget::~ParamsWidget()
@@ -64,62 +69,165 @@ SceneParams ParamsWidget::getParams_scene()
 
 void ParamsWidget::updateParams_modelHPG()
 {
-	modelParams.diam = ui.lineEditDiamH->text();
-	modelParams.length = ui.lineEditLengthH->text();
-	modelParams.height = ui.lineEditHeightH->text();
-	modelParams.A = ui.lineEditAH->text();
-	modelParams.Dy = ui.lineEditDyH->text();
-	modelParams.Dy1 = ui.lineEditDy1H->text();
-	
+	if (ui.radioButtonGOST->isChecked())
+		getGostData(ui.comboBox_Diam->itemText(ui.comboBox_Diam->currentIndex()).toInt(), modelParams.type);
+	else
+	{
+		modelParams.diam = ui.lineEdit_Diam->text();
+		modelParams.length = ui.lineEdit_Length->text();
+		modelParams.height = ui.lineEdit_Height->text();
+		modelParams.A = ui.lineEdit_A->text();
+		modelParams.A1 = ui.lineEdit_A1->text();
+		modelParams.Dy = ui.lineEdit_Dy->text();
+		modelParams.Dy1 = ui.lineEdit_Dy1->text();
+		modelParams.l = ui.lineEdit_l->text();
+		modelParams.l0 = ui.lineEdit_l0->text();
+		modelParams.l1 = ui.lineEdit_l1->text();
+		modelParams.l2 = ui.lineEdit_l2->text();
+	}
 }
 
 void ParamsWidget::updateParams_modelKP()
 {
-	modelParams.diam = ui.lineEditDiamK->text();
-	modelParams.length = ui.lineEditLengthK->text();
-	modelParams.height = ui.lineEditHeightK->text();
-	modelParams.A = ui.lineEditAK->text();
-	modelParams.Dy = ui.lineEditDyK->text();
-	modelParams.Dy1 = ui.lineEditDy1K->text();
+	if (ui.radioButtonGOST->isChecked())
+		getGostData(ui.comboBox_Diam->itemText(ui.comboBox_Diam->currentIndex()).toInt(), modelParams.type);
+	else
+	{
+		modelParams.diam = ui.lineEdit_Diam->text();
+		modelParams.length = ui.lineEdit_Length->text();
+		modelParams.height = ui.lineEdit_Height->text();
+		modelParams.Dy = ui.lineEdit_Dy->text();
+		modelParams.Dy1 = ui.lineEdit_Dy1->text();
+		modelParams.Dy2 = ui.lineEdit_Dy2->text();
+		modelParams.l1 = ui.lineEdit_l1->text();
+	}
 }
 
 void ParamsWidget::updateParams_modelTU()
 {
-	modelParams.diam = ui.lineEditDiamU->text();
-	modelParams.length = ui.lineEditLengthU->text();
-	modelParams.height = ui.lineEditHeightU->text();
-	modelParams.A = ui.lineEditAU->text();
-	modelParams.Dy = ui.lineEditDyU->text();
-	modelParams.Dy1 = ui.lineEditDy1U->text();
+	if (ui.radioButtonGOST->isChecked())
+		getGostData(ui.comboBox_Diam->itemText(ui.comboBox_Diam->currentIndex()).toInt(), modelParams.type);
+	else
+	{
+		modelParams.diam = ui.lineEdit_Diam->text();
+		modelParams.length = ui.lineEdit_Length->text();
+		modelParams.height = ui.lineEdit_Height->text();
+		modelParams.A = ui.lineEdit_A->text();
+		modelParams.A1 = ui.lineEdit_A1->text();
+		modelParams.Dy = ui.lineEdit_Dy->text();
+		modelParams.l = ui.lineEdit_l->text();
+		modelParams.l0 = ui.lineEdit_l0->text();
+		modelParams.l1 = ui.lineEdit_l1->text();
+		modelParams.l2 = ui.lineEdit_l2->text();
+	}
 }
+
 
 
 void ParamsWidget::setupForm_model()
 {
-	ui.lineEditDiamH->setText(modelParams.diam);
-	ui.lineEditPressureH->setText(modelParams.pressure);
-	ui.lineEditLengthH->setText(modelParams.length);
-	ui.lineEditHeightH->setText(modelParams.height);
-	ui.lineEditAH->setText(modelParams.A);
-	ui.lineEditDyH->setText(modelParams.Dy);
-	ui.lineEditDy1H->setText(modelParams.Dy1);
+	switch (ui.comboBoxExchangerType->currentIndex())
+	{
+	case HPG_MODEL:
+		modelParams = BuildMathModel::BuildParams();
+		ui.lineEdit_Diam->setText(modelParams.diam);
+		ui.lineEdit_Length->setText(modelParams.length);
+		ui.lineEdit_Height->setText(modelParams.height);
+		ui.lineEdit_A->setText(modelParams.A);
+		ui.lineEdit_A1->setText(modelParams.A1);
+		ui.lineEdit_Dy->setText(modelParams.Dy);
+		ui.lineEdit_Dy1->setText(modelParams.Dy1);
+		ui.lineEdit_Dy2->setText(modelParams.Dy2);
+		ui.lineEdit_l->setText(modelParams.l);
+		ui.lineEdit_l0->setText(modelParams.l0);
+		ui.lineEdit_l1->setText(modelParams.l1);
+		ui.lineEdit_l2->setText(modelParams.l2);
+		break;
+	case KP_MODEL:
+		ui.lineEdit_Diam->setText("600");
+		ui.lineEdit_Length->setText("6800");
+		ui.lineEdit_Height->setText("1060");
+		ui.lineEdit_A->setText("1100");
+		ui.lineEdit_A1->setText("4500");
+		ui.lineEdit_Dy->setText("200");
+		ui.lineEdit_Dy1->setText("300");
+		ui.lineEdit_Dy2->setText("100");
+		ui.lineEdit_l->setText("6000");
+		ui.lineEdit_l0->setText("3000");
+		ui.lineEdit_l1->setText("290");
+		ui.lineEdit_l2->setText("650");
+		break;
+	case TU_MODEL:
+		ui.lineEdit_Diam->setText("325");
+		ui.lineEdit_Length->setText("3800");
+		ui.lineEdit_Height->setText("600");
+		ui.lineEdit_A->setText("450");
+		ui.lineEdit_A1->setText("2500");
+		ui.lineEdit_Dy->setText("100");
+		ui.lineEdit_Dy1->setText("100");
+		ui.lineEdit_Dy2->setText("100");
+		ui.lineEdit_l->setText("3000");
+		ui.lineEdit_l0->setText("1500");
+		ui.lineEdit_l1->setText("230");
+		ui.lineEdit_l2->setText("400");
+		break;
+	default:
+		break;
+	}
+}
 
-	ui.lineEditDiamK->setText(modelParams.diam);
-	ui.lineEditPressureK->setText(modelParams.pressure);
-	ui.lineEditLengthK->setText(modelParams.length);
-	ui.lineEditHeightK->setText(modelParams.height);
-	ui.lineEditAK->setText(modelParams.A);
-	ui.lineEditDyK->setText(modelParams.Dy);
-	ui.lineEditDy1K->setText(modelParams.Dy1);
+void ParamsWidget::setValidators()
+{
+	ui.lineEdit_Diam->setValidator(valDouble);
+	ui.lineEdit_Length->setValidator(valDouble);
+	ui.lineEdit_Height->setValidator(valDouble);
+	ui.lineEdit_A-> setValidator(valDouble);
+	ui.lineEdit_A1->setValidator(valDouble);
+	ui.lineEdit_Dy->setValidator(valDouble);
+	ui.lineEdit_Dy1->setValidator(valDouble);
+	ui.lineEdit_Dy2->setValidator(valDouble);
+	ui.lineEdit_l->setValidator(valDouble);
+	ui.lineEdit_l0->setValidator(valDouble);
+	ui.lineEdit_l1->setValidator(valDouble);
+	ui.lineEdit_l2->setValidator(valDouble);
 
-	ui.lineEditDiamU->setText(modelParams.diam);
-	ui.lineEditPressureU->setText(modelParams.pressure);
-	ui.lineEditLengthU->setText(modelParams.length);
-	ui.lineEditHeightU->setText(modelParams.height);
-	ui.lineEditAU->setText(modelParams.A);
-	ui.lineEditDyU->setText(modelParams.Dy);
-	ui.lineEditDy1U->setText(modelParams.Dy1);
+	ui.comboBox_Diam->addItem("325");
+	ui.comboBox_Diam->addItem("400");
+	ui.comboBox_Diam->addItem("500");
+	ui.comboBox_Diam->addItem("600");
+	ui.comboBox_Diam->addItem("700");
+	ui.comboBox_Diam->addItem("800");
+	ui.comboBox_Diam->addItem("900");
+	ui.comboBox_Diam->addItem("1000");
+	ui.comboBox_Diam->addItem("1200");
+	ui.comboBox_Diam->addItem("1400");
+	ui.comboBox_Diam->setMaxVisibleItems(ui.comboBox_Diam->model()->rowCount());
 
+	ui.comboBox_Pressure->addItem("1,0");
+	ui.comboBox_Pressure->addItem("1,6");
+	ui.comboBox_Pressure->addItem("2,5");
+	ui.comboBox_Pressure->addItem("4,0");
+	ui.comboBox_Pressure->addItem("6,3");
+	ui.comboBox_Pressure->setMaxVisibleItems(ui.comboBox_Pressure->model()->rowCount());
+}
+
+bool ParamsWidget::checkValidate()
+{
+	if (ui.lineEdit_Diam->text() != "" && 
+		ui.lineEdit_Length->text() != "" &&
+		ui.lineEdit_Height->text() != "" &&
+		ui.lineEdit_A->text() != "" &&
+		ui.lineEdit_A1->text() != "" &&
+		ui.lineEdit_Dy->text() != "" &&
+		ui.lineEdit_Dy1->text() != "" &&
+		ui.lineEdit_Dy2->text() != "" &&
+		ui.lineEdit_l->text() != "" &&
+		ui.lineEdit_l0->text() != "" &&
+		ui.lineEdit_l1->text() != "" &&
+		ui.lineEdit_l2->text() != "")
+		return true;
+	else
+		return false;
 }
 
 void ParamsWidget::updateParams_scene()
@@ -130,6 +238,44 @@ void ParamsWidget::updateParams_scene()
 	sceneParams.section = ui.checkBox_section->isChecked() ? true : false;
 }
 
+void ParamsWidget::hideManualFields(bool b)
+{
+	ui.lineEdit_Diam->setHidden(b);
+	ui.lineEdit_Length->setHidden(b);
+	ui.lineEdit_Height->setHidden(b);
+	ui.lineEdit_A->setHidden(b);
+	ui.lineEdit_A1->setHidden(b);
+	ui.lineEdit_Dy->setHidden(b);
+	ui.lineEdit_Dy1->setHidden(b);
+	ui.lineEdit_Dy2->setHidden(b);
+	ui.lineEdit_l->setHidden(b);
+	ui.lineEdit_l0->setHidden(b);
+	ui.lineEdit_l1->setHidden(b);
+	ui.lineEdit_l2->setHidden(b);
+
+	ui.label_Dv->setHidden(b);
+	ui.label_L->setHidden(b);
+	ui.label_H->setHidden(b);
+	ui.label_A->setHidden(b);
+	ui.label_A1->setHidden(b);
+	ui.label_Dy->setHidden(b);
+	ui.label_Dy1->setHidden(b);
+	ui.label_Dy2->setHidden(b);
+	ui.label_l->setHidden(b);
+	ui.label_l0->setHidden(b);
+	ui.label_l1->setHidden(b);
+	ui.label_l2->setHidden(b);
+
+
+
+	ui.comboBox_Diam->setHidden(!b);
+	ui.comboBox_Pressure->setHidden(!b);
+	ui.label_Dvg->setHidden(!b);
+	ui.label_Pg->setHidden(!b);
+}
+
+
+
 void ParamsWidget::setupForm_scene()
 {
 	ui.checkBox_edges->setChecked(sceneParams.edges);
@@ -138,46 +284,38 @@ void ParamsWidget::setupForm_scene()
 	ui.checkBox_section->setChecked(sceneParams.section);
 }
 
-void ParamsWidget::changeTab()
-{
-
-	emit tabSignal(ui.tabWidget->currentIndex());
-}
-
-
 void ParamsWidget::toggleViewSectionSlot()
 {
 	sceneParams.section = !sceneParams.section;
 	ui.checkBox_section->setChecked(sceneParams.section);
 	emit setupSceneSignal();
 }
-	/*QMessageBox::critical(this, "Ошибка","Проектирование модели вызвало критическую ошибку");
-	QMessageBox::critical(this, "Ошибка","Расчет модели вызвал критическую ошибку");
-	QMessageBox::critical(this, "Ошибка","Экспорт модели вызвал критическую ошибку");
-	QMessageBox::critical(this, "Ошибка","Экспорт расчетов вызвал критическую ошибку");*/
 
-void ParamsWidget::buildHPG()
+void ParamsWidget::build()
 {
-	modelParams.type = HPG_MODEL;
-	emit buildSignal();
-}
-
-void ParamsWidget::buildKP()
-{
-	modelParams.type = KP_MODEL;
-	emit buildSignal();
-}
-
-void ParamsWidget::buildTU()
-{
-	modelParams.type = TU_MODEL;
-	emit buildSignal();
+	if (checkValidate())
+		emit buildSignal();
+	else
+		QMessageBox::warning(this, "Предупреждение", "Проверьте введенные данные");
 }
 
 void ParamsWidget::reset()
 {
-	/*QMessageBox::warning(this, "Внимание", "Модель успешно сброшена");*/
 	modelParams = BuildMathModel::BuildParams();
+	switch (ui.comboBoxExchangerType->currentIndex())
+	{
+	case HPG_MODEL:
+		modelParams.type = HPG_MODEL;
+		break;
+	case KP_MODEL:
+		modelParams.type = KP_MODEL;
+		break;
+	case TU_MODEL:
+		modelParams.type = TU_MODEL;
+		break;
+	default:
+		break;
+	}
 	setupForm_model();
 }
 
@@ -186,3 +324,92 @@ void ParamsWidget::sceneset()
 	updateParams_scene();
 	emit setupSceneSignal();
 }
+
+void ParamsWidget::onCheckChanged()
+{
+	if (ui.radioButtonGOST->isChecked())
+		hideManualFields(true);
+	else
+	{
+		onTypeChanged();
+	}
+
+}
+
+void ParamsWidget::onTypeChanged()
+{
+	if (!ui.radioButtonGOST->isChecked())
+		hideManualFields(false);
+	switch (ui.comboBoxExchangerType->currentIndex())
+	{
+	case HPG_MODEL:
+		modelParams.type = HPG_MODEL;
+		ui.label_Dy2->setHidden(true);
+		ui.lineEdit_Dy2->setHidden(true);
+		break;
+	case KP_MODEL:
+		modelParams.type = KP_MODEL;
+		ui.label_A->setHidden(true);
+		ui.label_A1->setHidden(true);
+		ui.label_l->setHidden(true);
+		ui.label_l0->setHidden(true);
+		ui.label_l2->setHidden(true);
+		ui.lineEdit_A->setHidden(true);
+		ui.lineEdit_A1->setHidden(true);
+		ui.lineEdit_l->setHidden(true);
+		ui.lineEdit_l0->setHidden(true);
+		ui.lineEdit_l2->setHidden(true);
+		break;
+	case TU_MODEL:
+		modelParams.type = TU_MODEL;
+		ui.label_Dy1->setHidden(true);
+		ui.label_Dy2->setHidden(true);
+		ui.lineEdit_Dy1->setHidden(true);
+		ui.lineEdit_Dy2->setHidden(true);
+		break;
+	default:
+		break;
+	}
+	setupForm_model();
+}
+
+void ParamsWidget::getGostData(int diam, int type)
+{
+	switch (diam)
+	{
+	case 325:
+		gostDiam325(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
+		break;
+	case 400:
+
+		break;
+	case 500:
+
+		break;
+	case 600:
+
+		break;
+	case 700:
+
+		break;
+	case 800:
+
+		break;
+	case 900:
+
+		break;
+	case 1000:
+
+		break;
+	case 1200:
+
+		break;
+	case 1400:
+
+		break;
+	default:
+		break;
+	}
+	
+}
+

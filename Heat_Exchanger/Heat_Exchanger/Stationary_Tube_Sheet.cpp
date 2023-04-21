@@ -6,14 +6,13 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 {
    float DV,RV,L,L2,DN,RN,D,R,B1;
-    DV = 363; //Внутренний диаметр
-    RV = DV/2; //Внутренний радиус
+    DN = params.diam.toDouble(); //Внутренний диаметр
+    DV = DN - 25;//Наружный диаметр
+    RV = (DV + 63)/2; //Внутренний радиус
     L = 40; //Длина
     L2 = L/2; //Длина
-    DN = DV + 30;//Наружный диаметр
-    RN = DN/2;
     B1 = 5; //Левый бортик
-    D = 295;
+    D = DV - B1;
     R=D/2;
     
     const double DEG_TO_RAD = M_PI / 180.0;

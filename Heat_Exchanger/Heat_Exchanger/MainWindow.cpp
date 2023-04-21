@@ -30,7 +30,6 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui.action_params, &QAction::triggered, this, &MainWindow::showParamsSlot);
 
 	connect(ui.action_save, &QAction::triggered, this, &MainWindow::saveFileSlot);
-	connect(ui.action_open, &QAction::triggered, this, &MainWindow::openFileSlot);
 
 }
 
@@ -107,13 +106,6 @@ void MainWindow::saveFileSlot()
 	fileController.saveModel(currentMathModel);
 	//drawMathModel();-------------------------------------
 	makeExchangerMathModelSlot();
-}
-
-void MainWindow::openFileSlot()
-{
-	//QMessageBox::warning(this, u8"Внимание", u8"Расчет не экспортирован,проведите расчет");
-	//MbModel* openedModel = fileController.openModel();
-	//if (openedModel) setCurrentModel(openedModel);
 }
 
 void MainWindow::changeTab(int tab)

@@ -113,7 +113,6 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Build_Assembly.cpp" />
-    <ClCompile Include="Build_Base.cpp" />
     <ClCompile Include="Casing_Cover_KP.cpp" />
     <ClCompile Include="Casing_KP.cpp" />
     <ClCompile Include="Distribution_Chamber_Cover_KP.cpp" />
@@ -128,7 +127,9 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="Gasket_Chamber_Casing.cpp" />
     <ClCompile Include="Gasket_Cover_Chamber.cpp" />
     <ClCompile Include="Gasket_Floating_Head.cpp" />
+    <ClCompile Include="Gost_Proportions.cpp" />
     <ClCompile Include="Half_Ring.cpp" />
+    <ClCompile Include="Heat_Exchanger_Supports.cpp" />
     <ClCompile Include="Kamera.cpp" />
     <ClCompile Include="Kozhuh.cpp" />
     <ClCompile Include="ParamsWidget.cpp" />

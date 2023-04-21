@@ -11,12 +11,18 @@ namespace BuildMathModel {
 	struct BuildParams
 	{
 		int type = HPG_MODEL;
-		QString pressure = "4.0";
-		QString diam = "325.0";
-		QString length = "2820.0";
-		QString height = "600.0";
-		QString A = "2330.0";
-		QString Dy = "100.0";
-		QString Dy1 = "100.0";
+		QString pressure = "4.0";//HKT
+		QString diam = "325.0";//HKT
+		QString length = "2820.0";//HKT
+		QString height = "600.0";//HKT
+		QString A = "490.0";//HT
+		QString A1 = "2330.0";//HT
+		QString Dy = "100.0";//HKT
+		QString Dy1 = "100.0";//HK
+		QString Dy2 = "100.0";//K
+		QString l = "3000.0";//HT
+		QString l0 = "1500.0";//HT
+		QString l1 = "235.0";//HKT
+		QString l2 = "400.0";//HT
 	};
 }

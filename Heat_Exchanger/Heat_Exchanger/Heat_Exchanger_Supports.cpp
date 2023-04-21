@@ -1,0 +1,184 @@
+#include "BuildMathModel.h"
+using namespace BuildMathModel;
+
+
+float DV = 325; //Внутренний диамерт
+float RV = DV/2; //Внутренний радиус
+float LK = 3000; //Длина
+float L2 = LK/2; //Длина пополам
+float L1 = 250; //Длина - правого края
+float B11 = 5; //Левый бортик
+float B2 = 10; //Правый бортик
+float A1 = 2500; //Левый бортик
+float A22 = 230; //Левый бортик
+float h = 200; //Высота опоры от центра
+
+
+
+void CreateSketchSup(RPArray<MbContour>& _arrContours)
+{
+    // Размер массива - 10 точек
+    SArray<MbCartPoint> arrPnts(10);
+    arrPnts.Add(MbCartPoint(0, 0)); //(-1495, 0)
+    arrPnts.Add(MbCartPoint(-100, 0)); //(-1495, 192.5)
+    arrPnts.Add(MbCartPoint(-100, 5)); //(-1500, 192.5)
+    arrPnts.Add(MbCartPoint(-95, 5)); //(-1500, 202.5)
+    arrPnts.Add(MbCartPoint(-95, 70)); //(-1485, 202.5)
+    arrPnts.Add(MbCartPoint(-90, 70)); //(-1485, 187.5)
+    arrPnts.Add(MbCartPoint(-90, 5)); //(-1480, 182.5)
+    arrPnts.Add(MbCartPoint(-2.5, 5)); //(1750, 182.5)
+    arrPnts.Add(MbCartPoint(-2.5, 70)); //(1750, 0)
+    arrPnts.Add(MbCartPoint(0, 70)); //(1750, 0)
+
+    // Построение единой ломаной внешнего контура по точкам
+    MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
+    MbContour* pContourPolyline = nullptr;
+
+    ::FilletPolyContour(pPolyline, 0, false, arrPnts[10], pContourPolyline);
+
+    _arrContours.push_back(pContourPolyline);
+}
+
+void CreateSketchSup1(RPArray<MbContour>& _arrContours)
+{
+    // Размер массива - 4 точек
+    SArray<MbCartPoint> arrPnts(4);
+    arrPnts.Add(MbCartPoint(-2.5, 5)); //(, )
+    arrPnts.Add(MbCartPoint(-90, 5)); //(, )
+    arrPnts.Add(MbCartPoint(-90, 70)); //(, )
+    arrPnts.Add(MbCartPoint(-2.5, 70)); //(, )
+
+    // Построение единой ломаной внешнего контура по точкам
+    MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
+    MbContour* pContourPolyline = nullptr;
+
+    ::FilletPolyContour(pPolyline, 0, false, arrPnts[10], pContourPolyline);
+
+    _arrContours.push_back(pContourPolyline);
+}
+
+void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours)
+{
+    //Создание точек контура
+    MbCartPoint p1(0, 40);
+    MbCartPoint p2(0, 37.5);
+    MbCartPoint p3(-RV*cos(10*M_PI/180), RV*sin(10*M_PI/180));
+    MbCartPoint p4(-RV*cos(10*M_PI/180), RV*sin(10*M_PI/180)+2.5);
+
+    //Динамическое создание объектов отрезков
+    MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
+    MbArc* Seg2 = new MbArc( MbCartPoint(0,h), RV, p2, p3, -1 );
+    MbArc* Seg4 = new MbArc( MbCartPoint(0,h+2.5), RV, p4, p1, 1 );
+    MbCartPoint p5, p6;
+    Seg2->GetEndPoint(p5);
+    Seg4->GetStartPoint(p6);
+    MbLineSegment* Seg3 = new MbLineSegment(p5, p6);
+    
+    //Динамическое создание контура
+    MbContour* ptrContour = new MbContour();
+    
+    //Добавление в контур сегментов
+    ptrContour->AddSegment(Seg1);
+    ptrContour->AddSegment(Seg2);
+    ptrContour->AddSegment(Seg3);
+    ptrContour->AddSegment(Seg4);
+    _ptrContours.push_back(ptrContour);
+}
+
+SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params)
+{
+    // Множитель для преобразования угловых значений из градусов в радианы
+    const double DEG_TO_RAD = M_PI / 180.0;
+
+    // Локальная СК (по умолчанию совпадает с мировой СК)
+    MbPlacement3D pl,pl1;
+    pl1.Rotate(MbAxis3D(MbVector3D(0,1,0)), 90*DEG_TO_RAD );
+
+    // Вызов функции для построения образующей 
+    RPArray<MbContour> arrContours, arrContours1, ptrContours;
+    CreateSketchSup(arrContours);
+    CreateSketchSup1(arrContours1);
+    CreateSketchSupCurve(ptrContours);
+
+    // Подготовка параметров для вызова функции построения тела вращения.
+    // sweptData - объект, в котором хранятся сведения об образующей.
+    MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0),MbCartPoint3D(0, 1, 0));
+    MbSweptData sweptData(*pPlaneXY, arrContours);
+    MbSweptData sweptData1(*pPlaneXY, arrContours1);
+    MbSweptData sweptData2(*pPlaneXY, ptrContours);
+    
+    // Направляющий вектор для операции выдавливания
+    MbVector3D dir(0, 0, -1);
+
+    // Объект параметров для операции построения тела вращения.
+    // Первые два параметра конструктора задают углы вращения в прямом и обратном
+    // направлении (по нормали к образующей или противоположно этой нормали).
+    // В данном примере вращение осуществляется на 360 градусов в прямом направлении.
+    // Третий параметр задает форму топологии твердого тела.
+    // При s = 0 строится тело с топологией сферы, при s = 1 - с топологией тора.
+    // Если образующая - незамкнутая кривая, и ось вращения лежит в плоскости кривой,
+    // то при s = 0 при построении образующая будет автоматически продлена до оси
+    // вращения. В данном примере различий между значениями s нет, т.к. образующая
+    // имеет вид замкнутого контура.
+    RevolutionValues revParms(360*DEG_TO_RAD, 0, 0);
+
+    MbSNameMaker operBoolNames( ct_BooleanSolid, MbSNameMaker::i_SideNone );
+
+    // Именователи элементов модели твердого тела и контуров образующей
+    MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
+    PArray<MbSNameMaker> cNames(0, 1, false);
+
+    // Ось вращения для построения тела:
+    MbAxis3D axis(pl.GetAxisX());
+
+    const double HEIGHT_FORWARD = 25.0, HEIGHT_BACKWARD = 25.0;
+    ExtrusionValues extrusionParams(HEIGHT_FORWARD, HEIGHT_BACKWARD);
+    ExtrusionValues extrusionParams1(5, 5);
+    ExtrusionValues extrusionParams2(HEIGHT_FORWARD + 5, HEIGHT_BACKWARD + 5);
+
+    // Вызов функции-утилиты для построения твердого тела вращения
+    MbSolid *pSup = nullptr, *pSup1 = nullptr, *pSup2 = nullptr;
+    ::ExtrusionSolid(sweptData, dir, nullptr, nullptr, false, extrusionParams, operNames, cNames, pSup);
+    ::ExtrusionSolid(sweptData1, dir, nullptr, nullptr, false, extrusionParams1, operNames, cNames, pSup1);
+    ::ExtrusionSolid(sweptData2, dir, nullptr, nullptr, false, extrusionParams2, operNames, cNames, pSup2);
+    
+    
+    MbSNameMaker cylNames(ct_ElementarySolid, MbSNameMaker::i_SideNone); 
+    MbSolid *pCyl = NULL;
+    // Построение ограничивающей цилиндрической поверхности
+    SArray<MbCartPoint3D> pCylSurf(3);
+    pCylSurf.Add(MbCartPoint3D(0, 200, -25));
+    pCylSurf.Add(MbCartPoint3D(0, 200, 25));
+    pCylSurf.Add(MbCartPoint3D(0,  200+RV, -25));
+    ::ElementarySolid( pCylSurf, et_Cylinder, cylNames, pCyl );
+    
+    //---------------------------------------------------------//
+    // Флаги булевой операции: построение замкнутого тела с объединением
+    // подобных граней и ребер.
+    MbBooleanFlags flagsBool;
+    flagsBool.InitBoolean(true);
+    flagsBool.SetMergingFaces(true);
+    flagsBool.SetMergingEdges(true); 
+    
+    
+    // Результирующее тело
+    MbSolid *pResSolid = NULL;
+    // Вызов булевой операции для выполнения объединения.
+    // Для выполнения вычитания надо вместо типа операции bo_Union указать
+    // значение bo_Difference, для пересечения - значение bo_Intersect.
+    //---------------------------------------------------------//
+    ::BooleanResult( *pSup, cm_Copy, *pSup1, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid );
+    ::BooleanResult( *pResSolid, cm_Copy, *pCyl, cm_Copy, bo_Difference,flagsBool, operBoolNames, pResSolid ); 
+    ::BooleanResult( *pResSolid, cm_Copy, *pSup2, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid ); 
+    ::SymmetrySolid( *pResSolid, cm_Copy, pl1, operBoolNames, pResSolid ); 
+    // Отображение построенного тела
+    
+    pResSolid->Move(MbVector3D(0, -500, 0));
+    pResSolid->Rotate(MbAxis3D(pl.GetAxisY()), 90 * DEG_TO_RAD);
+    c3d::SolidSPtr MainSolid(pResSolid);
+    // Уменьшение счетчиков ссылок динамических объектов ядра
+    ::DeleteItem(pResSolid);
+
+
+    return MainSolid;
+}
