@@ -3,23 +3,23 @@ using namespace BuildMathModel;
 
 Faces f;
 
-SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params)
 {
-   float DV,RV,L,L2,DN,RN,D,R,B1;
+    float DV, RV, L, L2, DN, RN, D, R, B1;
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
-    RV = (DV + 63)/2; //Внутренний радиус
+    RV = (DV + 63) / 2; //Внутренний радиус
     L = 40; //Длина
-    L2 = L/2; //Длина
+    L2 = L / 2; //Длина
     B1 = 5; //Левый бортик
     float B2 = 8; //Правый бортик
     D = DV - B1;
-    R=D/2;
+    R = D / 2;
 
 
 
     float d = params.d.toDouble(); // D трубы
-    float bigD = DV - (DV / 100 *9); // D проверочной окружности
+    float bigD = DV - (DV / 100 * 9); // D проверочной окружности
     float offsets;
     if (d == 20)
         offsets = 6; //расстояние между окружностями
@@ -29,25 +29,25 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
     float n0 = floor(bigD / t); // Кол-во отверстий на 0 ряду
     float n = n0 + 3; // Кол-во отверстий на 1 ряду
     float h = bigD / 2 * sin(60 * M_PI / 180); // Высота 6 угольника
-    
+
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
-   
+
     MbCartPoint p1(-L2, 0);
     MbCartPoint p2(-L2, R);
-    MbCartPoint p3(-L2+B1, R);
-    MbCartPoint p4(-L2+B1, RV);
-    MbCartPoint p5(-L2+3*B1, RV);
-    MbCartPoint p6(-L2+3*B1, R+4*B1);
-    MbCartPoint p7(L2-3*B1, R+4*B1);
-    MbCartPoint p8(L2-3*B1, RV);
-    MbCartPoint p9(L2-B1, RV);
-    MbCartPoint p10(L2-B1, R);
+    MbCartPoint p3(-L2 + B1, R);
+    MbCartPoint p4(-L2 + B1, RV);
+    MbCartPoint p5(-L2 + 3 * B1, RV);
+    MbCartPoint p6(-L2 + 3 * B1, R + 4 * B1);
+    MbCartPoint p7(L2 - 3 * B1, R + 4 * B1);
+    MbCartPoint p8(L2 - 3 * B1, RV);
+    MbCartPoint p9(L2 - B1, RV);
+    MbCartPoint p10(L2 - B1, R);
     MbCartPoint p11(L2, R);
     MbCartPoint p12(L2, 0);
 
-    
+
     MbPlacement* pl = new MbPlacement();
 
     //Динамическое создание объектов отрезков
@@ -68,7 +68,7 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
-    
+
     ptrContour->AddSegment(Seg1);
     ptrContour->AddSegment(Seg2);
     ptrContour->AddSegment(Seg3);
@@ -81,9 +81,9 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
     ptrContour->AddSegment(Seg10);
     ptrContour->AddSegment(Seg11);
     ptrContour->AddSegment(Seg12);
-    
 
-   
+
+
 
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();
@@ -104,7 +104,7 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
     MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
     MbSNameMaker operBoolNames(ct_BooleanSolid, MbSNameMaker::i_SideNone);
     PArray<MbSNameMaker> cNames(0, 1, false);
-    
+
     //Ось вращения для построения тела
     MbAxis3D axis(place->GetAxisX());
 
@@ -131,12 +131,12 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 
             if (l + d / 2 < bigD / 2 && y < h)
             {
-                MbArc* pBound = new MbArc(MbCartPoint( x, y), d/2);
+                MbArc* pBound = new MbArc(MbCartPoint(x, y), d / 2);
                 MbContour* ptrContour = new MbContour();
                 ptrContour->AddSegment(pBound);
                 ptrContour->Rotate(MbCartPoint(0, 0), MbDirection(90 * DEG_TO_RAD), nullptr, nullptr);
                 ptrContoursR->Add(ptrContour);
-                f.face+=1;
+                f.face += 1;
                 ptrContour->Clear();
             }
         }
@@ -147,11 +147,11 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 
     ::ExtrusionResult(*m_pResSolid, cm_Same, sweptData1, dir, extrusionParam, bo_Difference, plateNames, NULL, m_pResSolid);
     ::SymmetrySolid(*m_pResSolid, cm_Copy, pl1, operBoolNames, m_pResSolid);
-   
-    ptrContoursR->clear();
-    
 
-    
+    ptrContoursR->clear();
+
+
+
     // Уменьшение счетчиков ссылок динамических объектов ядра
     c3d::SolidSPtr MainSolid(m_pResSolid);
     ::DeleteItem(m_pResSolid);

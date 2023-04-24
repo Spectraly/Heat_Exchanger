@@ -4,8 +4,9 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover(BuildParams params)
 {
-   float DV,RV,LK,L2,B1,B2,A1,A2;
-    DV = 325; //Внутренний диаметр
+   float DV,RV,DN,LK,L2,B1,B2,A1,A2;
+    DV = params.diam.toDouble();//Наружный диаметр
+    DN = DV + DV / 100 * 8; //Внутренний диаметр
     RV = DV/2; //Внутренний радиус
     LK = 200; //Длина
     B1 = 5; //Левый бортик

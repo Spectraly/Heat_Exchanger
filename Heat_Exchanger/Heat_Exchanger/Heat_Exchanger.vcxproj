@@ -134,6 +134,7 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="Kozhuh.cpp" />
     <ClCompile Include="ParamsWidget.cpp" />
     <ClCompile Include="PipeGrid.cpp" />
+    <ClCompile Include="Movable_Tube_Sheet.cpp" />
     <ClCompile Include="Stationary_Tube_Sheet.cpp" />
     <ClCompile Include="TubeBundle.cpp" />
     <ClCompile Include="Viewer.cpp" />

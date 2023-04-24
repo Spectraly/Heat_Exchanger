@@ -127,6 +127,9 @@
     <ClCompile Include="TubeBundle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Movable_Tube_Sheet.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">

@@ -2,33 +2,24 @@
 using namespace BuildMathModel;
 
 
-float DV = 325; //Внутренний диамерт
-float RV = DV/2; //Внутренний радиус
-float LK = 3000; //Длина
-float L2 = LK/2; //Длина пополам
-float L1 = 250; //Длина - правого края
-float B11 = 5; //Левый бортик
-float B2 = 10; //Правый бортик
-float A1 = 2500; //Левый бортик
-float A22 = 230; //Левый бортик
-float h = 200; //Высота опоры от центра
 
 
 
-void CreateSketchSup(RPArray<MbContour>& _arrContours)
+
+void CreateSketchSup(RPArray<MbContour>& _arrContours, float L2, float B1,float h)
 {
     // Размер массива - 10 точек
     SArray<MbCartPoint> arrPnts(10);
     arrPnts.Add(MbCartPoint(0, 0)); //(-1495, 0)
-    arrPnts.Add(MbCartPoint(-100, 0)); //(-1495, 192.5)
-    arrPnts.Add(MbCartPoint(-100, 5)); //(-1500, 192.5)
-    arrPnts.Add(MbCartPoint(-95, 5)); //(-1500, 202.5)
-    arrPnts.Add(MbCartPoint(-95, 70)); //(-1485, 202.5)
-    arrPnts.Add(MbCartPoint(-90, 70)); //(-1485, 187.5)
-    arrPnts.Add(MbCartPoint(-90, 5)); //(-1480, 182.5)
-    arrPnts.Add(MbCartPoint(-2.5, 5)); //(1750, 182.5)
-    arrPnts.Add(MbCartPoint(-2.5, 70)); //(1750, 0)
-    arrPnts.Add(MbCartPoint(0, 70)); //(1750, 0)
+    arrPnts.Add(MbCartPoint(-L2, 0)); //(-1495, 192.5)
+    arrPnts.Add(MbCartPoint(-L2, B1)); //(-1500, 192.5)
+    arrPnts.Add(MbCartPoint(-L2 + 5, B1)); //(-1500, 202.5)
+    arrPnts.Add(MbCartPoint(-L2 + 5, h)); //(-1485, 202.5)
+    arrPnts.Add(MbCartPoint(-L2 + 10, h)); //(-1485, 187.5)
+    arrPnts.Add(MbCartPoint(-L2 + 10, B1)); //(-1480, 182.5)
+    arrPnts.Add(MbCartPoint(-2.5, B1)); //(1750, 182.5)
+    arrPnts.Add(MbCartPoint(-2.5, h)); //(1750, 0)
+    arrPnts.Add(MbCartPoint(0, h)); //(1750, 0)
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -39,14 +30,14 @@ void CreateSketchSup(RPArray<MbContour>& _arrContours)
     _arrContours.push_back(pContourPolyline);
 }
 
-void CreateSketchSup1(RPArray<MbContour>& _arrContours)
+void CreateSketchSup1(RPArray<MbContour>& _arrContours, float L2, float B1, float h)
 {
     // Размер массива - 4 точек
     SArray<MbCartPoint> arrPnts(4);
-    arrPnts.Add(MbCartPoint(-2.5, 5)); //(, )
-    arrPnts.Add(MbCartPoint(-90, 5)); //(, )
-    arrPnts.Add(MbCartPoint(-90, 70)); //(, )
-    arrPnts.Add(MbCartPoint(-2.5, 70)); //(, )
+    arrPnts.Add(MbCartPoint(-2.5, B1)); //(, )
+    arrPnts.Add(MbCartPoint(-L2 + 10, B1)); //(, )
+    arrPnts.Add(MbCartPoint(-L2 + 10, h)); //(, )
+    arrPnts.Add(MbCartPoint(-2.5, h)); //(, )
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -57,26 +48,27 @@ void CreateSketchSup1(RPArray<MbContour>& _arrContours)
     _arrContours.push_back(pContourPolyline);
 }
 
-void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours)
+void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours, float L2, float B1, float h,float DV)
 {
+    float RV = DV / 2; //Внутренний радиус
     //Создание точек контура
-    MbCartPoint p1(0, 40);
-    MbCartPoint p2(0, 37.5);
-    MbCartPoint p3(-RV*cos(10*M_PI/180), RV*sin(10*M_PI/180));
-    MbCartPoint p4(-RV*cos(10*M_PI/180), RV*sin(10*M_PI/180)+2.5);
+    MbCartPoint p1(0, h - RV + 2.5);
+    MbCartPoint p2(0, h - RV);
+    MbCartPoint p3(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180)); // Прикол с углом
+    MbCartPoint p4(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180) + 2.5); // Прикол с углом
 
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
-    MbArc* Seg2 = new MbArc( MbCartPoint(0,h), RV, p2, p3, -1 );
-    MbArc* Seg4 = new MbArc( MbCartPoint(0,h+2.5), RV, p4, p1, 1 );
+    MbArc* Seg2 = new MbArc(MbCartPoint(0, h), RV, p2, p3, -1);
+    MbArc* Seg4 = new MbArc(MbCartPoint(0, h + 2.5), RV, p4, p1, 1);
     MbCartPoint p5, p6;
     Seg2->GetEndPoint(p5);
     Seg4->GetStartPoint(p6);
     MbLineSegment* Seg3 = new MbLineSegment(p5, p6);
-    
+
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
-    
+
     //Добавление в контур сегментов
     ptrContour->AddSegment(Seg1);
     ptrContour->AddSegment(Seg2);
@@ -87,6 +79,15 @@ void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours)
 
 SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params)
 {
+
+    float DV = params.diam.toDouble();//Наружный диаметр
+    float DN = DV + DV / 100 * 8; //Внутренний диаметр
+    float L = 240; //Длина
+    float L2 = L / 2; //Длина пополам
+    float L1 = 250; //Длина - правого края
+    float B1 = 5; //Левый бортик
+    float h = params.h.toDouble(); //Высота опоры от центра
+
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -96,9 +97,9 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
 
     // Вызов функции для построения образующей 
     RPArray<MbContour> arrContours, arrContours1, ptrContours;
-    CreateSketchSup(arrContours);
-    CreateSketchSup1(arrContours1);
-    CreateSketchSupCurve(ptrContours);
+    CreateSketchSup(arrContours, L2, B1, h);
+    CreateSketchSup1(arrContours1, L2, B1, h);
+    CreateSketchSupCurve(ptrContours, L2, B1, h, DN);
 
     // Подготовка параметров для вызова функции построения тела вращения.
     // sweptData - объект, в котором хранятся сведения об образующей.
@@ -147,10 +148,10 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
     MbSolid *pCyl = NULL;
     // Построение ограничивающей цилиндрической поверхности
     SArray<MbCartPoint3D> pCylSurf(3);
-    pCylSurf.Add(MbCartPoint3D(0, 200, -25));
-    pCylSurf.Add(MbCartPoint3D(0, 200, 25));
-    pCylSurf.Add(MbCartPoint3D(0,  200+RV, -25));
-    ::ElementarySolid( pCylSurf, et_Cylinder, cylNames, pCyl );
+    pCylSurf.Add(MbCartPoint3D(0, h, -25));
+    pCylSurf.Add(MbCartPoint3D(0, h, 25));
+    pCylSurf.Add(MbCartPoint3D(0, h + DN/2, -25));
+    ::ElementarySolid(pCylSurf, et_Cylinder, cylNames, pCyl);
     
     //---------------------------------------------------------//
     // Флаги булевой операции: построение замкнутого тела с объединением
@@ -167,10 +168,10 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
     // Для выполнения вычитания надо вместо типа операции bo_Union указать
     // значение bo_Difference, для пересечения - значение bo_Intersect.
     //---------------------------------------------------------//
-    ::BooleanResult( *pSup, cm_Copy, *pSup1, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid );
-    ::BooleanResult( *pResSolid, cm_Copy, *pCyl, cm_Copy, bo_Difference,flagsBool, operBoolNames, pResSolid ); 
-    ::BooleanResult( *pResSolid, cm_Copy, *pSup2, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid ); 
-    ::SymmetrySolid( *pResSolid, cm_Copy, pl1, operBoolNames, pResSolid ); 
+    ::BooleanResult(*pSup, cm_Copy, *pSup1, cm_Copy, bo_Union, flagsBool, operBoolNames, pResSolid);
+    ::BooleanResult(*pResSolid, cm_Copy, *pCyl, cm_Copy, bo_Difference, flagsBool, operBoolNames, pResSolid);
+    ::BooleanResult(*pResSolid, cm_Copy, *pSup2, cm_Copy, bo_Union, flagsBool, operBoolNames, pResSolid);
+    ::SymmetrySolid(*pResSolid, cm_Copy, pl1, operBoolNames, pResSolid);
     // Отображение построенного тела
     
     pResSolid->Move(MbVector3D(0, -500, 0));

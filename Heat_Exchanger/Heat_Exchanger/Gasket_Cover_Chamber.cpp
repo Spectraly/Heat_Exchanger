@@ -5,8 +5,8 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber(BuildParams params)
 {
     float B1, DN,DV, DNK;
-    DN = params.diam.toDouble();
-    DV = DN / 100 * 92;
+    DV = params.diam.toDouble();//Наружный диаметр
+    DN = DV + DV / 100 * 8; //Внутренний диаметр
     DNK = (DN + 38);
     B1 = 5; //Левый бортик
 

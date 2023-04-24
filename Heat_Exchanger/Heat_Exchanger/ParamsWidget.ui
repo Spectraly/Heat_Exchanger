@@ -88,7 +88,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="label_Dvg">
            <property name="text">
-            <string>Dv</string>
+            <string>Dv, мм</string>
            </property>
           </widget>
          </item>
@@ -105,7 +105,7 @@
          <item row="3" column="1">
           <widget class="QComboBox" name="comboBox_Pressure"/>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="label_Dv">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -114,122 +114,152 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Dv</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_Diam"/>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="label_L">
-           <property name="text">
-            <string>L</string>
+            <string>Dv, мм</string>
            </property>
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QLineEdit" name="lineEdit_Length"/>
+          <widget class="QLineEdit" name="lineEdit_Diam"/>
          </item>
          <item row="6" column="0">
-          <widget class="QLabel" name="label_H">
+          <widget class="QLabel" name="label_L">
            <property name="text">
-            <string>H</string>
+            <string>L, мм</string>
            </property>
           </widget>
          </item>
          <item row="6" column="1">
-          <widget class="QLineEdit" name="lineEdit_Height"/>
+          <widget class="QLineEdit" name="lineEdit_Length"/>
          </item>
          <item row="7" column="0">
-          <widget class="QLabel" name="label_A">
+          <widget class="QLabel" name="label_H">
            <property name="text">
-            <string>A</string>
+            <string>H, мм</string>
            </property>
           </widget>
          </item>
          <item row="7" column="1">
-          <widget class="QLineEdit" name="lineEdit_A"/>
+          <widget class="QLineEdit" name="lineEdit_Height"/>
          </item>
          <item row="8" column="0">
-          <widget class="QLabel" name="label_A1">
+          <widget class="QLabel" name="label_A">
            <property name="text">
-            <string>A1</string>
+            <string>A, мм</string>
            </property>
           </widget>
          </item>
          <item row="8" column="1">
-          <widget class="QLineEdit" name="lineEdit_A1"/>
+          <widget class="QLineEdit" name="lineEdit_A"/>
          </item>
          <item row="9" column="0">
-          <widget class="QLabel" name="label_Dy">
+          <widget class="QLabel" name="label_A1">
            <property name="text">
-            <string>Dy</string>
+            <string>A1, мм</string>
            </property>
           </widget>
          </item>
          <item row="9" column="1">
-          <widget class="QLineEdit" name="lineEdit_Dy"/>
+          <widget class="QLineEdit" name="lineEdit_A1"/>
          </item>
          <item row="10" column="0">
-          <widget class="QLabel" name="label_Dy1">
+          <widget class="QLabel" name="label_Dy">
            <property name="text">
-            <string>Dy1</string>
+            <string>Dy, мм</string>
            </property>
           </widget>
          </item>
          <item row="10" column="1">
-          <widget class="QLineEdit" name="lineEdit_Dy1"/>
+          <widget class="QLineEdit" name="lineEdit_Dy"/>
          </item>
          <item row="11" column="0">
-          <widget class="QLabel" name="label_Dy2">
+          <widget class="QLabel" name="label_Dy1">
            <property name="text">
-            <string>Dy2</string>
+            <string>Dy1, мм</string>
            </property>
           </widget>
          </item>
          <item row="11" column="1">
-          <widget class="QLineEdit" name="lineEdit_Dy2"/>
+          <widget class="QLineEdit" name="lineEdit_Dy1"/>
          </item>
          <item row="12" column="0">
-          <widget class="QLabel" name="label_l">
+          <widget class="QLabel" name="label_Dy2">
            <property name="text">
-            <string>l</string>
+            <string>Dy2, мм</string>
            </property>
           </widget>
          </item>
          <item row="12" column="1">
-          <widget class="QLineEdit" name="lineEdit_l"/>
+          <widget class="QLineEdit" name="lineEdit_Dy2"/>
          </item>
          <item row="13" column="0">
-          <widget class="QLabel" name="label_l0">
+          <widget class="QLabel" name="label_l">
            <property name="text">
-            <string>l0</string>
+            <string>l, мм</string>
            </property>
           </widget>
          </item>
          <item row="13" column="1">
-          <widget class="QLineEdit" name="lineEdit_l0"/>
+          <widget class="QLineEdit" name="lineEdit_l"/>
          </item>
          <item row="14" column="0">
-          <widget class="QLabel" name="label_l1">
+          <widget class="QLabel" name="label_l0">
            <property name="text">
-            <string>l1</string>
+            <string>l0, мм</string>
            </property>
           </widget>
          </item>
          <item row="14" column="1">
-          <widget class="QLineEdit" name="lineEdit_l1"/>
+          <widget class="QLineEdit" name="lineEdit_l0"/>
          </item>
          <item row="15" column="0">
-          <widget class="QLabel" name="label_l2">
+          <widget class="QLabel" name="label_l1">
            <property name="text">
-            <string>l2</string>
+            <string>l1, мм</string>
            </property>
           </widget>
          </item>
          <item row="15" column="1">
+          <widget class="QLineEdit" name="lineEdit_l1"/>
+         </item>
+         <item row="16" column="0">
+          <widget class="QLabel" name="label_l2">
+           <property name="text">
+            <string>l2, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="16" column="1">
           <widget class="QLineEdit" name="lineEdit_l2"/>
+         </item>
+         <item row="17" column="1">
+          <widget class="QLineEdit" name="lineEdit_l3"/>
+         </item>
+         <item row="18" column="1">
+          <widget class="QLineEdit" name="lineEdit_h"/>
+         </item>
+         <item row="17" column="0">
+          <widget class="QLabel" name="label_l3">
+           <property name="text">
+            <string>l3, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="18" column="0">
+          <widget class="QLabel" name="label_h">
+           <property name="text">
+            <string>h, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QComboBox" name="comboBox_d"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Диаметр труб d, мм</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

@@ -69,7 +69,6 @@ void MainWindow::setCurrentModel(MbModel* model)
 	unsetCurrentModel();
 	if (model) currentMathModel = model;
 	drawMathModel();
-
 }
 
 void MainWindow::unsetCurrentModel()

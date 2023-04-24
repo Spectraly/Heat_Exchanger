@@ -211,6 +211,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params);
 
 		static SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params);

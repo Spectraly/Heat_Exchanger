@@ -6,8 +6,8 @@ SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params)
    
 
 
-    float DN = params.diam.toDouble(); //Внутренний диаметр
-    float DV = DN / 100 * 92;//Наружный диаметр
+    float DV = params.diam.toDouble();//Наружный диаметр
+    float DN = DV + DV / 100 * 8; //Внутренний диаметр
     float B1 = 4; //Левый бортик
     float B2 = 8; //Правый бортик
     float D = DV - B1;
@@ -15,10 +15,14 @@ SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params)
     float L = 3000; //Правый бортик
 
 
-
-    float d = 20; // D трубы
+    float d = params.d.toDouble(); // D трубы
     float bigD = DV - (DV / 100 * 9); // D проверочной окружности
-    float offsets = 6; //расстояние между окружностями
+    float offsets;
+    if (d == 20)
+         offsets = 6; //расстояние между окружностями
+    else
+         offsets = 7; //расстояние между окружностями
+
     float t = (d + offsets); // Шаг между центрами
     float n0 = floor(bigD / t); // Кол-во отверстий на 0 ряду
     float n = n0 + 3; // Кол-во отверстий на 1 ряду

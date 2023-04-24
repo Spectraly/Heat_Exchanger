@@ -85,6 +85,10 @@ void ParamsWidget::updateParams_modelHPG()
 		modelParams.l0 = ui.lineEdit_l0->text();
 		modelParams.l1 = ui.lineEdit_l1->text();
 		modelParams.l2 = ui.lineEdit_l2->text();
+		modelParams.l3 = ui.lineEdit_l3->text();
+		modelParams.h = ui.lineEdit_h->text();
+		modelParams.h = ui.lineEdit_h->text();
+
 	}
 }
 
@@ -101,6 +105,7 @@ void ParamsWidget::updateParams_modelKP()
 		modelParams.Dy1 = ui.lineEdit_Dy1->text();
 		modelParams.Dy2 = ui.lineEdit_Dy2->text();
 		modelParams.l1 = ui.lineEdit_l1->text();
+		modelParams.h = ui.lineEdit_h->text();
 	}
 }
 
@@ -120,6 +125,8 @@ void ParamsWidget::updateParams_modelTU()
 		modelParams.l0 = ui.lineEdit_l0->text();
 		modelParams.l1 = ui.lineEdit_l1->text();
 		modelParams.l2 = ui.lineEdit_l2->text();
+		modelParams.l3 = ui.lineEdit_l3->text();
+		modelParams.h = ui.lineEdit_h->text();
 	}
 }
 
@@ -143,6 +150,8 @@ void ParamsWidget::setupForm_model()
 		ui.lineEdit_l0->setText(modelParams.l0);
 		ui.lineEdit_l1->setText(modelParams.l1);
 		ui.lineEdit_l2->setText(modelParams.l2);
+		ui.lineEdit_l3->setText(modelParams.l3);
+		ui.lineEdit_h->setText(modelParams.h);
 		break;
 	case KP_MODEL:
 		ui.lineEdit_Diam->setText("600");
@@ -157,6 +166,8 @@ void ParamsWidget::setupForm_model()
 		ui.lineEdit_l0->setText("3000");
 		ui.lineEdit_l1->setText("290");
 		ui.lineEdit_l2->setText("650");
+		ui.lineEdit_l3->setText("900");
+		ui.lineEdit_h->setText("525");
 		break;
 	case TU_MODEL:
 		ui.lineEdit_Diam->setText("325");
@@ -171,6 +182,8 @@ void ParamsWidget::setupForm_model()
 		ui.lineEdit_l0->setText("1500");
 		ui.lineEdit_l1->setText("230");
 		ui.lineEdit_l2->setText("400");
+		ui.lineEdit_l3->setText("150");
+		ui.lineEdit_h->setText("292");
 		break;
 	default:
 		break;
@@ -191,6 +204,8 @@ void ParamsWidget::setValidators()
 	ui.lineEdit_l0->setValidator(valDouble);
 	ui.lineEdit_l1->setValidator(valDouble);
 	ui.lineEdit_l2->setValidator(valDouble);
+	ui.lineEdit_l3->setValidator(valDouble);
+	ui.lineEdit_h->setValidator(valDouble);
 
 	ui.comboBoxExchangerType->addItem("Холодильник с плавающей головкой");
 	ui.comboBoxExchangerType->addItem("Конденсатор с плавающей головкой");
@@ -209,13 +224,17 @@ void ParamsWidget::setValidators()
 	ui.comboBox_Diam->addItem("1400");
 	ui.comboBox_Diam->setMaxVisibleItems(ui.comboBox_Diam->model()->rowCount());
 
+
 	ui.comboBox_Pressure->addItem("1,0");
 	ui.comboBox_Pressure->addItem("1,6");
 	ui.comboBox_Pressure->addItem("2,5");
 	ui.comboBox_Pressure->addItem("4,0");
 	ui.comboBox_Pressure->addItem("6,3");
 	ui.comboBox_Pressure->setMaxVisibleItems(ui.comboBox_Pressure->model()->rowCount());
-}
+
+	ui.comboBox_d->addItem("20.0");
+	ui.comboBox_d->addItem("25.0");
+}	
 
 bool ParamsWidget::checkValidate()
 {
@@ -258,6 +277,8 @@ void ParamsWidget::hideManualFields(bool b)
 	ui.lineEdit_l0->setHidden(b);
 	ui.lineEdit_l1->setHidden(b);
 	ui.lineEdit_l2->setHidden(b);
+	ui.lineEdit_l3->setHidden(b);
+	ui.lineEdit_h->setHidden(b);
 
 	ui.label_Dv->setHidden(b);
 	ui.label_L->setHidden(b);
@@ -271,6 +292,8 @@ void ParamsWidget::hideManualFields(bool b)
 	ui.label_l0->setHidden(b);
 	ui.label_l1->setHidden(b);
 	ui.label_l2->setHidden(b);
+	ui.label_l3->setHidden(b);
+	ui.label_h->setHidden(b);
 
 
 
@@ -299,6 +322,7 @@ void ParamsWidget::toggleViewSectionSlot()
 
 void ParamsWidget::build()
 {
+	modelParams.d = ui.comboBox_d->currentText();
 	if (checkValidate())
 		emit buildSignal();
 	else
@@ -372,11 +396,13 @@ void ParamsWidget::onTypeChanged()
 		ui.label_l->setHidden(true);
 		ui.label_l0->setHidden(true);
 		ui.label_l2->setHidden(true);
+		ui.label_l3->setHidden(true);
 		ui.lineEdit_A->setHidden(true);
 		ui.lineEdit_A1->setHidden(true);
 		ui.lineEdit_l->setHidden(true);
 		ui.lineEdit_l0->setHidden(true);
 		ui.lineEdit_l2->setHidden(true);
+		ui.lineEdit_l3->setHidden(true);
 		combo->addItem("600");
 		combo->addItem("700");
 		combo->addItem("800");
@@ -467,7 +493,7 @@ void ParamsWidget::onDiamChanged()
 			combo->addItem("2,5");
 			combo->addItem("4,0");
 		}
-		else if (diam == "600" || diam == "700")
+		else if (diam == "600" || diam == "700" || diam == "1200" || diam == "1400")
 		{
 			combo->addItem("1,6");
 			combo->addItem("2,5");

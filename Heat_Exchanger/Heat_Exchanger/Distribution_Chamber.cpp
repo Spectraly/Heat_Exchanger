@@ -116,12 +116,12 @@ void CreateSketchK3(RPArray<MbContour>& _arrContours,float L2, float B1)
 SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
 {
     float Dy = params.Dy1.toDouble(); //Внутренний диамерт
-    float DN = params.diam.toDouble(); //Внутренний диамерт
+    float DV = params.diam.toDouble();//Наружный диаметр
     float L = params.length.toDouble(); //Длина
     float H = params.height.toDouble(); //Длина
     float A1 = params.A.toDouble();; //Левый бортик
     float Ry = Dy / 2; //Внутренний диамерт
-    float DV = DN / 100 * 92;
+    float DN = DV + DV / 100 * 8; //Внутренний диаметр
     float H2 = H/2 - Dy / 2; //Длина
     float LK = (L/100) * 11.5; //Длина
     float L2 = LK/2; //Длина
