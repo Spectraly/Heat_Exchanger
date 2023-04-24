@@ -13,7 +13,7 @@ namespace BuildMathModel {
 		int type = HPG_MODEL;
 		QString pressure = "4.0";//HKT
 		QString diam = "325.0";//HKT
-		QString length = "2820.0";//HKT
+		QString length = "3700.0";//HKT
 		QString height = "600.0";//HKT
 		QString A = "490.0";//HT
 		QString A1 = "2330.0";//HT

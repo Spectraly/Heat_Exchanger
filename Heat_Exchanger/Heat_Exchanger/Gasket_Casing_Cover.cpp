@@ -7,7 +7,7 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover(BuildParams params)
    float B1,DN,DV,RV;
     B1 = 5; //Левый бортик
     DN = params.diam.toDouble(); //Внутренний диаметр
-    DV = DN - 25;//Наружный диаметр
+    DV = DN / 100 * 92;//Наружный диаметр
     RV = DV / 2 + 30; //Внутренний радиус
     
     const double DEG_TO_RAD = M_PI / 180.0;

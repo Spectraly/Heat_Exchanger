@@ -6,7 +6,7 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber(BuildParams params)
 {
     float B1, DN,DV, DNK;
     DN = params.diam.toDouble();
-    DV = DN - 25;
+    DV = DN / 100 * 92;
     DNK = (DN + 38);
     B1 = 5; //Левый бортик
 

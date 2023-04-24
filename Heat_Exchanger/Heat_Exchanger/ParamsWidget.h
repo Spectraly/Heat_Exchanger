@@ -5,7 +5,7 @@
 #include "BuildParams.h"
 #include "SceneParams.h"
 #include <QMessageBox>
-
+#include <QListView>
 
 class ParamsWidget : public QWidget
 {
@@ -56,6 +56,7 @@ private slots:
 	void sceneset();
 	void onCheckChanged();
 	void onTypeChanged();
+	void onDiamChanged();
 
 signals:
 	void buildSignal();

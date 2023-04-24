@@ -4,10 +4,20 @@ using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;
 
+
+
 MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams params)
 {
+    ParametricModelCreator a;
     MbPlacement3D lcs;
     vector<SPtr<MbInstance>> pair;
+
+
+    SPtr<MbSolid> mSTubeBundles = TubeBundles(params);
+    mSTubeBundles->SetColor(190, 190, 190);
+    InstanceSPtr iPTubeBundles(new MbInstance(*mSTubeBundles, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbInstance> p_IPTubeBundles(new MbInstance(*iPTubeBundles, lcs));
+    pair.push_back(p_IPTubeBundles);
 
     SPtr<MbSolid> mSHeat_Exchanger_Supports = Heat_Exchanger_Supports(params);
     mSHeat_Exchanger_Supports->SetColor(190, 190, 190);
@@ -90,50 +100,66 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     pair.push_back(p_IPDistribution_Chamber);
     pair.push_back(p_IPDistribution_Chamber_Cover);
     pair.push_back(p_IPСasing_Cover);
-
-    //pair.push_back(p_IPHalf_Ring);
-    //pair.push_back(p_IPFloating_Head_Cover);
     pair.push_back(p_IPGasket_Casing_Cover);
     pair.push_back(p_IPGasket_Chamber_Casing);
     pair.push_back(p_IPGasket_Chamber_Casing1);
     pair.push_back(p_IPGasket_Cover_Chamber);
-    //pair.push_back(p_IPGasket_Floating_Head);
     pair.push_back(p_IPStationary_Tube_Sheet);
 
+    //pair.push_back(p_IPHalf_Ring);
+    //pair.push_back(p_IPFloating_Head_Cover);
+    //pair.push_back(p_IPGasket_Floating_Head);
+   
 
+    BuildMathModel::Faces f = a.getParams_model();
     MbAssembly* assm = new MbAssembly(pair);
 
-    MtGeomArgument ChamberGa(mSDistribution_Chamber->GetFace(9), p_IPDistribution_Chamber);
+    assm->SetPlacement(lcs);
+    MtGeomArgument ChamberGa(mSDistribution_Chamber->GetFace(11), p_IPDistribution_Chamber);
     MtGeomArgument GasketCh(mSGasket_Cover_Chamber->GetFace(0), p_IPGasket_Cover_Chamber);
     assm->AddConstraint(GCM_DISTANCE, ChamberGa, GasketCh, 0);
 
-    MtGeomArgument CoverGa(mSDistribution_Chamber_Cover->GetFace(2), p_IPDistribution_Chamber_Cover);
+    MtGeomArgument CoverGa(mSDistribution_Chamber_Cover->GetFace(0), p_IPDistribution_Chamber_Cover);
     MtGeomArgument GasketCo(mSGasket_Cover_Chamber->GetFace(2), p_IPGasket_Cover_Chamber);
     assm->AddConstraint(GCM_DISTANCE, CoverGa, GasketCo, 0);
 
-    MtGeomArgument ChamberGaR(mSDistribution_Chamber->GetFace(7), p_IPDistribution_Chamber);
+    MtGeomArgument ChamberGaR(mSDistribution_Chamber->GetFace(12), p_IPDistribution_Chamber);
     MtGeomArgument GasketChR(mSGasket_Chamber_Casing->GetFace(2), p_IPGasket_Chamber_Casing);
     assm->AddConstraint(GCM_DISTANCE, ChamberGaR, GasketChR, 0);
 
-    MtGeomArgument SheetGaCh(mSStationary_Tube_Sheet->GetFace(8), p_IPStationary_Tube_Sheet);
+    MtGeomArgument SheetGaCh(mSStationary_Tube_Sheet->GetFace(74), p_IPStationary_Tube_Sheet);
     MtGeomArgument GasketRCh(mSGasket_Chamber_Casing->GetFace(0), p_IPGasket_Chamber_Casing);
     assm->AddConstraint(GCM_DISTANCE, SheetGaCh, GasketRCh, 0);
 
-    MtGeomArgument CasingGaR(mSСasing->GetFace(9), p_IPСasing);
+    MtGeomArgument CasingGaR(mSСasing->GetFace(7), p_IPСasing);
     MtGeomArgument GasketCaR(mSGasket_Chamber_Casing1->GetFace(0), p_IPGasket_Chamber_Casing1);
     assm->AddConstraint(GCM_DISTANCE, CasingGaR, GasketCaR, 0);
 
-    MtGeomArgument SheetGaCa(mSStationary_Tube_Sheet->GetFace(2), p_IPStationary_Tube_Sheet);
+    MtGeomArgument SheetGaCa(mSStationary_Tube_Sheet->GetFace(75), p_IPStationary_Tube_Sheet);
     MtGeomArgument GasketRCa(mSGasket_Chamber_Casing1->GetFace(2), p_IPGasket_Chamber_Casing1);
     assm->AddConstraint(GCM_DISTANCE, SheetGaCa, GasketRCa, 0);
 
-    MtGeomArgument CasingGaCo(mSСasing->GetFace(8), p_IPСasing);
+    MtGeomArgument CasingGaCo(mSСasing->GetFace(6), p_IPСasing);
     MtGeomArgument GasketCaCo(mSGasket_Casing_Cover->GetFace(2), p_IPGasket_Casing_Cover);
     assm->AddConstraint(GCM_DISTANCE, CasingGaCo, GasketCaCo, 0);
 
     MtGeomArgument CoverGaCa(mSСasing_Cover->GetFace(6), p_IPСasing_Cover);
     MtGeomArgument GasketCoCa(mSGasket_Casing_Cover->GetFace(0), p_IPGasket_Casing_Cover);
     assm->AddConstraint(GCM_DISTANCE, CoverGaCa, GasketCoCa, 0);
+
+    MtGeomArgument TubeG(mSTubeBundles->GetFace(273), p_IPTubeBundles);
+    MtGeomArgument TubeRG(mSStationary_Tube_Sheet->GetFace(0), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_DISTANCE, TubeG, TubeRG, -params.l.toDouble());
+    assm->EvaluateConstraints();
+
+    MtGeomArgument Tube(mSTubeBundles->GetFace(203), p_IPTubeBundles);
+    MtGeomArgument TubeR(mSStationary_Tube_Sheet->GetFace(36), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_CONCENTRIC, Tube, TubeR);
+    assm->EvaluateConstraints();
+
+   /* MtGeomArgument Tube1(mSTubeBundles->GetFace(139), p_IPTubeBundles);
+    MtGeomArgument TubeR1(mSStationary_Tube_Sheet->GetFace(20), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_CONCENTRIC, Tube1, TubeR1, 0);*/
 
     
 

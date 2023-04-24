@@ -4,26 +4,26 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Casing_Cover(BuildParams params)
 {
-   float DV,RV,LK,L, DN, Ts,B1, Rb, Rm;
+   float DV,RV,LC,L, DN, Ts,B1, Rb, Rm;
     DN = params.diam.toDouble(); //Внутренний диаметр
-    DV = DN - 25;//Наружный диаметр
-    LK = params.length.toDouble();
+    DV = DN / 100 * 92;//Наружный диаметр
+    L = params.length.toDouble();
     RV = DV/2+30; //Внутренний радиус
-    L = 342.5;
+    LC = (L/100)*7.25;
     B1 = 5; //Правый бортик
     Ts = (DN - DV) / 2;//Толщина стенки
-    Rm = 45;
+    Rm = (L / 100) * 1.25;
     Rb = Rm + Ts;
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(-L + B1, RV);
-    MbCartPoint p2(-L + B1, RV + 5 * B1);
-    MbCartPoint p3(-L, RV + 5 * B1);
-    MbCartPoint p4(-L, RV + 9 * B1);
-    MbCartPoint p5(-L + 5 * B1, RV + 9 * B1);
-    MbCartPoint p6(-L + 5 * B1, RV + Ts);
+    MbCartPoint p1(-LC + B1, RV);
+    MbCartPoint p2(-LC + B1, RV + 5 * B1);
+    MbCartPoint p3(-LC, RV + 5 * B1);
+    MbCartPoint p4(-LC, RV + 9 * B1);
+    MbCartPoint p5(-LC + 5 * B1, RV + 9 * B1);
+    MbCartPoint p6(-LC + 5 * B1, RV + Ts);
     MbCartPoint p7(0, RV + Ts);
     MbCartPoint p8(Rb, 0);
     MbCartPoint p9(Rm, 0);

@@ -2,6 +2,7 @@
 
 
 
+
 const bool PARAMETRIZE = true;
 
 ParamsWidget::ParamsWidget(QWidget* parent)
@@ -30,12 +31,12 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 	connect(ui.radioButtonGOST, &QRadioButton::clicked, this, &ParamsWidget::onCheckChanged);
 	connect(ui.radioButtonManual, &QRadioButton::clicked, this, &ParamsWidget::onCheckChanged);
 	connect(ui.comboBoxExchangerType, &QComboBox::currentTextChanged, this, &ParamsWidget::onTypeChanged);
+	connect(ui.comboBox_Diam, &QComboBox::currentTextChanged, this, &ParamsWidget::onDiamChanged);
 
-	ui.comboBoxExchangerType->addItem("Холодильник с плавающей головкой");
-	ui.comboBoxExchangerType->addItem("Конденсатор с плавающей головкой");
-	ui.comboBoxExchangerType->addItem("Теплообменник с U-образными трубами");
+
 	onCheckChanged();
 	setValidators();
+	onTypeChanged();
 }
 
 ParamsWidget::~ParamsWidget()
@@ -191,6 +192,11 @@ void ParamsWidget::setValidators()
 	ui.lineEdit_l1->setValidator(valDouble);
 	ui.lineEdit_l2->setValidator(valDouble);
 
+	ui.comboBoxExchangerType->addItem("Холодильник с плавающей головкой");
+	ui.comboBoxExchangerType->addItem("Конденсатор с плавающей головкой");
+	ui.comboBoxExchangerType->addItem("Теплообменник с U-образными трубами");
+
+
 	ui.comboBox_Diam->addItem("325");
 	ui.comboBox_Diam->addItem("400");
 	ui.comboBox_Diam->addItem("500");
@@ -338,6 +344,9 @@ void ParamsWidget::onCheckChanged()
 
 void ParamsWidget::onTypeChanged()
 {
+	auto combo = ui.comboBox_Diam;
+	combo->clear();
+
 	if (!ui.radioButtonGOST->isChecked())
 		hideManualFields(false);
 	switch (ui.comboBoxExchangerType->currentIndex())
@@ -346,6 +355,15 @@ void ParamsWidget::onTypeChanged()
 		modelParams.type = HPG_MODEL;
 		ui.label_Dy2->setHidden(true);
 		ui.lineEdit_Dy2->setHidden(true);
+		combo->addItem("325");
+		combo->addItem("400");
+		combo->addItem("500");
+		combo->addItem("600");
+		combo->addItem("700");
+		combo->addItem("800");
+		combo->addItem("900");
+		combo->addItem("1000");
+		combo->addItem("1200");
 		break;
 	case KP_MODEL:
 		modelParams.type = KP_MODEL;
@@ -359,6 +377,12 @@ void ParamsWidget::onTypeChanged()
 		ui.lineEdit_l->setHidden(true);
 		ui.lineEdit_l0->setHidden(true);
 		ui.lineEdit_l2->setHidden(true);
+		combo->addItem("600");
+		combo->addItem("700");
+		combo->addItem("800");
+		combo->addItem("900");
+		combo->addItem("1000");
+		combo->addItem("1200");
 		break;
 	case TU_MODEL:
 		modelParams.type = TU_MODEL;
@@ -366,11 +390,93 @@ void ParamsWidget::onTypeChanged()
 		ui.label_Dy2->setHidden(true);
 		ui.lineEdit_Dy1->setHidden(true);
 		ui.lineEdit_Dy2->setHidden(true);
+		combo->addItem("325");
+		combo->addItem("400");
+		combo->addItem("500");
+		combo->addItem("600");
+		combo->addItem("700");
+		combo->addItem("800");
+		combo->addItem("900");
+		combo->addItem("1000");
+		combo->addItem("1200");
+		combo->addItem("1400");
 		break;
 	default:
 		break;
 	}
+	combo->setCurrentIndex(0);
 	setupForm_model();
+	onDiamChanged();
+}
+
+void ParamsWidget::onDiamChanged()
+{
+	auto combo = ui.comboBox_Pressure;
+	combo->clear();
+
+	QString diam = ui.comboBox_Diam->itemText(ui.comboBox_Diam->currentIndex());
+	switch (ui.comboBoxExchangerType->currentIndex())
+	{
+	case HPG_MODEL:
+		if (diam == "325" || diam == "400" || diam == "500")
+		{
+			combo->addItem("4,0");
+			combo->addItem("6,3");
+		}
+		else if (diam == "600" || diam == "700")
+		{
+			combo->addItem("2,5");
+			combo->addItem("4,0");
+			combo->addItem("6,3");
+		}
+		else if (diam == "800" || diam == "900" || diam == "1000" || diam == "1200")
+		{
+			combo->addItem("1,6");
+			combo->addItem("2,5");
+			combo->addItem("4,0");
+			combo->addItem("6,3");
+		}
+		break;
+	case KP_MODEL:
+			combo->addItem("1,0");
+			combo->addItem("1,6");
+			combo->addItem("2,5");
+		break;
+	case TU_MODEL:
+		if (diam == "325")
+		{
+			combo->addItem("2,5");
+			combo->addItem("4,0");
+		}
+		else if (diam == "400" || diam == "500")
+		{
+			combo->addItem("2,5");
+			combo->addItem("4,0");
+			combo->addItem("6,3");
+		}
+		else if (diam == "600" || diam == "700" || diam == "800")
+		{
+			combo->addItem("1,6");
+			combo->addItem("2,5");
+			combo->addItem("4,0");
+			combo->addItem("6,3");
+		}
+		else if (diam == "900" || diam == "1000" )
+		{
+			combo->addItem("1,6");
+			combo->addItem("2,5");
+			combo->addItem("4,0");
+		}
+		else if (diam == "600" || diam == "700")
+		{
+			combo->addItem("1,6");
+			combo->addItem("2,5");
+		}
+		break;
+	default:
+		break;
+	}
+	combo->setCurrentIndex(0);
 }
 
 void ParamsWidget::getGostData(int diam, int type)
@@ -381,31 +487,31 @@ void ParamsWidget::getGostData(int diam, int type)
 		gostDiam325(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 400:
-
+		gostDiam400(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 500:
-
+		gostDiam500(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 600:
-
+		gostDiam600(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 700:
-
+		gostDiam700(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 800:
-
+		gostDiam800(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 900:
-
+		gostDiam900(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 1000:
-
+		gostDiam1000(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 1200:
-
+		gostDiam1200(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	case 1400:
-
+		gostDiam1400(type, ui.comboBox_Pressure->itemText(ui.comboBox_Pressure->currentIndex()));
 		break;
 	default:
 		break;

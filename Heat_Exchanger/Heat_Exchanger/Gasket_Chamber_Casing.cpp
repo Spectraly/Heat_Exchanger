@@ -8,7 +8,7 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Chamber_Casing(BuildParams params)
    float B1,DN,DV,DNK;
    DN = params.diam.toDouble(); //Внутренний диамерт
    DNK = (DN + 38);
-   DV = DN - 25;
+   DV = DN / 100 * 92;
    B1 = 5; //Левый бортик
 
 

@@ -1,19 +1,30 @@
 #include "BuildMathModel.h"
 using namespace BuildMathModel;
 
-
+Faces f;
 
 SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 {
    float DV,RV,L,L2,DN,RN,D,R,B1;
     DN = params.diam.toDouble(); //Внутренний диаметр
-    DV = DN - 25;//Наружный диаметр
+    DV = DN / 100 * 92;//Наружный диаметр
     RV = (DV + 63)/2; //Внутренний радиус
     L = 40; //Длина
     L2 = L/2; //Длина
     B1 = 5; //Левый бортик
+    float B2 = 8; //Правый бортик
     D = DV - B1;
     R=D/2;
+
+
+
+    float d = 20; // D трубы
+    float bigD = DV - (DV / 100 *9); // D проверочной окружности
+    float offsets = 6; //расстояние между окружностями
+    float t = (d + offsets); // Шаг между центрами
+    float n0 = floor(bigD / t); // Кол-во отверстий на 0 ряду
+    float n = n0 + 3; // Кол-во отверстий на 1 ряду
+    float h = bigD / 2 * sin(60 * M_PI / 180); // Высота 6 угольника
     
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -67,6 +78,7 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
     ptrContour->AddSegment(Seg11);
     ptrContour->AddSegment(Seg12);
     
+
    
 
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
@@ -86,6 +98,7 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 
     //Именователи для операции построения тела вращения и для контуров образующей
     MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
+    MbSNameMaker operBoolNames(ct_BooleanSolid, MbSNameMaker::i_SideNone);
     PArray<MbSNameMaker> cNames(0, 1, false);
     
     //Ось вращения для построения тела
@@ -93,11 +106,56 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 
     // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid* m_pResSolid = nullptr;
-    MbResultType res = RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
+    RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
+
+    MbSNameMaker cylNames(ct_ElementarySolid, MbSNameMaker::i_SideNone);
+    MbVector3D dir(1, 0, 0);
+    ExtrusionValues extrusionParam(1000, 1000);
+    MbSNameMaker plateNames(MbSNameMaker::i_SideNone);
+    RPArray<MbContour>* ptrContoursR = new RPArray<MbContour>();
+    MbPlane* pPlane = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(0, 1, 0), MbCartPoint3D(0, 0, 1));
+
+
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = 0; i < n - j; i++)
+        {
+            double x = (d + offsets) * n / 2 - d / 2 - i * t - cos(60 * M_PI / 180) * t * j - offsets / 2;
+            double y = j * sin(60 * M_PI / 180) * t + t;
+
+            double l = sqrt(pow(x, 2) + pow(y, 2));
+
+            if (l + d / 2 < bigD / 2 && y < h)
+            {
+                MbArc* pBound = new MbArc(MbCartPoint( x, y), d/2);
+                MbContour* ptrContour = new MbContour();
+                ptrContour->AddSegment(pBound);
+                ptrContour->Rotate(MbCartPoint(0, 0), MbDirection(90 * DEG_TO_RAD), nullptr, nullptr);
+                ptrContoursR->Add(ptrContour);
+
+                MbArc* pBound1 = new MbArc(MbCartPoint( x,  -y), d / 2);
+                MbContour* ptrContour1 = new MbContour();
+                ptrContour1->AddSegment(pBound1);
+                ptrContour1->Rotate(MbCartPoint(0, 0), MbDirection(90 * DEG_TO_RAD), nullptr, nullptr);
+                ptrContoursR->Add(ptrContour1);
+                f.face++;
+            }
+        }
+    }
+    MbSweptData sweptData1(*pPlane, *ptrContoursR);
+    ::ExtrusionResult(*m_pResSolid, cm_Same, sweptData1, dir, extrusionParam, bo_Difference, plateNames, NULL, m_pResSolid);
+
+   
+
     
     // Уменьшение счетчиков ссылок динамических объектов ядра
     c3d::SolidSPtr MainSolid(m_pResSolid);
     ::DeleteItem(m_pResSolid);
 
     return MainSolid;
+}
+
+BuildMathModel::Faces BuildMathModel::ParametricModelCreator::getParams_model()
+{
+    return f;
 }

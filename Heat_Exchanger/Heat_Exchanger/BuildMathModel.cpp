@@ -7,6 +7,8 @@ using namespace BuildMathModel;
 // Инициализирую статическую переменную класса - обязательно
 int ParametricModelCreator::colorScheme = 0;
 
+
+
 MbModel* ParametricModelCreator::CreateHeatExchangerModel(BuildParams params)
 {
 	MbModel* model = new MbModel();

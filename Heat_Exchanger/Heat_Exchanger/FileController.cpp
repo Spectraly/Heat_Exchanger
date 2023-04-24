@@ -39,31 +39,8 @@ void FileController::exportCurrentModel(c3d::path_string path, MbModel* ptrModel
 	}
 }
 
-MbModel* FileController::importCurrentModel(c3d::path_string path)
-{
-	MbModel* importModel = new MbModel();
-	MbeConvResType importRes = c3d::ImportFromFile(*importModel, path);
-
-	if (importRes == MbeConvResType::cnv_Success) {
-		return importModel;
-	}
-	else {
-		QMessageBox::information(parentWidget, u8"Предупреждение", u8"Ошибка импорта");
-		delete importModel;
-		return nullptr;
-	}
-}
-
 void FileController::saveModel(MbModel* ptrModel)
 {
 	c3d::path_string path = getFilePath();
 	if (!path.empty()) exportCurrentModel(path, ptrModel);
-}
-
-MbModel* FileController::openModel()
-{
-	MbModel* ptrModel = nullptr;
-	c3d::path_string path = getFilePath(false);
-	if (!path.empty()) ptrModel = importCurrentModel(path);
-	return ptrModel;
 }

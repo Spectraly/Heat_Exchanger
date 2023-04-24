@@ -180,19 +180,25 @@
 #include "gcm_types.h"
 
 
-
 namespace BuildMathModel {
+	struct Faces
+	{
+		int face = 0;
+	};
+
 	class ParametricModelCreator {
 		static int colorScheme; // статическое поле инициализируется вне класса, в .cpp
 	public:
 		static MbModel* CreateHeatExchangerModel(BuildParams params);
-
+		BuildMathModel::Faces getParams_model();
 	private:
 		static MbAssembly* CreateHeatExchangerHPGAssembly(BuildParams params);
 		static MbAssembly* CreateHeatExchangerKPAssembly(BuildParams params);
 		static MbAssembly* CreateHeatExchangerTUAssembly(BuildParams params);
 	private:
 		static SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::PipeGride(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params);
 
 		static SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params);

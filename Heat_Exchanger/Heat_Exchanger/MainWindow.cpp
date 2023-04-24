@@ -48,8 +48,8 @@ void MainWindow::drawMathModel(bool fit)
 void MainWindow::makeExchangerMathModelSlot()
 {
 	BuildMathModel::BuildParams modelParams = paramsWidget->getParams_model();
-	MbModel* cylModel = BuildMathModel::ParametricModelCreator::CreateHeatExchangerModel(modelParams);
-	setCurrentModel(cylModel);
+	MbModel* exchangerModel = BuildMathModel::ParametricModelCreator::CreateHeatExchangerModel(modelParams);
+	setCurrentModel(exchangerModel);
 }
 
 void MainWindow::setupViewerSceneSlot()
@@ -102,7 +102,6 @@ void MainWindow::showParamsSlot()
 
 void MainWindow::saveFileSlot()
 {
-	//QMessageBox::warning(this, u8"Внимание", u8"Модель не экспортирована,постройте модель");
 	fileController.saveModel(currentMathModel);
 	//drawMathModel();-------------------------------------
 	makeExchangerMathModelSlot();
