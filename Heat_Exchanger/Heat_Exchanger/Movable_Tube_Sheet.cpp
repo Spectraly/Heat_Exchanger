@@ -1,21 +1,61 @@
 #include "BuildMathModel.h"
 using namespace BuildMathModel;
 
-Faces f;
 
 SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params)
 {
-    float DV, RV, L, L2, DN, RN, D, R, B1;
+    float DV, RV, L, L2, D, R, B1;
     DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
-    RV = (DV + 63) / 2; //Внутренний радиус
     L = 40; //Длина
     L2 = L / 2; //Длина
     B1 = 5; //Левый бортик
     float B2 = 8; //Правый бортик
-    D = DV - B1;
-    R = D / 2;
+    D = DV - (DV / 100 * 9);
 
+    switch ((int)DV)
+    {
+    case 325:
+        RV = (DV - 3) / 2;
+
+        break;
+    case 400:
+        RV = (DV - 2) / 2;
+        break;
+    case 500:
+        RV = (DV - 2) / 2;
+        break;
+    case 600:
+        RV = (DV - 4) / 2;
+        break;
+    case 700:
+        RV = (DV - 5) / 2;
+        break;
+    case 800:
+        RV = (DV - 5) / 2;
+        break;
+    case 900:
+        RV = (DV - 5) / 2;
+        break;
+    case 1000:
+        RV = (DV - 5) / 2;
+        break;
+    case 1200:
+        RV = (DV - 5) / 2;
+        break;
+    default:
+        if (DV < 400)
+        {
+            RV = (DV - 3) / 2;
+        }
+        else if (DV > 1200)
+        {
+            RV = (DV - 5) / 2;
+        }
+        break;
+    }
+
+
+    R = D / 2;
 
 
     float d = params.d.toDouble(); // D трубы
@@ -38,14 +78,11 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params)
     MbCartPoint p2(-L2, R);
     MbCartPoint p3(-L2 + B1, R);
     MbCartPoint p4(-L2 + B1, RV);
-    MbCartPoint p5(-L2 + 3 * B1, RV);
-    MbCartPoint p6(-L2 + 3 * B1, R + 4 * B1);
-    MbCartPoint p7(L2 - 3 * B1, R + 4 * B1);
-    MbCartPoint p8(L2 - 3 * B1, RV);
-    MbCartPoint p9(L2 - B1, RV);
-    MbCartPoint p10(L2 - B1, R);
-    MbCartPoint p11(L2, R);
-    MbCartPoint p12(L2, 0);
+    MbCartPoint p5(L2 - B1 , RV);
+    MbCartPoint p6(L2 - B1, R);
+    MbCartPoint p7(L2, R);
+    MbCartPoint p8(L2, 0);
+
 
 
     MbPlacement* pl = new MbPlacement();
@@ -58,11 +95,8 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params)
     MbLineSegment* Seg5 = new MbLineSegment(p5, p6);
     MbLineSegment* Seg6 = new MbLineSegment(p6, p7);
     MbLineSegment* Seg7 = new MbLineSegment(p7, p8);
-    MbLineSegment* Seg8 = new MbLineSegment(p8, p9);
-    MbLineSegment* Seg9 = new MbLineSegment(p9, p10);
-    MbLineSegment* Seg10 = new MbLineSegment(p10, p11);
-    MbLineSegment* Seg11 = new MbLineSegment(p11, p12);
-    MbLineSegment* Seg12 = new MbLineSegment(p12, p1);
+    MbLineSegment* Seg8 = new MbLineSegment(p8, p1);
+
 
 
 
@@ -77,10 +111,6 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params)
     ptrContour->AddSegment(Seg6);
     ptrContour->AddSegment(Seg7);
     ptrContour->AddSegment(Seg8);
-    ptrContour->AddSegment(Seg9);
-    ptrContour->AddSegment(Seg10);
-    ptrContour->AddSegment(Seg11);
-    ptrContour->AddSegment(Seg12);
 
 
 
@@ -136,7 +166,6 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params)
                 ptrContour->AddSegment(pBound);
                 ptrContour->Rotate(MbCartPoint(0, 0), MbDirection(90 * DEG_TO_RAD), nullptr, nullptr);
                 ptrContoursR->Add(ptrContour);
-                f.face += 1;
                 ptrContour->Clear();
             }
         }
@@ -157,9 +186,4 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet(BuildParams params)
     ::DeleteItem(m_pResSolid);
 
     return MainSolid;
-}
-
-BuildMathModel::Faces BuildMathModel::ParametricModelCreator::getParams_model()
-{
-    return f;
 }

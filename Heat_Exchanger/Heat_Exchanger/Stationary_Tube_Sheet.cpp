@@ -1,20 +1,21 @@
 #include "BuildMathModel.h"
 using namespace BuildMathModel;
 
-Faces f;
+Faces facesStationary;
 
 SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
 {
-   float DV,RV,L,L2,DN,RN,D,R,B1;
+   float DV,RV,L,L2,D,R,B1;
     DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
-    RV = (DV + 63)/2; //Внутренний радиус
+    RV = (DV + DV/100*19.5)/2; //Внутренний радиус
     L = 40; //Длина
     L2 = L/2; //Длина
     B1 = 5; //Левый бортик
     float B2 = 8; //Правый бортик
     D = DV - B1;
-    R=D/2;
+    R = D / 2;
+    
+
 
 
 
@@ -36,14 +37,14 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
    
     MbCartPoint p1(-L2, 0);
     MbCartPoint p2(-L2, R);
-    MbCartPoint p3(-L2+B1, R);
-    MbCartPoint p4(-L2+B1, RV);
-    MbCartPoint p5(-L2+3*B1, RV);
-    MbCartPoint p6(-L2+3*B1, R+4*B1);
-    MbCartPoint p7(L2-3*B1, R+4*B1);
-    MbCartPoint p8(L2-3*B1, RV);
-    MbCartPoint p9(L2-B1, RV);
-    MbCartPoint p10(L2-B1, R);
+    MbCartPoint p3(-L2 + B1, R);
+    MbCartPoint p4(-L2 + B1, RV);
+    MbCartPoint p5(-L2 + 3 * B1, RV);
+    MbCartPoint p6(-L2 + 3 * B1, RV - 2 * B1);
+    MbCartPoint p7(L2 - 3 * B1, RV - 2 * B1);
+    MbCartPoint p8(L2 - 3 * B1, RV);
+    MbCartPoint p9(L2 - B1, RV);
+    MbCartPoint p10(L2 - B1, R);
     MbCartPoint p11(L2, R);
     MbCartPoint p12(L2, 0);
 
@@ -136,8 +137,8 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
                 ptrContour->AddSegment(pBound);
                 ptrContour->Rotate(MbCartPoint(0, 0), MbDirection(90 * DEG_TO_RAD), nullptr, nullptr);
                 ptrContoursR->Add(ptrContour);
-                f.face+=1;
                 ptrContour->Clear();
+                facesStationary.faceStationary += 1;
             }
         }
     }
@@ -159,7 +160,7 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet(BuildParams params)
     return MainSolid;
 }
 
-BuildMathModel::Faces BuildMathModel::ParametricModelCreator::getParams_model()
+BuildMathModel::Faces BuildMathModel::ParametricModelCreator::getParamsStationary_model()
 {
-    return f;
+    return facesStationary;
 }

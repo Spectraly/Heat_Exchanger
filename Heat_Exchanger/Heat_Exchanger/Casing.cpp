@@ -112,18 +112,18 @@ SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
 
     float DV = params.diam.toDouble();//Наружный диаметр
     float L = params.length.toDouble(); //Длина
-    float A1 = params.A1.toDouble();; //Левый бортик
+    float A1 = params.A1.toDouble(); //Левый бортик
     float A = (params.A.toDouble()/100)*30; //Левый бортик
     float Dy = params.Dy.toDouble(); //Внутренний диамерт
     float H = params.height.toDouble(); //Внутренний диамерт
-    float LK = (L/100) * 79; //Длина
+    float LK = (L/100) * 78.5; //Длина
     float H2 = H/2 - Dy/2; //Внутренний диамерт
     float Ry = Dy / 2; //Внутренний диамерт
     float DN = DV + DV / 100 * 8; //Внутренний диаметр
     float RV = DV / 2; //Внутренний радиус
     float L2 = LK / 2; //Длина пополам
     float Ts = (DN - DV) / 2;//Толщина стенки
-    float DNK = (DN+38) / 2 + 10;//Наружный диаметр крышки
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 10;//Наружный диаметр крышки
     float B1 = 5; //Левый бортик
    
     // Множитель для преобразования угловых значений из градусов в радианы

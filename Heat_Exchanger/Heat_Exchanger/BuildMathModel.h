@@ -183,14 +183,14 @@
 namespace BuildMathModel {
 	struct Faces
 	{
-		int face = 0;
+		int faceStationary = 0;
 	};
 
 	class ParametricModelCreator {
 		static int colorScheme; // статическое поле инициализируется вне класса, в .cpp
 	public:
 		static MbModel* CreateHeatExchangerModel(BuildParams params);
-		BuildMathModel::Faces getParams_model();
+		BuildMathModel::Faces getParamsStationary_model();
 	private:
 		static MbAssembly* CreateHeatExchangerHPGAssembly(BuildParams params);
 		static MbAssembly* CreateHeatExchangerKPAssembly(BuildParams params);

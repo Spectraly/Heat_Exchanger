@@ -8,9 +8,22 @@ using namespace BuildMathModel;
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams params)
 {
-    ParametricModelCreator a;
+    ParametricModelCreator objFaces;
     MbPlacement3D lcs;
     vector<SPtr<MbInstance>> pair;
+
+
+    SPtr<MbSolid> mSStationary_Tube_Sheet = Stationary_Tube_Sheet(params);
+    mSStationary_Tube_Sheet->SetColor(190, 190, 190);
+    InstanceSPtr iPStationary_Tube_Sheet(new MbInstance(*mSStationary_Tube_Sheet, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbInstance> p_IPStationary_Tube_Sheet(new MbInstance(*iPStationary_Tube_Sheet, lcs));
+
+    SPtr<MbSolid> mSMovable_Tube_Sheet = Movable_Tube_Sheet(params);
+    mSMovable_Tube_Sheet->SetColor(190, 190, 190);
+    InstanceSPtr iPMovable_Tube_Sheet(new MbInstance(*mSMovable_Tube_Sheet, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbInstance> p_IPMovable_Tube_Sheet(new MbInstance(*iPMovable_Tube_Sheet, lcs));
+
+    BuildMathModel::Faces faces = objFaces.getParamsStationary_model();
 
 
     SPtr<MbSolid> mSTubeBundles = TubeBundles(params);
@@ -39,12 +52,15 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     SPtr<MbSolid> mSСasing_Cover = Casing_Cover(params);
     mSСasing_Cover->SetColor(190, 190, 190);
 
+
+
+
+
     SPtr<MbSolid> mSHalf_Ring = Half_Ring(params);
     mSHalf_Ring->SetColor(190, 190, 190);
     SPtr<MbSolid> mSFloating_Head_Cover = Floating_Head_Cover(params);
     mSFloating_Head_Cover->SetColor(190, 190, 190);
-    SPtr<MbSolid> mSStationary_Tube_Sheet = Stationary_Tube_Sheet(params);
-    mSStationary_Tube_Sheet->SetColor(190, 190, 190);
+
 
     SPtr<MbSolid> mSGasket_Casing_Cover = Gasket_Casing_Cover(params);
     mSGasket_Casing_Cover->SetColor(0, 0, 0);
@@ -73,7 +89,7 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     InstanceSPtr iPGasket_Chamber_Casing1(new MbInstance(*mSGasket_Chamber_Casing1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr iPGasket_Cover_Chamber(new MbInstance(*mSGasket_Cover_Chamber, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr iPGasket_Floating_Head(new MbInstance(*mSGasket_Floating_Head, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr iPStationary_Tube_Sheet(new MbInstance(*mSStationary_Tube_Sheet, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
 
     /*-------------------------------------------------------------------------*/
 
@@ -89,7 +105,7 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     SPtr<MbInstance> p_IPGasket_Chamber_Casing1(new MbInstance(*iPGasket_Chamber_Casing1, lcs));
     SPtr<MbInstance> p_IPGasket_Cover_Chamber(new MbInstance(*iPGasket_Cover_Chamber, lcs));
     SPtr<MbInstance> p_IPGasket_Floating_Head(new MbInstance(*iPGasket_Floating_Head, lcs));
-    SPtr<MbInstance> p_IPStationary_Tube_Sheet(new MbInstance(*iPStationary_Tube_Sheet, lcs));
+
 
     /*-------------------------------------------------------------------------*/
 
@@ -107,15 +123,17 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     pair.push_back(p_IPGasket_Cover_Chamber);
     pair.push_back(p_IPStationary_Tube_Sheet);
 
-    //pair.push_back(p_IPHalf_Ring);
-    //pair.push_back(p_IPFloating_Head_Cover);
-    //pair.push_back(p_IPGasket_Floating_Head);
+    pair.push_back(p_IPMovable_Tube_Sheet);
+    pair.push_back(p_IPHalf_Ring);
+    pair.push_back(p_IPFloating_Head_Cover);
+    pair.push_back(p_IPGasket_Floating_Head);
    
 
-    BuildMathModel::Faces f = a.getParams_model();
-    MbAssembly* assm = new MbAssembly(pair);
 
-    assm->SetPlacement(lcs);
+
+    MbAssembly* assm = new MbAssembly(pair);
+    assm->SetPlacement(lcs);    
+
     MtGeomArgument ChamberGa(mSDistribution_Chamber->GetFace(11), p_IPDistribution_Chamber);
     MtGeomArgument GasketCh(mSGasket_Cover_Chamber->GetFace(0), p_IPGasket_Cover_Chamber);
     assm->AddConstraint(GCM_DISTANCE, ChamberGa, GasketCh, 0);
@@ -156,19 +174,34 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     assm->AddConstraint(GCM_DISTANCE, CoverGaCa, GasketCoCa, 0);
     assm->EvaluateConstraints();
 
-    MtGeomArgument TubeG(mSTubeBundles->GetFace(0), p_IPTubeBundles);
-    MtGeomArgument TubeRG(mSStationary_Tube_Sheet->GetFace(0), p_IPStationary_Tube_Sheet);
-    assm->AddConstraint(GCM_DISTANCE, TubeG, TubeRG, -params.l.toDouble());
+    MtGeomArgument Tube(mSTubeBundles->GetFace(0), p_IPTubeBundles);
+    MtGeomArgument TubeR(mSStationary_Tube_Sheet->GetFace(0), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_DISTANCE, Tube, TubeR, -params.l.toDouble());
     assm->EvaluateConstraints();
-
-   /* MtGeomArgument Tube(mSTubeBundles->GetFace(3), p_IPTubeBundles);
-    MtGeomArgument TubeR(mSStationary_Tube_Sheet->GetFace(11 + f.face), p_IPStationary_Tube_Sheet);
-    assm->AddConstraint(GCM_CONCENTRIC, Tube, TubeR);
-    assm->EvaluateConstraints();*/
 
     MtGeomArgument Tube1(mSTubeBundles->GetFace(7), p_IPTubeBundles);
     MtGeomArgument TubeR1(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
     assm->AddConstraint(GCM_CONCENTRIC, Tube1, TubeR1);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument TubeM1(mSTubeBundles->GetFace(1), p_IPTubeBundles);
+    MtGeomArgument TubeMR1(mSMovable_Tube_Sheet->GetFace(1), p_IPMovable_Tube_Sheet);
+    assm->AddConstraint(GCM_DISTANCE, TubeM1, TubeMR1, -params.l.toDouble());
+    assm->EvaluateConstraints();
+
+    MtGeomArgument FloatR(mSHalf_Ring->GetFace(1), p_IPHalf_Ring);
+    MtGeomArgument FloatM(mSMovable_Tube_Sheet->GetFace(4), p_IPMovable_Tube_Sheet);
+    assm->AddConstraint(GCM_DISTANCE, FloatR, FloatM, 0);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument FloatM1(mSMovable_Tube_Sheet->GetFace(5), p_IPMovable_Tube_Sheet);
+    MtGeomArgument FloatGa(mSGasket_Floating_Head->GetFace(2), p_IPGasket_Floating_Head);
+    assm->AddConstraint(GCM_DISTANCE, FloatM1, FloatGa, 0);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument FloatGa1(mSGasket_Floating_Head->GetFace(0), p_IPGasket_Floating_Head);
+    MtGeomArgument FloatC(mSFloating_Head_Cover->GetFace(5), p_IPFloating_Head_Cover);
+    assm->AddConstraint(GCM_DISTANCE, FloatGa1, FloatC,0);
     assm->EvaluateConstraints();
 
     MtGeomArgument Supports(mSHeat_Exchanger_Supports->GetFace(5), p_IPHeat_Exchanger_Supports);
@@ -189,9 +222,7 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     MtGeomArgument Supports31(mSHeat_Exchanger_Supports1->GetFace(4), p_IPHeat_Exchanger_Supports1);
     MtGeomArgument Supports3(mSHeat_Exchanger_Supports->GetFace(6), p_IPHeat_Exchanger_Supports);
     assm->AddConstraint(GCM_DISTANCE, Supports31, Supports3, -params.l0.toDouble());
-    assm->EvaluateConstraints();
-
-    
+    assm->EvaluateConstraints();   
 
 	return assm;
 }
