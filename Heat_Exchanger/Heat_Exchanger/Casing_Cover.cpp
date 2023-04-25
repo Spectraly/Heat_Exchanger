@@ -18,8 +18,8 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover(BuildParams params)
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(-LC + B1, RV);
-    MbCartPoint p2(-LC + B1, RV + Ts + 3 * B1);
+    MbCartPoint p1(-LC + 2* B1, RV);
+    MbCartPoint p2(-LC + 2* B1, RV + Ts + 3 * B1);
     MbCartPoint p3(-LC, RV + Ts + 3 * B1);
     MbCartPoint p4(-LC, RV + Ts + 7 * B1);
     MbCartPoint p5(-LC + 5 * B1, RV + Ts + 7 * B1);

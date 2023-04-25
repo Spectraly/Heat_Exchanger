@@ -4,21 +4,57 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover(BuildParams params)
 {
-   float DV,RV,DN,LK,L2,B1,B2,A1,A2;
+   float DV,RV,B1;
     DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
-    RV = DV/2; //Внутренний радиус
-    LK = 200; //Длина
     B1 = 5; //Левый бортик
-    B2 = 10; //Правый бортик
 
+    switch ((int)DV)
+    {
+    case 325:
+        RV = (DV - 3) / 2;
+        break;
+    case 400:
+        RV = (DV - 2) / 2;
+        break;
+    case 500:
+        RV = (DV - 2) / 2;
+        break;
+    case 600:
+        RV = (DV - 4) / 2;
+        break;
+    case 700:
+        RV = (DV - 5) / 2;
+        break;
+    case 800:
+        RV = (DV - 5) / 2;
+        break;
+    case 900:
+        RV = (DV - 5) / 2;
+        break;
+    case 1000:
+        RV = (DV - 5) / 2;
+        break;
+    case 1200:
+        RV = (DV - 5) / 2;
+        break;
+    default:
+        if (DV < 400)
+        {
+            RV = (DV - 3) / 2;
+        }
+        else if (DV > 1200)
+        {
+            RV = (DV - 5) / 2;
+        }
+        break;
+    }
     
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(-30,RV+5*B1);
-    MbCartPoint p2(0,RV+5*B1); 
+    MbCartPoint p1(-30,RV+3*B1);
+    MbCartPoint p2(0,RV+3*B1); 
     
     MbCartPoint p3(0, RV+B1);
     MbCartPoint p4(65, 0);

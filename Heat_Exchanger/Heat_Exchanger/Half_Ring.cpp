@@ -4,14 +4,12 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Half_Ring(BuildParams params)
 {
-   float DVP,RVP,LP,DNP,RNP,DR,RR,B1;
-    DVP = 300-6; //Внутренний диаметр
+   float DVP,RVP,LP,DR,RR,B1;
+    DVP = params.diam.toDouble() -6; //Внутренний диаметр
     RVP = DVP/2; //Внутренний радиус
-    LP = 42; //Длина
-    DNP = DVP + 30;//Наружный диаметр
-    RNP = DNP/2;
+    LP = 25; //Длина
     B1 = 5; //Левый бортик
-    DR = 276;
+    DR = DVP - (DVP / 100 * 9);
     RR=DR/2;
 
 
@@ -21,8 +19,8 @@ SPtr<MbSolid> ParametricModelCreator::Half_Ring(BuildParams params)
     //Создание двумерные точки на осях X и Y
    
     MbCartPoint p1(0, RR);
-    MbCartPoint p2(0, RNP);
-    MbCartPoint p3(LP, RNP);
+    MbCartPoint p2(0, RVP +3 * B1);
+    MbCartPoint p3(LP, RVP +3 * B1);
     MbCartPoint p4(LP, RVP);
     MbCartPoint p5(LP-B1, RVP);
     MbCartPoint p6(LP-B1, RR);

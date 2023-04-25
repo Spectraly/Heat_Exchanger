@@ -4,11 +4,12 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover(BuildParams params)
 {
-   float B1,DN,DV,RV;
+   float B1,DN,DV,RV,Ts;
     B1 = 5; //Левый бортик
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
     RV = DV / 2 + 30; //Внутренний радиус
+    Ts = (DN - DV) / 2;//Толщина стенки
     
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -16,8 +17,8 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover(BuildParams params)
    
     MbCartPoint p1(B1, RV);
     MbCartPoint p2(-B1, RV);
-    MbCartPoint p3(-B1, RV + 5 * B1);
-    MbCartPoint p4(B1, RV + 5 * B1);
+    MbCartPoint p3(-B1, RV + Ts + 3 * B1);
+    MbCartPoint p4(B1, RV + Ts + 3 * B1);
 
 
     

@@ -127,7 +127,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
     float L2 = LK/2; //Длина
     float RV = DV / 2; //Внутренний радиус
     float Ts = (DN - DV) / 2;//Толщина стенки
-    float DNK = (DN + 38) / 2 + 10;//Наружный диаметр крышки
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
     int B1 = 5; //Левый бортик
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;

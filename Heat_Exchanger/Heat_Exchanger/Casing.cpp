@@ -123,7 +123,7 @@ SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
     float RV = DV / 2; //Внутренний радиус
     float L2 = LK / 2; //Длина пополам
     float Ts = (DN - DV) / 2;//Толщина стенки
-    float DNK = (DV + DV / 100 * 19.5) / 2 + 10;//Наружный диаметр крышки
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
     float B1 = 5; //Левый бортик
    
     // Множитель для преобразования угловых значений из градусов в радианы

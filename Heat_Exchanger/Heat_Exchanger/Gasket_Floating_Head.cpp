@@ -4,11 +4,11 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head(BuildParams params)
 {
-    float DVP,RVP,LP,DNP,RNP,DR,RR,B1;
-    DVP = 300-6; //Внутренний диаметр
+    float DVP,RVP,DR,RR,B1;
+    DVP = params.diam.toDouble(); //Внутренний диаметр
     RVP = DVP/2; //Внутренний радиус
     B1 = 5; //Левый бортик
-    DR = 276;
+    DR = DVP - (DVP / 100 * 9);
     RR=DR/2;
 
 

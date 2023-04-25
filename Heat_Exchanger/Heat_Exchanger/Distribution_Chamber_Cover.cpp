@@ -2,20 +2,19 @@
 using namespace BuildMathModel;
 
 // Вспомогательная функция для построения образующей в виде квадрата со скруглениями.
-void CreateSketchKK(RPArray<MbContour>& _arrContours, float RV, float DNK)
+void CreateSketchKK(RPArray<MbContour>& _arrContours, float L, float RV, float DNK)
 {
-    float L,B1;
-    L = 25; //Длина
-    B1 = 5; //Левый бортик
+
+    float B1 = 5; //Левый бортик
 
     // Размер массива - 10 точек
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(0, 0));
     arrPnts.Add(MbCartPoint(0, DNK));
-    arrPnts.Add(MbCartPoint(3 * B1, DNK));
-    arrPnts.Add(MbCartPoint(3 * B1, DNK - 2 * B1));
-    arrPnts.Add(MbCartPoint(4 * B1, DNK - 2 * B1));
-    arrPnts.Add(MbCartPoint(4 * B1, RV));
+    arrPnts.Add(MbCartPoint(L - 2 * B1, DNK));
+    arrPnts.Add(MbCartPoint(L - 2 * B1, DNK - 2 * B1));
+    arrPnts.Add(MbCartPoint(L - B1, DNK - 2 * B1));
+    arrPnts.Add(MbCartPoint(L -B1, RV));
     arrPnts.Add(MbCartPoint(L, RV));
     arrPnts.Add(MbCartPoint(L, 0));
 
@@ -55,13 +54,12 @@ void CreateSketch1KK(RPArray<MbContour>& _arrContours, float L)
 SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams params)
 {
 
-    float L = 25; //Длина
-    float DV,DN,DNK,RV,LK;
+    float DV,DN,DNK,RV;
+    float L = params.length.toDouble() /100 * 0.6; //Длина
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
-    DNK = (DV + DV / 100 * 19.5) / 2 + 10;//Наружный диаметр крышки
+    DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
     RV = DV / 2; //Внутренний радиус
-    LK = 430;
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -70,7 +68,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams par
 
     // Вызов функции для построения образующей (из примера 6)
     RPArray<MbContour> arrContours, arrContours1;
-    CreateSketchKK(arrContours,RV, DNK);
+    CreateSketchKK(arrContours,L,RV, DNK);
     CreateSketch1KK(arrContours1,L);
 
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0),MbCartPoint3D(0, 1, 0));
