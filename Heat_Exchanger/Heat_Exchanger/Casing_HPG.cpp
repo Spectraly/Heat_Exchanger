@@ -2,10 +2,6 @@
 
 using namespace BuildMathModel;
 
-
-
-
-
 void CreateSketch(RPArray<MbContour>& _arrContours,float RV,float L2, float DNK, float Ts,float B1)
 {
 
@@ -107,7 +103,7 @@ void CreateSketch3(RPArray<MbContour>& _arrContours, float RV, float L2, float A
     _arrContours.push_back(pContourPolyline);
 }
 
-SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Casing_HPG(BuildParams params)
 {
 
     float DV = params.diam.toDouble();//Наружный диаметр
@@ -147,19 +143,16 @@ SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
 
     RevolutionValues revParms(360*DEG_TO_RAD, 0, 0);
 
-    // Именователи для операции построения тела вращения и для контуров образующей
+
     MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
     PArray<MbSNameMaker> cNames(0, 1, false);
 
-    // Ось вращения для построения тела:
     MbAxis3D axis(pl.GetAxisX());
     MbAxis3D axis1(pl1.GetAxisY());
     MbAxis3D axis2(pl2.GetAxisY());
     axis1.Move(MbVector3D(MbCartPoint3D(0, 0, 0), MbCartPoint3D(-L2+A, 0, 0)));
     axis2.Move(MbVector3D(MbCartPoint3D(0, 0, 0), MbCartPoint3D(-L2+A+A1, 0, 0)));
 
-
-    // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid *pCasing = nullptr,*pConnector1 = nullptr,*pConnector2 = nullptr;
     ::RevolutionSolid(sweptData, axis, revParms,operNames, cNames, pCasing);
     ::RevolutionSolid(sweptData1, axis1, revParms,operNames, cNames, pConnector1);
@@ -167,50 +160,47 @@ SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
      
      //---------------------------------------------------------//
      MbSNameMaker operBoolNames( ct_BooleanSolid, MbSNameMaker::i_SideNone ); 
-        // Исходные тела - цилиндры
     MbSolid *pCyl1 = NULL, *pCyl2 = NULL, *pCyl3 = NULL, *pCyl4 = NULL, *pCyl5 = NULL;
     
-    // Объект-именователь для построения цилиндров - элементарных тел
     MbSNameMaker cylNames(ct_ElementarySolid, MbSNameMaker::i_SideNone); 
     
-    // Массив точек для построения первого цилиндра   
     SArray<MbCartPoint3D> pntsCyl1(3);
     pntsCyl1.Add(MbCartPoint3D(-L2+A, 0, 0));
     pntsCyl1.Add(MbCartPoint3D(-L2+A, H2, 0));
     pntsCyl1.Add(MbCartPoint3D(-L2+A, 0, Ry + Ts));
-    // Построение элементарного тела - цилиндра - по трем точкам
+
    ::ElementarySolid( pntsCyl1, et_Cylinder, cylNames, pCyl1 );
    
    SArray<MbCartPoint3D> pntsCyl2(3);
     pntsCyl2.Add(MbCartPoint3D(-L2+A+A1, 0, 0));
     pntsCyl2.Add(MbCartPoint3D(-L2+A+A1, -H2, 0));
     pntsCyl2.Add(MbCartPoint3D(-L2+A+A1, 0, Ry + Ts));
-    // Построение элементарного тела - цилиндра - по трем точкам
+
    ::ElementarySolid( pntsCyl2, et_Cylinder, cylNames, pCyl2 );
    
     SArray<MbCartPoint3D> pntsCyl3(3);
     pntsCyl3.Add(MbCartPoint3D(-L2+A, 0, 0));
     pntsCyl3.Add(MbCartPoint3D(-L2+A, H2, 0));
     pntsCyl3.Add(MbCartPoint3D(-L2+A, 0, Ry));  
-    // Построение элементарного тела - цилиндра - по трем точкам
+
    ::ElementarySolid( pntsCyl3, et_Cylinder, cylNames, pCyl3 );
    
     SArray<MbCartPoint3D> pntsCyl4(3);
     pntsCyl4.Add(MbCartPoint3D(-L2+A+A1, 0, 0));
     pntsCyl4.Add(MbCartPoint3D(-L2+A+A1, -H2, 0));
     pntsCyl4.Add(MbCartPoint3D(-L2+A+A1, 0, Ry));  
-    // Построение элементарного тела - цилиндра - по трем точкам
+
    ::ElementarySolid( pntsCyl4, et_Cylinder, cylNames, pCyl4 );
    
     SArray<MbCartPoint3D> pntsCyl5(3);
     pntsCyl5.Add(MbCartPoint3D(-L2, 0, 0));
     pntsCyl5.Add(MbCartPoint3D(L2, 0, 0));
     pntsCyl5.Add(MbCartPoint3D(-L2, RV, 0));  
-    // Построение элементарного тела - цилиндра - по трем точкам
+
    ::ElementarySolid( pntsCyl5, et_Cylinder, cylNames, pCyl5 );
    
     //---------------------------------------------------------//
-    // Флаги булевой операции: построение замкнутого тела с объединением подобных граней и ребер.
+
     MbBooleanFlags flagsBool;
     flagsBool.InitBoolean(true);
     flagsBool.SetMergingFaces(true);
@@ -234,7 +224,7 @@ SPtr<MbSolid> ParametricModelCreator::Casing(BuildParams params)
     MbSolid* pPlate = nullptr;
 
     ::ExtrusionSolid(sweptData3, dir, pResSolid, pResSolid, false, extrusionParam, operNames, cNames, pPlate);
-    MbResultType res = ::BooleanResult(*pResSolid, cm_Copy, *pPlate, cm_Copy, bo_Union, flagsBool, operBoolNames, pResSolid);
+    ::BooleanResult(*pResSolid, cm_Copy, *pPlate, cm_Copy, bo_Union, flagsBool, operBoolNames, pResSolid);
 
     c3d::SolidSPtr MainSolid(pResSolid);
     // Уменьшение счетчиков ссылок динамических объектов ядра

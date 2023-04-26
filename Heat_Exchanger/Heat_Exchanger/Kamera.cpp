@@ -204,7 +204,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_ChamberTY(double length)
 
   
     c3d::SolidSPtr MainSolid(pResSolid);
-    pResSolid->Move(MbVector3D(-length/2 - LK/2, 0, 0));
+    pResSolid->Move(MbVector3D(-(length / 100) * 78.5 /2 - LK/2, 0, 0));
 
     // Уменьшение счетчиков ссылок динамических объектов ядра
     ::DeleteItem(pResSolid);

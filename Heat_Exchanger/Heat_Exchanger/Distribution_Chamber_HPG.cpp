@@ -4,7 +4,6 @@ using namespace BuildMathModel;
 void CreateSketchK(RPArray<MbContour>& _arrContours,float RV, float DNK, float Ts, float L2, float B1)
 {
 
-
     // Размер массива - 12 точек
     SArray<MbCartPoint> arrPnts(12);
     arrPnts.Add(MbCartPoint(-L2 + B1, 0));
@@ -113,7 +112,7 @@ void CreateSketchK3(RPArray<MbContour>& _arrContours,float L2, float B1)
     _arrContours.push_back(pContourPolyline);
 }
 
-SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_HPG(BuildParams params)
 {
     float Dy = params.Dy1.toDouble(); //Внутренний диамерт
     float DV = params.diam.toDouble();//Наружный диаметр
@@ -128,7 +127,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
     float RV = DV / 2; //Внутренний радиус
     float Ts = (DN - DV) / 2;//Толщина стенки
     float DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
-    int B1 = 5; //Левый бортик
+    float B1 = 5; //Левый бортик
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -144,11 +143,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
 
     CreateSketchK2(arrContours2, RV, Dy, Ts,H2);
 
-    // Подготовка параметров для вызова функции построения тела вращения.
     CreateSketchK3(arrContours3,L2, B1);
-
-
-
 
     // sweptData - объект, в котором хранятся сведения об образующей.
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0), MbCartPoint3D(0, 1, 0));
@@ -227,7 +222,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber(BuildParams params)
     MbVector3D dir(0, 0, -1);
 
 
-    ExtrusionValues extrusionParam(294,294);
+    ExtrusionValues extrusionParam;
 
     extrusionParam.side1.way = sw_shell;
     extrusionParam.side2.way = sw_shell;

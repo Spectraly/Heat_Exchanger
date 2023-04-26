@@ -207,10 +207,9 @@ void ParamsWidget::setValidators()
 	ui.lineEdit_l3->setValidator(valDouble);
 	ui.lineEdit_h->setValidator(valDouble);
 
-	ui.comboBoxExchangerType->addItem("Холодильник с плавающей головкой");
+	ui.comboBoxExchangerType->addItem("Холодильник с плавающей головкой горизонтальный");
 	ui.comboBoxExchangerType->addItem("Конденсатор с плавающей головкой");
-	ui.comboBoxExchangerType->addItem("Теплообменник с U-образными трубами");
-
+	ui.comboBoxExchangerType->addItem("Теплообменный аппарат с U - образными трубами");
 
 	ui.comboBox_Diam->addItem("325");
 	ui.comboBox_Diam->addItem("400");
@@ -376,6 +375,7 @@ void ParamsWidget::onTypeChanged()
 	switch (ui.comboBoxExchangerType->currentIndex())
 	{
 	case HPG_MODEL:
+		ui.label_Header->setText("Холодильник с плавающей\n головкой горизонтальный");
 		modelParams.type = HPG_MODEL;
 		ui.label_Dy2->setHidden(true);
 		ui.lineEdit_Dy2->setHidden(true);
@@ -391,6 +391,7 @@ void ParamsWidget::onTypeChanged()
 		break;
 	case KP_MODEL:
 		modelParams.type = KP_MODEL;
+		ui.label_Header->setText("Конденсатор с плавающей головкой");
 		ui.label_A->setHidden(true);
 		ui.label_A1->setHidden(true);
 		ui.label_l->setHidden(true);
@@ -411,6 +412,7 @@ void ParamsWidget::onTypeChanged()
 		combo->addItem("1200");
 		break;
 	case TU_MODEL:
+		ui.label_Header->setText("Теплообменный аппарат с\n U - образными трубами");
 		modelParams.type = TU_MODEL;
 		ui.label_Dy1->setHidden(true);
 		ui.label_Dy2->setHidden(true);

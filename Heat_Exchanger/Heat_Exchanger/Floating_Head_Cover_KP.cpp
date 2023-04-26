@@ -2,55 +2,88 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_KP(BuildParams params)
 {
-    float DV, RV, LC, L, DN, Ts, B1, Rb, Rm;
+   float DV,RV,B1;
     DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
-    L = params.length.toDouble();
-    RV = DV / 2 + 30; //Внутренний радиус
-    LC = (L / 100) * 5;
-    B1 = 5; //Правый бортик
-    Ts = (DN - DV) / 2;//Толщина стенки
-    Rm = (L / 100) * 1.7;
-    Rb = Rm + Ts;
-    Rm = 116;
+    B1 = 5; //Левый бортик
 
+    switch ((int)DV)
+    {
+    case 325:
+        RV = (DV - 3) / 2;
+        break;
+    case 400:
+        RV = (DV - 2) / 2;
+        break;
+    case 500:
+        RV = (DV - 2) / 2;
+        break;
+    case 600:
+        RV = (DV - 4) / 2;
+        break;
+    case 700:
+        RV = (DV - 5) / 2;
+        break;
+    case 800:
+        RV = (DV - 5) / 2;
+        break;
+    case 900:
+        RV = (DV - 5) / 2;
+        break;
+    case 1000:
+        RV = (DV - 5) / 2;
+        break;
+    case 1200:
+        RV = (DV - 5) / 2;
+        break;
+    default:
+        if (DV < 400)
+        {
+            RV = (DV - 3) / 2;
+        }
+        else if (DV > 1200)
+        {
+            RV = (DV - 5) / 2;
+        }
+        break;
+    }
     
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(-LC + 2 * B1, RV);
-    MbCartPoint p2(-LC + 2 * B1, RV + Ts + 3 * B1);
-    MbCartPoint p3(-LC, RV + Ts + 3 * B1);
-    MbCartPoint p4(-LC, RV + Ts + 7 * B1);
-    MbCartPoint p5(-LC + 5 * B1, RV + Ts + 7 * B1);
-    MbCartPoint p6(-LC + 5 * B1, RV + Ts);
-    MbCartPoint p7(0, RV + Ts);
-    MbCartPoint p8(Rb, 0);
-    MbCartPoint p9(Rm, 0);
-    MbCartPoint p10(0, RV);
+    MbCartPoint p1(-30,RV+3*B1);
+    MbCartPoint p2(0,RV+3*B1); 
+    
+    MbCartPoint p3(0, RV+B1);
+    MbCartPoint p4(65, 0);
+    MbCartPoint p5(45, 0);
+    MbCartPoint p6(-15, RV-3*B1);
+    
+    MbCartPoint p7(-15,RV);
+    MbCartPoint p8(-30,RV);
 
     
     MbPlacement* pl = new MbPlacement();
+    MbPlacement* pl1 = new MbPlacement(MbCartPoint(-15,0),MbDirection(0.0));
 
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
     MbLineSegment* Seg2 = new MbLineSegment(p2, p3);
-    MbLineSegment* Seg3 = new MbLineSegment(p3, p4);
+ 
+    MbArc* Seg3 = new MbArc(65, RV+B1, *pl, p3, p4 ,-1);
     MbLineSegment* Seg4 = new MbLineSegment(p4, p5);
-    MbLineSegment* Seg5 = new MbLineSegment(p5, p6);
+    MbArc* Seg5 = new MbArc(60, RV-3*B1, *pl1, p5, p6 ,1);
     MbLineSegment* Seg6 = new MbLineSegment(p6, p7);
-    MbArc* Seg7 = new MbArc(Rb, RV + Ts, *pl, p7, p8 ,-1);
-    MbLineSegment* Seg8 = new MbLineSegment(p8, p9);
-    MbArc* Seg9 = new MbArc(Rm, RV, *pl, p9, p10 ,1);
-    MbLineSegment* Seg10 = new MbLineSegment(p10, p1);
-
+    
+    MbLineSegment* Seg7 = new MbLineSegment(p7, p8);
+    MbLineSegment* Seg8 = new MbLineSegment(p8, p1);
 
 
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
+    //Добавление в контур сегментов
     
     ptrContour->AddSegment(Seg1);
     ptrContour->AddSegment(Seg2);
@@ -60,8 +93,7 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
     ptrContour->AddSegment(Seg6);
     ptrContour->AddSegment(Seg7);
     ptrContour->AddSegment(Seg8);
-    ptrContour->AddSegment(Seg9);
-    ptrContour->AddSegment(Seg10);
+
     
    
 
@@ -90,8 +122,7 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
 
     // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid* m_pResSolid = nullptr;
-    MbResultType res = RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
-    
+    ::RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
 
     // Уменьшение счетчиков ссылок динамических объектов ядра
     c3d::SolidSPtr MainSolid(m_pResSolid);

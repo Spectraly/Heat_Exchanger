@@ -85,7 +85,7 @@ void MainWindow::aboutSlot()
 	str += u8"На базе <a href=\"https://c3dlabs.com/ru/products/c3d-toolkit/\">C3D Toolkit</a> , Vision 2.6.4.6<br/>";
 	str += u8"Подробнее на странице GitHub <a href=\"" + GitRepo + u8"\">репозитория</a><br/>";
 	str += u8"Версия: " + QApplication::applicationVersion() + "<hr/>";
-	str += u8"Создано в рамках курсового проекта";
+	str += u8"Создано в рамках дипломной работы";
 	QMessageBox::about(this, "About", str);
 }
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1343</width>
-    <height>780</height>
+    <width>1161</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,12 @@
     </property>
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -161,7 +167,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1343</width>
+     <width>1161</width>
      <height>26</height>
     </rect>
    </property>
@@ -176,7 +182,6 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="action_open"/>
     <addaction name="action_save"/>
    </widget>
    <widget class="QMenu" name="menu_3">
@@ -213,7 +218,7 @@
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string>Параметры</string>
+    <string>     Параметры</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>

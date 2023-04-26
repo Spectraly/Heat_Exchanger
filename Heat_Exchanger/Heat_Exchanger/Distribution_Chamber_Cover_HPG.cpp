@@ -51,15 +51,16 @@ void CreateSketch1KK(RPArray<MbContour>& _arrContours, float L)
     _arrContours.push_back(pContourPolyline);
 }
 
-SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover_HPG(BuildParams params)
 {
 
-    float DV,DN,DNK,RV;
-    float L = params.length.toDouble() /100 * 0.6; //Длина
+    float DV,DN,DNK,RV,L;
+    L = params.length.toDouble() /100 * 0.6; //Длина
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
     DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
     RV = DV / 2; //Внутренний радиус
+
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 

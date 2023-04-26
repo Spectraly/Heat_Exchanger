@@ -2,11 +2,12 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Half_Ring_KP(BuildParams params)
 {
-    float DVP,RVP,DR,RR,B1;
-    DVP = params.diam.toDouble(); //Внутренний диаметр
+   float DVP,RVP,LP,DR,RR,B1;
+    DVP = params.diam.toDouble() -6; //Внутренний диаметр
     RVP = DVP/2; //Внутренний радиус
+    LP = 25; //Длина
     B1 = 5; //Левый бортик
     DR = DVP - (DVP / 100 * 9);
     RR=DR/2;
@@ -17,11 +18,12 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head(BuildParams params)
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(B1/2, RR);
-    MbCartPoint p2(-B1/2, RR);
-    MbCartPoint p3(-B1/2, RVP);
-    MbCartPoint p4(B1/2, RVP);
-
+    MbCartPoint p1(0, RR);
+    MbCartPoint p2(0, RVP +3 * B1);
+    MbCartPoint p3(LP, RVP +3 * B1);
+    MbCartPoint p4(LP, RVP);
+    MbCartPoint p5(LP-B1, RVP);
+    MbCartPoint p6(LP-B1, RR);
 
     
     MbPlacement* pl = new MbPlacement();
@@ -30,8 +32,9 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head(BuildParams params)
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
     MbLineSegment* Seg2 = new MbLineSegment(p2, p3);
     MbLineSegment* Seg3 = new MbLineSegment(p3, p4);
-    MbLineSegment* Seg4 = new MbLineSegment(p4, p1);
-
+    MbLineSegment* Seg4 = new MbLineSegment(p4, p5);
+    MbLineSegment* Seg5 = new MbLineSegment(p5, p6);
+    MbLineSegment* Seg6 = new MbLineSegment(p6, p1);
 
 
 
@@ -42,7 +45,8 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head(BuildParams params)
     ptrContour->AddSegment(Seg2);
     ptrContour->AddSegment(Seg3);
     ptrContour->AddSegment(Seg4);
-
+    ptrContour->AddSegment(Seg5);
+    ptrContour->AddSegment(Seg6);
     
    
 
@@ -54,6 +58,7 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head(BuildParams params)
     //Создание образующей для тела вращения
     RPArray<MbContour>* ptrContours = new RPArray<MbContour>();
     ptrContours->Add(ptrContour);
+    
     //объект, в котором хранятся сведения об образующей
     MbSweptData* pCurves;
     pCurves = new MbSweptData(*ptrSurface, *ptrContours);

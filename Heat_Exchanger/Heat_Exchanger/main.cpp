@@ -17,7 +17,6 @@ int main(int argc, char* argv[])
 
 	QApplication app(argc, argv);
 	app.setStyle(QStyleFactory::create("Fusion"));
-	app.setApplicationName(u8"Конфигуратор  модели 'Холодильник с плавающей головкой горизонтальный'");
 	app.setApplicationVersion("1.0");
 
 	if (!QtVision::activateLicense())

@@ -2,7 +2,7 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover_HPG(BuildParams params)
 {
    float B1,DN,DV,RV,Ts;
     B1 = 5; //Левый бортик

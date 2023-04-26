@@ -2,31 +2,22 @@
 using namespace BuildMathModel;
 
 
-void CreateSketchKP(RPArray<MbContour>& _arrContours)
+void CreateSketchKP(RPArray<MbContour>& _arrContours, float RV, float L2, float DNK, float Ts, float B1)
 {
-    float DV,RV,LK,L2,B1,DNK,DN,TS;
-    DV = 600; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
-    DNK = 663/2+12.5;//Наружный диаметр крышки
-    DN = DV + 30;//Наружный диаметр
-    TS = (DN-DV)/2;//Толщина стенки
-    LK = 5740; //Длина
-    L2 = LK/2; //Длина пополам
-    B1 = 7; //Левый бортик
     
     // Размер массива - 12 точек
     SArray<MbCartPoint> arrPnts(12);
-    arrPnts.Add(MbCartPoint(-L2+B1, 0));//1
-    arrPnts.Add(MbCartPoint(-L2+B1, DNK-2*B1));//2
-    arrPnts.Add(MbCartPoint(-L2, DNK-2*B1));//3
+    arrPnts.Add(MbCartPoint(-L2 + B1, 0));//1
+    arrPnts.Add(MbCartPoint(-L2 + B1, DNK - 2 * B1));//2
+    arrPnts.Add(MbCartPoint(-L2, DNK - 2 * B1));//3
     arrPnts.Add(MbCartPoint(-L2, DNK));//4
-    arrPnts.Add(MbCartPoint(-L2+4.5*B1, DNK));//5
-    arrPnts.Add(MbCartPoint(-L2+4.5*B1, RV+TS));//6
-    arrPnts.Add(MbCartPoint(L2-7*B1, RV+TS));//7
-    arrPnts.Add(MbCartPoint(L2-7*B1, RV+6*TS));//8
-    arrPnts.Add(MbCartPoint(L2-3*B1, RV+6*TS));//9
-    arrPnts.Add(MbCartPoint(L2-3*B1, RV+6*TS-4*B1));//10
-    arrPnts.Add(MbCartPoint(L2, RV+6*TS-4*B1));//11
+    arrPnts.Add(MbCartPoint(-L2 + 4.5 * B1, DNK));//5
+    arrPnts.Add(MbCartPoint(-L2 + 4.5 * B1, RV + Ts));//6
+    arrPnts.Add(MbCartPoint(L2 - 7 * B1, RV + Ts));//7
+    arrPnts.Add(MbCartPoint(L2 - 7 * B1, RV + 2 * Ts + 8 * B1));//8
+    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 2 * Ts + 8 * B1));//9
+    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 2 * Ts + 4 * B1));//10
+    arrPnts.Add(MbCartPoint(L2, RV + 2 * Ts + 4 * B1));//11
     arrPnts.Add(MbCartPoint(L2, 0));//12
 
 
@@ -38,29 +29,22 @@ void CreateSketchKP(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-void CreateSketchKP1(RPArray<MbContour>& _arrContours)
+void CreateSketchKP1(RPArray<MbContour>& _arrContours, float RV, float L2, float Dy2, float Dy, float Ts, float A, float H2)
 {
-    float DV,RV,Dy,Ry,TS,DN,LK,L2,S,A2;
-    DV = 600; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
-    Dy = 100;
-    Ry = Dy/2;
-    DN = DV + 30;//Наружный диаметр
-    TS = (DN-DV)/2;//Толщина стенки
-    LK = 5740; //Длина
-    L2 = LK/2; //Длина пополам
-    A2 = 815; //Левый бортик
-    S = -L2+A2;//Формула для левой трубы
+    float Ry2 = Dy2 / 2; //Внутренний диамерт
+    float Ry = Dy / 2; //Внутренний диамерт
+
+    float S = -L2+A;//Формула для левой трубы
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
-    arrPnts.Add(MbCartPoint(S-Ry-TS, -RV-215));
-    arrPnts.Add(MbCartPoint(S-Ry-TS-10, -RV-215-25));
-    arrPnts.Add(MbCartPoint(S-Dy, -RV-215-25));
-    arrPnts.Add(MbCartPoint(S-Dy, -RV-215-40));
-    arrPnts.Add(MbCartPoint(S-Ry-TS-10, -RV-215-40));
-    arrPnts.Add(MbCartPoint(S-Ry-TS, -RV-215-50));
-    arrPnts.Add(MbCartPoint(S-Ry, -RV-215-50));
-    arrPnts.Add(MbCartPoint(S-Ry, -RV-215));
+    arrPnts.Add(MbCartPoint(S - Ry2 - Ts, -H2));
+    arrPnts.Add(MbCartPoint(S - Ry2 - Ts - 10, -H2 - Ry / 2));
+    arrPnts.Add(MbCartPoint(S - Ry2 - Ts - Ry2 / 2, -H2 - Ry / 2));
+    arrPnts.Add(MbCartPoint(S - Ry2 - Ts - Ry2 / 2, -H2 - Ry * 4 / 5));
+    arrPnts.Add(MbCartPoint(S - Ry2 - Ts - 10, -H2 - Ry * 4 / 5));
+    arrPnts.Add(MbCartPoint(S - Ry2 - Ts, -H2 - Ry));
+    arrPnts.Add(MbCartPoint(S - Ry2, -H2  -Ry));
+    arrPnts.Add(MbCartPoint(S - Ry2, -H2));
     
 
     // Построение единой ломаной внешнего контура по точкам
@@ -71,31 +55,22 @@ void CreateSketchKP1(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
-void CreateSketchKP2(RPArray<MbContour>& _arrContours)
+void CreateSketchKP2(RPArray<MbContour>& _arrContours, float RV, float L2, float A1, float A, float Dy1, float Dy, float Ts, float H2)
 {
-    
-    float DV,RV,Dy,Ry,TS,DN,LK,L2,S,A1,A2;
-    DV = 600; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
-    Dy = 300;
-    Ry = Dy/2;
-    DN = DV + 30;//Наружный диаметр
-    TS = (DN-DV)/2;//Толщина стенки
-    LK = 5740; //Длина
-    L2 = LK/2; //Длина пополам
-    A1 = 4500; //Расстояние от левой трубы до правой
-    A2 = 815; //Расстояние от начала кожуха до левой трубы
-    S = -L2+A2+A1;//Формула для правой трубы
+    float Ry1 = Dy1 / 2; //Внутренний диамерт
+    float Ry = Dy / 2; //Внутренний диамерт
+
+    float S = -L2+A+A1;//Формула для правой трубы
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
-    arrPnts.Add(MbCartPoint(S+Ry+TS, RV+215));
-    arrPnts.Add(MbCartPoint(S+Ry+TS+10, RV+215+25));
-    arrPnts.Add(MbCartPoint(S+250, RV+215+25));
-    arrPnts.Add(MbCartPoint(S+250, RV+215+40));
-    arrPnts.Add(MbCartPoint(S+Ry+TS+10, RV+215+40));
-    arrPnts.Add(MbCartPoint(S+Ry+TS, RV+215+50));
-    arrPnts.Add(MbCartPoint(S+Ry, RV+215+50));
-    arrPnts.Add(MbCartPoint(S+Ry, RV+215));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts, H2));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts + 10, H2 + Ry / 2));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts + Ry1 / 2, H2 + Ry / 2));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts + Ry1 / 2, H2 + Ry * 4 / 5));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts + 10, H2 + Ry * 4 / 5));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts, H2 + Ry));
+    arrPnts.Add(MbCartPoint(S + Ry1, H2 + Ry));
+    arrPnts.Add(MbCartPoint(S + Ry1, H2));
     
 
     // Построение единой ломаной внешнего контура по точкам
@@ -106,21 +81,51 @@ void CreateSketchKP2(RPArray<MbContour>& _arrContours)
 
     _arrContours.push_back(pContourPolyline);
 }
+void CreateSketchKP3(RPArray<MbContour>& _arrContours, float RV, float L2, float A,float A1, float Dy1, float Ts)
+{
+    float Ry1 = Dy1 / 2;
+    float S = -L2 + A + A1;//Формула для правой трубы
+    // Размер массива - 8 точек
+    SArray<MbCartPoint> arrPnts(8);
+    arrPnts.Add(MbCartPoint(S - Ry1 - Ts, RV - (RV / 100 * 14) - 5));
+    arrPnts.Add(MbCartPoint(S - Ry1 - Ts, RV - (RV / 100 * 14)));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts, RV - (RV / 100 * 14)));
+    arrPnts.Add(MbCartPoint(S + Ry1 + Ts, RV - (RV / 100 * 14) - 5));
+
+
+    // Построение единой ломаной внешнего контура по точкам
+    MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
+    MbContour* pContourPolyline = nullptr;
+
+    ::FilletPolyContour(pPolyline, 0, false, arrPnts[4], pContourPolyline);
+
+    _arrContours.push_back(pContourPolyline);
+}
+
 SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params)
 {
-    float DV,RV,DN,Dy1,Ry1,Dy2,Ry2,Dn,TS,LK,L2,A1,A2;
-    DV = 600; //Внутренний диамерт
-    RV = DV/2; //Внутренний радиус
-    DN = DV + 30;//Наружный диаметр
-    TS = (DN-DV)/2;//Толщина стенки
-    Dy1 = 100;
-    Ry1 = Dy1/2;
-    Dy2 = 300;
-    Ry2 = Dy2/2;
-    LK = 5740; //Длина
-    L2 = LK/2; //Длина пополам
-    A1 = 4500; //Растояние между коннекторами
-    A2 = 815; //Левый бортик
+    float DV = params.diam.toDouble();//Наружный диаметр
+    float L = params.length.toDouble(); //Длина
+    float A1 = params.A1.toDouble(); //Левый бортик
+    float A = (params.A.toDouble() / 100) * 30; //Левый бортик
+    float Dy1 = params.Dy1.toDouble(); //Внутренний диамерт
+    float Dy2 = params.Dy2.toDouble(); //Внутренний диамерт
+    float Dy = params.Dy.toDouble(); //Внутренний диамерт
+    float H = params.height.toDouble(); //Внутренний диамерт
+    float LK = (L / 100) * 85; //Длина
+    float H2 = H / 2 - Dy / 2; //Внутренний диамерт
+    float Ry1 = Dy1 / 2; //Внутренний диамерт
+    float Ry2 = Dy2 / 2; //Внутренний диамерт
+    float DN = DV + DV / 100 * 8; //Внутренний диаметр
+    float RV = DV / 2; //Внутренний радиус
+    float L2 = LK / 2; //Длина пополам
+    float Ts = (DN - DV) / 2;//Толщина стенки
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
+    float B1 = 5; //Левый бортик
+
+
+
+
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -128,27 +133,18 @@ SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params)
     MbPlacement3D pl,pl1,pl2;
 
     // Вызов функции для построения образующей (из примера 6)
-    RPArray<MbContour> arrContours,arrContours1,arrContours2;
-    CreateSketchKP(arrContours);   
-    CreateSketchKP1(arrContours1);
-    CreateSketchKP2(arrContours2);
-    // Подготовка параметров для вызова функции построения тела вращения.
-    // sweptData - объект, в котором хранятся сведения об образующей.
+    RPArray<MbContour> arrContours,arrContours1,arrContours2, arrContours3;
+    CreateSketchKP(arrContours, RV, L2, DNK, Ts, B1);
+    CreateSketchKP1(arrContours1, RV, L2, Dy2, Dy, Ts, A, H2);
+    CreateSketchKP2(arrContours2, RV, L2, A1, A, Dy1, Dy, Ts, H2);
+    CreateSketchKP3(arrContours3, RV, L2, A, A1, Dy1, Ts);
+
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0),MbCartPoint3D(0, 1, 0));
     MbSweptData sweptData(*pPlaneXY, arrContours);
     MbSweptData sweptData1(*pPlaneXY, arrContours1);
     MbSweptData sweptData2(*pPlaneXY, arrContours2);
+    MbSweptData sweptData3(*pPlaneXY, arrContours3);
 
-    // Объект параметров для операции построения тела вращения.
-    // Первые два параметра конструктора задают углы вращения в прямом и обратном
-    // направлении (по нормали к образующей или противоположно этой нормали).
-    // В данном примере вращение осуществляется на 360 градусов в прямом направлении.
-    // Третий параметр задает форму топологии твердого тела.
-    // При s = 0 строится тело с топологией сферы, при s = 1 - с топологией тора.
-    // Если образующая - незамкнутая кривая, и ось вращения лежит в плоскости кривой,
-    // то при s = 0 при построении образующая будет автоматически продлена до оси
-    // вращения. В данном примере различий между значениями s нет, т.к. образующая
-    // имеет вид замкнутого контура.
     RevolutionValues revParms(360*DEG_TO_RAD, 0, 0);
 
     // Именователи для операции построения тела вращения и для контуров образующей
@@ -159,8 +155,8 @@ SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params)
     MbAxis3D axis(pl.GetAxisX());
     MbAxis3D axis1(pl1.GetAxisY());
     MbAxis3D axis2(pl2.GetAxisY());
-    axis1.Move(MbVector3D(MbCartPoint3D(0, 0, 0), MbCartPoint3D(-L2+A2, 0, 0)));
-    axis2.Move(MbVector3D(MbCartPoint3D(0, 0, 0), MbCartPoint3D(-L2+A2+A1, 0, 0)));
+    axis1.Move(MbVector3D(MbCartPoint3D(0, 0, 0), MbCartPoint3D(-L2+A, 0, 0)));
+    axis2.Move(MbVector3D(MbCartPoint3D(0, 0, 0), MbCartPoint3D(-L2+A+A1, 0, 0)));
 
 
     // Вызов функции-утилиты для построения твердого тела вращения
@@ -179,30 +175,30 @@ SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params)
     
     // Массив точек для построения первого цилиндра   
     SArray<MbCartPoint3D> pntsCyl1(3);
-    pntsCyl1.Add(MbCartPoint3D(-L2+A2, 0, 0));
-    pntsCyl1.Add(MbCartPoint3D(-L2+A2, -RV-215, 0));
-    pntsCyl1.Add(MbCartPoint3D(-L2+A2, 0, Ry1+TS));  
+    pntsCyl1.Add(MbCartPoint3D(-L2+A, 0, 0));
+    pntsCyl1.Add(MbCartPoint3D(-L2+A, -H2, 0));
+    pntsCyl1.Add(MbCartPoint3D(-L2+A, 0, Ry2+Ts));  
     // Построение элементарного тела - цилиндра - по трем точкам
    ::ElementarySolid( pntsCyl1, et_Cylinder, cylNames, pCyl1 );
    
    SArray<MbCartPoint3D> pntsCyl2(3);
-    pntsCyl2.Add(MbCartPoint3D(-L2+A2+A1, 0, 0));
-    pntsCyl2.Add(MbCartPoint3D(-L2+A2+A1, RV+215, 0));
-    pntsCyl2.Add(MbCartPoint3D(-L2+A2+A1, 0, Ry2+TS));  
+    pntsCyl2.Add(MbCartPoint3D(-L2+A+A1, 0, 0));
+    pntsCyl2.Add(MbCartPoint3D(-L2+A+A1, H2, 0));
+    pntsCyl2.Add(MbCartPoint3D(-L2+A+A1, 0, Ry1+Ts));  
     // Построение элементарного тела - цилиндра - по трем точкам
    ::ElementarySolid( pntsCyl2, et_Cylinder, cylNames, pCyl2 );
    
     SArray<MbCartPoint3D> pntsCyl3(3);
-    pntsCyl3.Add(MbCartPoint3D(-L2+A2, 0, 0));
-    pntsCyl3.Add(MbCartPoint3D(-L2+A2, -RV-215, 0));
-    pntsCyl3.Add(MbCartPoint3D(-L2+A2, 0, Ry1));  
+    pntsCyl3.Add(MbCartPoint3D(-L2+A, 0, 0));
+    pntsCyl3.Add(MbCartPoint3D(-L2+A, -H2, 0));
+    pntsCyl3.Add(MbCartPoint3D(-L2+A, 0, Ry2));  
     // Построение элементарного тела - цилиндра - по трем точкам
    ::ElementarySolid( pntsCyl3, et_Cylinder, cylNames, pCyl3 );
    
     SArray<MbCartPoint3D> pntsCyl4(3);
-    pntsCyl4.Add(MbCartPoint3D(-L2+A2+A1, 0, 0));
-    pntsCyl4.Add(MbCartPoint3D(-L2+A2+A1, RV+215, 0));
-    pntsCyl4.Add(MbCartPoint3D(-L2+A2+A1, 0, Ry2));  
+    pntsCyl4.Add(MbCartPoint3D(-L2+A+A1, 0, 0));
+    pntsCyl4.Add(MbCartPoint3D(-L2+A+A1, H2, 0));
+    pntsCyl4.Add(MbCartPoint3D(-L2+A+A1, 0, Ry1));  
     // Построение элементарного тела - цилиндра - по трем точкам
    ::ElementarySolid( pntsCyl4, et_Cylinder, cylNames, pCyl4 );
    
@@ -234,6 +230,14 @@ SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params)
     ::BooleanResult( *pResSolid, cm_Copy, *pConnector1, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid);
     ::BooleanResult( *pResSolid, cm_Copy, *pConnector2, cm_Copy, bo_Union,flagsBool, operBoolNames, pResSolid);
         
+    MbVector3D dir(0, 0, -1);
+    ExtrusionValues extrusionParam;
+    extrusionParam.side1.way = sw_shell;
+    extrusionParam.side2.way = sw_shell;
+    MbSolid* pPlate = nullptr;
+
+    ::ExtrusionSolid(sweptData3, dir, pResSolid, pResSolid, false, extrusionParam, operNames, cNames, pPlate);
+    ::BooleanResult(*pResSolid, cm_Copy, *pPlate, cm_Copy, bo_Union, flagsBool, operBoolNames, pResSolid);
         
 
     c3d::SolidSPtr MainSolid(pResSolid);

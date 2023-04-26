@@ -49,7 +49,6 @@ public slots:
 	void toggleViewSectionSlot();
 	void setupForm_scene();
 
-
 private slots:
 	void build();
 	void reset();

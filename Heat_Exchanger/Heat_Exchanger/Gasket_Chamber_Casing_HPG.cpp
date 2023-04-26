@@ -2,13 +2,14 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber(BuildParams params)
+
+SPtr<MbSolid> ParametricModelCreator::Gasket_Chamber_Casing_HPG(BuildParams params)
 {
-    float B1, DN,DV, DNK;
-    DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
-    DNK = (DV + DV / 100 * 19.5);
-    B1 = 5; //Левый бортик
+   float B1,DN,DV,DNK;
+   DV = params.diam.toDouble();//Наружный диаметр
+   DN = DV + DV / 100 * 8; //Внутренний диаметр
+   DNK = (DV + DV / 100 * 19.5);
+   B1 = 5; //Левый бортик
 
 
     
@@ -16,10 +17,10 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber(BuildParams params)
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(B1/2, DV/2);
-    MbCartPoint p2(-B1/2, DV/2);
-    MbCartPoint p3(-B1/2, DNK / 2);
-    MbCartPoint p4(B1/2, DNK / 2);
+    MbCartPoint p1(B1/2, (DV -B1)/2);
+    MbCartPoint p2(-B1/2, (DV - B1) /2);
+    MbCartPoint p3(-B1/2, DNK/2);
+    MbCartPoint p4(B1/2, DNK/2);
 
 
     

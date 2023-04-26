@@ -2,10 +2,6 @@
 using namespace BuildMathModel;
 
 
-
-
-
-
 void CreateSketchSup(RPArray<MbContour>& _arrContours, float L2, float B1,float h)
 {
     // Размер массива - 10 точек
@@ -82,9 +78,9 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
 
     float DV = params.diam.toDouble();//Наружный диаметр
     float DN = DV + DV / 100 * 8; //Внутренний диаметр
-    float L = 240; //Длина
+    float L = DV / 100 * 74; //Длина
     float L2 = L / 2; //Длина пополам
-    float L1 = 250; //Длина - правого края
+    float L1 = L+10; //Длина - правого края
     float B1 = 5; //Левый бортик
     float h = params.h.toDouble(); //Высота опоры от центра
 

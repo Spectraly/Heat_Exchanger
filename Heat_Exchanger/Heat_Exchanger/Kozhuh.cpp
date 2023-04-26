@@ -132,7 +132,7 @@ SPtr<MbSolid> ParametricModelCreator::CasingTY(double diam, double length)
     float DV = diam; //Внутренний диамерт
     float RV = DV / 2; //Внутренний радиус
 
-    float LK = length; //Длина
+    float LK = (length / 100) * 78.5; //Длина
     float L2 = LK / 2; //Длина пополам
 
     // Множитель для преобразования угловых значений из градусов в радианы
