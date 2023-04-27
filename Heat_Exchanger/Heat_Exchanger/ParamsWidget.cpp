@@ -87,7 +87,6 @@ void ParamsWidget::updateParams_modelHPG()
 		modelParams.l2 = ui.lineEdit_l2->text();
 		modelParams.l3 = ui.lineEdit_l3->text();
 		modelParams.h = ui.lineEdit_h->text();
-		modelParams.h = ui.lineEdit_h->text();
 
 	}
 }
@@ -101,10 +100,16 @@ void ParamsWidget::updateParams_modelKP()
 		modelParams.diam = ui.lineEdit_Diam->text();
 		modelParams.length = ui.lineEdit_Length->text();
 		modelParams.height = ui.lineEdit_Height->text();
+		modelParams.A = ui.lineEdit_A->text();
+		modelParams.A1 = ui.lineEdit_A1->text();
 		modelParams.Dy = ui.lineEdit_Dy->text();
 		modelParams.Dy1 = ui.lineEdit_Dy1->text();
 		modelParams.Dy2 = ui.lineEdit_Dy2->text();
+		modelParams.l = ui.lineEdit_l->text();
+		modelParams.l0 = ui.lineEdit_l0->text();
 		modelParams.l1 = ui.lineEdit_l1->text();
+		modelParams.l2 = ui.lineEdit_l2->text();
+		modelParams.l3 = ui.lineEdit_l3->text();
 		modelParams.h = ui.lineEdit_h->text();
 	}
 }

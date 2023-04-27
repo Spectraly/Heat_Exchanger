@@ -14,10 +14,10 @@ void CreateSketch(RPArray<MbContour>& _arrContours,float RV,float L2, float DNK,
     arrPnts.Add(MbCartPoint(-L2 + 4.5 * B1, DNK));//5
     arrPnts.Add(MbCartPoint(-L2 + 4.5 * B1, RV + Ts));//6
     arrPnts.Add(MbCartPoint(L2 - 7 * B1, RV + Ts));//7
-    arrPnts.Add(MbCartPoint(L2 - 7 * B1, RV + 2 * Ts + 8 * B1));//8
-    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 2 * Ts + 8 * B1));//9
-    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 2 * Ts + 4 * B1));//10
-    arrPnts.Add(MbCartPoint(L2, RV + 2 * Ts + 4 * B1));//11
+    arrPnts.Add(MbCartPoint(L2 - 7 * B1, RV + 30 + Ts + 7 * B1));//8
+    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 30 + Ts + 7 * B1));//9
+    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 30 + Ts + 3 * B1));//10
+    arrPnts.Add(MbCartPoint(L2, RV + 30 + Ts + 3 * B1));//11
     arrPnts.Add(MbCartPoint(L2, 0));//12
 
     // Построение единой ломаной внешнего контура по точкам

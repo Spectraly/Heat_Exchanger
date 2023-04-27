@@ -81,7 +81,7 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_HPG(BuildParams params)
 
     // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid* m_pResSolid = nullptr;
-    MbResultType res = RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
+    RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
 
     c3d::SolidSPtr MainSolid(m_pResSolid);
 
