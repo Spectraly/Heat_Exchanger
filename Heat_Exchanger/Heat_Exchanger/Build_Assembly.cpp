@@ -448,32 +448,47 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams params)
 {
-    SPtr<MbSolid> Kozh = CasingTY(params.diam.toDouble(), params.length.toDouble());
+    SPtr<MbSolid> Kozh = CasingTY(params);
     Kozh->SetColor(190, 190, 190);
-    SPtr<MbSolid> Kam = Distribution_ChamberTY(params.length.toDouble());
+    SPtr<MbSolid> Kam = Distribution_ChamberTY(params);
     Kam->SetColor(190, 190, 190);
-
-
+    SPtr<MbSolid> PipeGr = PipeGrideTU(params);
+    PipeGr->SetColor(190, 190, 190);
+    SPtr<MbSolid> TubeBund = TubeBundleTU(params);
+    TubeBund->SetColor(190, 190, 190);
+    SPtr<MbSolid> FixedSup = FixedSupHETU(params);
+    FixedSup->SetColor(190, 190, 190);
+    SPtr<MbSolid> MoveSup = MoveSupHETU(params);
+    MoveSup->SetColor(190, 190, 190);
 
     /*-------------------------------------------------------------------------*/
 
     MbPlacement3D lcs;
     InstanceSPtr Kozhu(new MbInstance(*Kozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Kame(new MbInstance(*Kam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-
+    InstanceSPtr PipeGri(new MbInstance(*PipeGr, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr TubeBundl(new MbInstance(*TubeBund, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr FixedSupHE(new MbInstance(*FixedSup, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr MoveSupHE(new MbInstance(*MoveSup, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
 
     /*-------------------------------------------------------------------------*/
 
     SPtr<MbInstance> KozhuComp(new MbInstance(*Kozhu, lcs));
     SPtr<MbInstance> KameComp(new MbInstance(*Kame, lcs));
-
+    SPtr<MbInstance> PipeGriComp(new MbInstance(*PipeGri, lcs));
+    SPtr<MbInstance> TubeBundlComp(new MbInstance(*TubeBundl, lcs));
+    SPtr<MbInstance> FixedSupHEComp(new MbInstance(*FixedSupHE, lcs));
+    SPtr<MbInstance> MoveSupHEComp(new MbInstance(*MoveSupHE, lcs));
 
     /*-------------------------------------------------------------------------*/
 
     vector<SPtr<MbInstance>> pair;
     pair.push_back(KozhuComp);
     pair.push_back(KameComp);
-
+    pair.push_back(PipeGriComp);
+    pair.push_back(TubeBundlComp);
+    pair.push_back(FixedSupHEComp);
+    pair.push_back(MoveSupHEComp);
 
     MbAssembly* assm = new MbAssembly(pair);
     return assm;

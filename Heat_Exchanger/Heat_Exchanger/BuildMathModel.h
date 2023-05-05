@@ -196,7 +196,6 @@ namespace BuildMathModel {
 		static MbAssembly* CreateHeatExchangerTUAssembly(BuildParams params);
 	private:
 		static SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params);
-		static SPtr<MbSolid> ParametricModelCreator::PipeGride(BuildParams params);
 
 		static SPtr<MbSolid> ParametricModelCreator::Casing_HPG(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_HPG(BuildParams params);
@@ -225,8 +224,12 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_KP(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Half_Ring_KP(BuildParams params);
 
-		static SPtr<MbSolid> ParametricModelCreator::CasingTY(double,double);
-		static SPtr<MbSolid> ParametricModelCreator::Distribution_ChamberTY(double);
+		static SPtr<MbSolid> ParametricModelCreator::CasingTY(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Distribution_ChamberTY(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::PipeGrideTU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::TubeBundleTU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::FixedSupHETU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::MoveSupHETU(BuildParams params);
 
 	};
 }
