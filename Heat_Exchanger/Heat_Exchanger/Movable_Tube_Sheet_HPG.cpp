@@ -16,7 +16,6 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_HPG(BuildParams params)
     {
     case 325:
         RV = (DV - 3) / 2;
-
         break;
     case 400:
         RV = (DV - 2) / 2;
@@ -53,10 +52,7 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_HPG(BuildParams params)
         }
         break;
     }
-
-
     R = D / 2;
-
 
     float d = params.d.toDouble(); // D трубы
     float bigD = DV - (DV / 100 * 9); // D проверочной окружности

@@ -26,15 +26,15 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     BuildMathModel::Faces faces = objFaces.getParamsStationary_model();
 
 
-    SPtr<MbSolid> mSTubeBundles = TubeBundles(params);
-    mSTubeBundles->SetColor(190, 190, 190);
-    InstanceSPtr iPTubeBundles(new MbInstance(*mSTubeBundles, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    SPtr<MbInstance> p_IPTubeBundles(new MbInstance(*iPTubeBundles, lcs));
+        SPtr<MbSolid> mSTubeBundles = TubeBundles(params);
+        mSTubeBundles->SetColor(190, 190, 190);
+        InstanceSPtr iPTubeBundles(new MbInstance(*mSTubeBundles, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+        SPtr<MbInstance> p_IPTubeBundles(new MbInstance(*iPTubeBundles, lcs));
 
-    SPtr<MbSolid> mSHeat_Exchanger_Supports = Heat_Exchanger_Supports(params);
-    mSHeat_Exchanger_Supports->SetColor(190, 190, 190);
-    InstanceSPtr iPHeat_Exchanger_Supports(new MbInstance(*mSHeat_Exchanger_Supports, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    SPtr<MbInstance> p_IPHeat_Exchanger_Supports(new MbInstance(*iPHeat_Exchanger_Supports, lcs));
+        SPtr<MbSolid> mSHeat_Exchanger_Supports = Heat_Exchanger_Supports(params);
+        mSHeat_Exchanger_Supports->SetColor(190, 190, 190);
+        InstanceSPtr iPHeat_Exchanger_Supports(new MbInstance(*mSHeat_Exchanger_Supports, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+        SPtr<MbInstance> p_IPHeat_Exchanger_Supports(new MbInstance(*iPHeat_Exchanger_Supports, lcs));
 
     SPtr<MbSolid> mSHeat_Exchanger_Supports1 = Heat_Exchanger_Supports(params);
     mSHeat_Exchanger_Supports1->SetColor(190, 190, 190);
@@ -122,8 +122,8 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
 
     pair.push_back(p_IPMovable_Tube_Sheet);
     pair.push_back(p_IPHalf_Ring);
-    pair.push_back(p_IPFloating_Head_Cover);
     pair.push_back(p_IPGasket_Floating_Head);
+    pair.push_back(p_IPFloating_Head_Cover);
    
 
 
@@ -206,9 +206,17 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     assm->AddConstraint(GCM_CONCENTRIC, Supports, SupportsC);
     assm->EvaluateConstraints();
 
+    double HEIGHT;
+    if (params.diam.toDouble() <= 700)
+        HEIGHT = 220.0 / 2;
+    else if (params.diam.toDouble() >= 700 && params.diam.toDouble() <= 1200)
+        HEIGHT = 360.0 / 2;
+    else if (params.diam.toDouble() > 1200)
+        HEIGHT = 400.0 / 2;
+
     MtGeomArgument Supports1(mSHeat_Exchanger_Supports->GetFace(4), p_IPHeat_Exchanger_Supports);
     MtGeomArgument SupportsC1(mSСasing->GetFace(8), p_IPСasing);
-    assm->AddConstraint(GCM_DISTANCE, Supports1, SupportsC1, -params.l2.toDouble() + params.Dy1.toDouble());
+    assm->AddConstraint(GCM_DISTANCE, Supports1, SupportsC1, -params.l2.toDouble() + params.Dy1.toDouble() - HEIGHT);
     assm->EvaluateConstraints();
 
     MtGeomArgument Supports2(mSHeat_Exchanger_Supports1->GetFace(5), p_IPHeat_Exchanger_Supports1);

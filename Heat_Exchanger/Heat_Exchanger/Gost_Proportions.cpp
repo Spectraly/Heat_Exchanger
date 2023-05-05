@@ -861,7 +861,7 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.diam = "900";
 			modelParams.length = "7550";
 			modelParams.height = "1542";
-			modelParams.A = "110";
+			modelParams.A = "1100";
 			modelParams.A1 = "4400";
 			modelParams.Dy = "250";
 			modelParams.Dy1 = "250";

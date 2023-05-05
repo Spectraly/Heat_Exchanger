@@ -50,9 +50,8 @@ void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours, float L2, float B1, 
     //Создание точек контура
     MbCartPoint p1(0, h - RV + 2.5);
     MbCartPoint p2(0, h - RV);
-    MbCartPoint p3(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180)); // Прикол с углом
-    MbCartPoint p4(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180) + 2.5); // Прикол с углом
-
+    MbCartPoint p3(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180)); 
+    MbCartPoint p4(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180) + 2.5); 
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
     MbArc* Seg2 = new MbArc(MbCartPoint(0, h), RV, p2, p3, -1);
@@ -78,7 +77,7 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
 
     float DV = params.diam.toDouble();//Наружный диаметр
     float DN = DV + DV / 100 * 8; //Внутренний диаметр
-    float L = DV / 100 * 74; //Длина
+    float L = DV / 100 * 90; //Длина
     float L2 = L / 2; //Длина пополам
     float L1 = L+10; //Длина - правого края
     float B1 = 5; //Левый бортик
@@ -127,11 +126,17 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
 
     // Ось вращения для построения тела:
     MbAxis3D axis(pl.GetAxisX());
+    double HEIGHT;
 
-    const double HEIGHT_FORWARD = 25.0, HEIGHT_BACKWARD = 25.0;
-    ExtrusionValues extrusionParams(HEIGHT_FORWARD, HEIGHT_BACKWARD);
+    if (DV <=700)
+        HEIGHT = 220.0/2;
+    else if (DV >= 700 && DV <= 1200)
+        HEIGHT = 360.0 / 2;
+    else if (DV > 1200)
+        HEIGHT = 400.0 / 2;
+    ExtrusionValues extrusionParams(HEIGHT - 10, HEIGHT - 10);
     ExtrusionValues extrusionParams1(5, 5);
-    ExtrusionValues extrusionParams2(HEIGHT_FORWARD + 5, HEIGHT_BACKWARD + 5);
+    ExtrusionValues extrusionParams2(HEIGHT, HEIGHT);
 
     // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid *pSup = nullptr, *pSup1 = nullptr, *pSup2 = nullptr;
@@ -144,9 +149,9 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
     MbSolid *pCyl = NULL;
     // Построение ограничивающей цилиндрической поверхности
     SArray<MbCartPoint3D> pCylSurf(3);
-    pCylSurf.Add(MbCartPoint3D(0, h, -25));
-    pCylSurf.Add(MbCartPoint3D(0, h, 25));
-    pCylSurf.Add(MbCartPoint3D(0, h + DN/2, -25));
+    pCylSurf.Add(MbCartPoint3D(0, h, -HEIGHT));
+    pCylSurf.Add(MbCartPoint3D(0, h, HEIGHT));
+    pCylSurf.Add(MbCartPoint3D(0, h + DN/2, -HEIGHT));
     ::ElementarySolid(pCylSurf, et_Cylinder, cylNames, pCyl);
     
     //---------------------------------------------------------//
@@ -169,8 +174,7 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
     ::BooleanResult(*pResSolid, cm_Copy, *pSup2, cm_Copy, bo_Union, flagsBool, operBoolNames, pResSolid);
     ::SymmetrySolid(*pResSolid, cm_Copy, pl1, operBoolNames, pResSolid);
     // Отображение построенного тела
-    
-    pResSolid->Move(MbVector3D(0, -500, 0));
+
     pResSolid->Rotate(MbAxis3D(pl.GetAxisY()), 90 * DEG_TO_RAD);
     c3d::SolidSPtr MainSolid(pResSolid);
     // Уменьшение счетчиков ссылок динамических объектов ядра

@@ -133,9 +133,7 @@ void ParamsWidget::updateParams_modelTU()
 		modelParams.l3 = ui.lineEdit_l3->text();
 		modelParams.h = ui.lineEdit_h->text();
 	}
-}
-
-
+}	
 
 void ParamsWidget::setupForm_model()
 {

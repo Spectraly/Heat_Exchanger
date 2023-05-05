@@ -8,15 +8,15 @@ void CreateSketch(RPArray<MbContour>& _arrContours,float RV,float L2, float DNK,
     // Размер массива - 12 точек
     SArray<MbCartPoint> arrPnts(12);
     arrPnts.Add(MbCartPoint(-L2 + B1, 0));//1
-    arrPnts.Add(MbCartPoint(-L2 + B1, DNK - 2 * B1));//2
-    arrPnts.Add(MbCartPoint(-L2, DNK - 2 * B1));//3
+    arrPnts.Add(MbCartPoint(-L2 + B1, DNK - 4 * B1 - 0.3 * Ts));//2
+    arrPnts.Add(MbCartPoint(-L2, DNK - 4 * B1 - 0.3 * Ts));//3
     arrPnts.Add(MbCartPoint(-L2, DNK));//4
-    arrPnts.Add(MbCartPoint(-L2 + 4.5 * B1, DNK));//5
-    arrPnts.Add(MbCartPoint(-L2 + 4.5 * B1, RV + Ts));//6
-    arrPnts.Add(MbCartPoint(L2 - 7 * B1, RV + Ts));//7
-    arrPnts.Add(MbCartPoint(L2 - 7 * B1, RV + 30 + Ts + 7 * B1));//8
-    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 30 + Ts + 7 * B1));//9
-    arrPnts.Add(MbCartPoint(L2 - 3 * B1, RV + 30 + Ts + 3 * B1));//10
+    arrPnts.Add(MbCartPoint(-L2 + Ts + 2 * B1, DNK));//5
+    arrPnts.Add(MbCartPoint(-L2 + Ts + 2 * B1, RV + Ts));//6
+    arrPnts.Add(MbCartPoint(L2 - Ts - 5 * B1, RV + Ts));//7
+    arrPnts.Add(MbCartPoint(L2 - Ts - 5 * B1, RV + 30 + Ts * 1.5 + 6 * B1));//8
+    arrPnts.Add(MbCartPoint(L2 - Ts * 0.5 - B1, RV + 30 + Ts * 1.5 + 6 * B1));//9
+    arrPnts.Add(MbCartPoint(L2 - Ts * 0.5 - B1, RV + 30 + Ts + 3 * B1));//10
     arrPnts.Add(MbCartPoint(L2, RV + 30 + Ts + 3 * B1));//11
     arrPnts.Add(MbCartPoint(L2, 0));//12
 
@@ -109,17 +109,24 @@ SPtr<MbSolid> ParametricModelCreator::Casing_HPG(BuildParams params)
     float DV = params.diam.toDouble();//Наружный диаметр
     float L = params.length.toDouble(); //Длина
     float A1 = params.A1.toDouble(); //Левый бортик
-    float A = (params.A.toDouble()/100)*30; //Левый бортик
+    float A = params.A.toDouble() - (params.l1.toDouble() - L / 100); //Левый бортик
     float Dy = params.Dy.toDouble(); //Внутренний диамерт
     float H = params.height.toDouble(); //Внутренний диамерт
-    float LK = (L/100) * 78.5; //Длина
+    float LK;
+    if (DV < 600)
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 14.5); //Длина
+    else if (DV >= 600 && DV < 900)
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 11.5); //Длина
+    else if (DV >= 900)
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 12.5); //Длина
+
     float H2 = H/2 - Dy/2; //Внутренний диамерт
     float Ry = Dy / 2; //Внутренний диамерт
     float DN = DV + DV / 100 * 8; //Внутренний диаметр
     float RV = DV / 2; //Внутренний радиус
     float L2 = LK / 2; //Длина пополам
     float Ts = (DN - DV) / 2;//Толщина стенки
-    float DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;//Наружный диаметр крышки
     float B1 = 5; //Левый бортик
    
     // Множитель для преобразования угловых значений из градусов в радианы

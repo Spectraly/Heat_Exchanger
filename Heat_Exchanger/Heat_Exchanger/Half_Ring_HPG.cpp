@@ -4,27 +4,65 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Half_Ring_HPG(BuildParams params)
 {
-   float DVP,RVP,LP,DR,RR,B1;
-    DVP = params.diam.toDouble() -6; //Внутренний диаметр
-    RVP = DVP/2; //Внутренний радиус
+   float DV, RV, DVP,RVP,LP,DR,RR,B1;
+    DV = params.diam.toDouble(); //Внутренний диаметр
+    RV = DV/2; //Внутренний диаметр
+    DVP = params.diam.toDouble() - 6; //Внутренний диаметр
     LP = 25; //Длина
     B1 = 5; //Левый бортик
-    DR = DVP - (DVP / 100 * 9);
+    DR = DV - (DV / 100 * 9);
     RR=DR/2;
 
-
-    
+    switch ((int)DVP)
+    {
+    case 325 - 6:
+        RVP = (DVP - 3) / 2;
+        break;
+    case 400 - 6:
+        RVP = (DVP - 2) / 2;
+        break;
+    case 500 - 6:
+        RVP = (DVP - 2) / 2;
+        break;
+    case 600 - 6:
+        RVP = (DVP - 4) / 2;
+        break;
+    case 700 - 6:
+        RVP = (DVP - 5) / 2;
+        break;
+    case 800 - 6:
+        RVP = (DVP - 5) / 2;
+        break;
+    case 900 - 6:
+        RVP = (DVP - 5) / 2;
+        break;
+    case 1000 - 6:
+        RVP = (DVP - 5) / 2;
+        break;
+    case 1200 - 6:
+        RVP = (DVP - 5) / 2;
+        break;
+    default:
+        if (DVP < 400)
+        {
+            RVP = (DVP - 3) / 2;
+        }
+        else if (DVP > 1200)
+        {
+            RVP = (DVP - 5) / 2;
+        }
+        break;
+    }
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
    
     MbCartPoint p1(0, RR);
-    MbCartPoint p2(0, RVP +3 * B1);
-    MbCartPoint p3(LP, RVP +3 * B1);
+    MbCartPoint p2(0, RV + 3 * B1);
+    MbCartPoint p3(LP, RV + 3 * B1);
     MbCartPoint p4(LP, RVP);
     MbCartPoint p5(LP-B1, RVP);
     MbCartPoint p6(LP-B1, RR);
-
     
     MbPlacement* pl = new MbPlacement();
 
@@ -36,8 +74,6 @@ SPtr<MbSolid> ParametricModelCreator::Half_Ring_HPG(BuildParams params)
     MbLineSegment* Seg5 = new MbLineSegment(p5, p6);
     MbLineSegment* Seg6 = new MbLineSegment(p6, p1);
 
-
-
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
     
@@ -48,8 +84,6 @@ SPtr<MbSolid> ParametricModelCreator::Half_Ring_HPG(BuildParams params)
     ptrContour->AddSegment(Seg5);
     ptrContour->AddSegment(Seg6);
     
-   
-
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();
     MbPlane* ptrSurface = new MbPlane(*place);
