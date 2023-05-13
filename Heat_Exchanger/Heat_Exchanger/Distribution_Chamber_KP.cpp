@@ -7,19 +7,18 @@ void CreateSketchCKP(RPArray<MbContour>& _arrContours, float RV, float DNK, floa
 
     // Размер массива - 12 точек
     SArray<MbCartPoint> arrPnts(12);
-    arrPnts.Add(MbCartPoint(-L2+B1, 0));
-    arrPnts.Add(MbCartPoint(-L2+B1, DNK-2*B1));
-    arrPnts.Add(MbCartPoint(-L2,  DNK-2*B1));
-    arrPnts.Add(MbCartPoint(-L2,  DNK));
-    arrPnts.Add(MbCartPoint(-L2+2*Ts,  DNK));
-    arrPnts.Add(MbCartPoint(-L2+2*Ts, RV+Ts));
-    
-    arrPnts.Add(MbCartPoint(L2-3.5*B1, RV+Ts));
-    arrPnts.Add(MbCartPoint(L2-3.5*B1, DNK));
+    arrPnts.Add(MbCartPoint(-L2 + B1, 0));
+    arrPnts.Add(MbCartPoint(-L2 + B1, DNK - 4 * B1 - 0.3 * Ts));
+    arrPnts.Add(MbCartPoint(-L2, DNK - 4 * B1 - 0.3 * Ts));
+    arrPnts.Add(MbCartPoint(-L2, DNK));
+    arrPnts.Add(MbCartPoint(-L2 + 1.5 * Ts + 2 * B1, DNK));
+    arrPnts.Add(MbCartPoint(-L2 + 1.5 * Ts + 2 * B1, RV + Ts));
+    arrPnts.Add(MbCartPoint(L2 - Ts - 2 * B1, RV + Ts));
+    arrPnts.Add(MbCartPoint(L2 - Ts - 2 * B1, DNK));
     arrPnts.Add(MbCartPoint(L2, DNK));
-    arrPnts.Add(MbCartPoint(L2, DNK-2*B1));
-    arrPnts.Add(MbCartPoint(L2-B1, DNK-2*B1));
-    arrPnts.Add(MbCartPoint(L2-B1, 0));
+    arrPnts.Add(MbCartPoint(L2, DNK - 4 * B1 - 0.3 * Ts));
+    arrPnts.Add(MbCartPoint(L2 - B1, DNK - 4 * B1 - 0.3 * Ts));
+    arrPnts.Add(MbCartPoint(L2 - B1, 0));
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -123,11 +122,11 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_KP(BuildParams params
     float Ry = Dy / 2; //Внутренний диамерт
     float DN = DV + DV / 100 * 8; //Внутренний диаметр
     float H2 = H / 2 - Dy / 2; //Длина
-    float LK = (L / 100) * 11.5; //Длина
+    float LK = (params.l1.toDouble() - L / 100) * 2; //Длина
     float L2 = LK / 2; //Длина
     float RV = DV / 2; //Внутренний радиус
     float Ts = (DN - DV) / 2;//Толщина стенки
-    float DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;//Наружный диаметр крышки
     float B1 = 5; //Левый бортик
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;

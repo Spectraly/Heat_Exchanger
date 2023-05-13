@@ -25,16 +25,32 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
 
     BuildMathModel::Faces faces = objFaces.getParamsStationary_model();
 
+    bool sliceSide = true;
+    vector<SPtr<MbSolid>> MbSPartition;
+    vector<SPtr<MbInstance>> MbIPartition;
+    for (int i = 0; i < 16; i++)
+    {
+        SPtr<MbSolid> mSPartition_HPG = Partition_HPG(params, sliceSide);
+        mSPartition_HPG->SetColor(190, 190, 190);
+        InstanceSPtr iPPartition_HPG(new MbInstance(*mSPartition_HPG, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+        SPtr<MbInstance> p_IPPartition_HPG(new MbInstance(*iPPartition_HPG, lcs));
+        MbSPartition.push_back(mSPartition_HPG);
+        MbIPartition.push_back(iPPartition_HPG);
+        sliceSide = !sliceSide;
+    }
+    
 
-        SPtr<MbSolid> mSTubeBundles = TubeBundles(params);
-        mSTubeBundles->SetColor(190, 190, 190);
-        InstanceSPtr iPTubeBundles(new MbInstance(*mSTubeBundles, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-        SPtr<MbInstance> p_IPTubeBundles(new MbInstance(*iPTubeBundles, lcs));
+    /*-------------------------------------------------------------------------*/
 
-        SPtr<MbSolid> mSHeat_Exchanger_Supports = Heat_Exchanger_Supports(params);
-        mSHeat_Exchanger_Supports->SetColor(190, 190, 190);
-        InstanceSPtr iPHeat_Exchanger_Supports(new MbInstance(*mSHeat_Exchanger_Supports, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-        SPtr<MbInstance> p_IPHeat_Exchanger_Supports(new MbInstance(*iPHeat_Exchanger_Supports, lcs));
+    SPtr<MbSolid> mSTubeBundles = TubeBundles(params);
+    mSTubeBundles->SetColor(190, 190, 190);
+    InstanceSPtr iPTubeBundles(new MbInstance(*mSTubeBundles, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbInstance> p_IPTubeBundles(new MbInstance(*iPTubeBundles, lcs));
+
+    SPtr<MbSolid> mSHeat_Exchanger_Supports = Heat_Exchanger_Supports(params);
+    mSHeat_Exchanger_Supports->SetColor(190, 190, 190);
+    InstanceSPtr iPHeat_Exchanger_Supports(new MbInstance(*mSHeat_Exchanger_Supports, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbInstance> p_IPHeat_Exchanger_Supports(new MbInstance(*iPHeat_Exchanger_Supports, lcs));
 
     SPtr<MbSolid> mSHeat_Exchanger_Supports1 = Heat_Exchanger_Supports(params);
     mSHeat_Exchanger_Supports1->SetColor(190, 190, 190);
@@ -124,9 +140,11 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     pair.push_back(p_IPHalf_Ring);
     pair.push_back(p_IPGasket_Floating_Head);
     pair.push_back(p_IPFloating_Head_Cover);
-   
 
-
+    for (int i = 0; i < 15; i++)
+    {
+        pair.push_back(MbIPartition[i]);
+    }
 
     MbAssembly* assm = new MbAssembly(pair);
     assm->SetPlacement(lcs);    
@@ -176,10 +194,50 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     assm->AddConstraint(GCM_DISTANCE, Tube, TubeR, -params.l.toDouble());
     assm->EvaluateConstraints();
 
+
     MtGeomArgument Tube1(mSTubeBundles->GetFace(7), p_IPTubeBundles);
     MtGeomArgument TubeR1(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
     assm->AddConstraint(GCM_CONCENTRIC, Tube1, TubeR1);
     assm->EvaluateConstraints();
+
+
+    MtGeomArgument Partition(MbSPartition[0]->GetFace(0), MbIPartition[0]);
+    MtGeomArgument PartitionR(mSStationary_Tube_Sheet->GetFace(1), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_DISTANCE, Partition, PartitionR, 400.0);
+    assm->EvaluateConstraints();
+
+    /*MtGeomArgument Partition1(MbSPartition[0]->GetFace(3), MbIPartition[0]);
+    MtGeomArgument PartitionR1(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_CONCENTRIC, Partition1, PartitionR1);
+    assm->EvaluateConstraints();*/
+
+    /*-------------------------------------------------------------------------*/
+
+    for (size_t i = 1; i < 15 ; i++)
+    {
+        MtGeomArgument PartitionA(MbSPartition[i]->GetFace(0), MbIPartition[i]);
+        MtGeomArgument PartitionA1(MbSPartition[i-1]->GetFace(1), MbIPartition[i-1]);
+        assm->AddConstraint(GCM_DISTANCE, PartitionA, PartitionA1, 140.0);
+        assm->EvaluateConstraints();
+
+       /* MtGeomArgument PartitionA2(MbSPartition[i]->GetFace(3), MbIPartition[i]);
+        MtGeomArgument PartitionA3(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
+        assm->AddConstraint(GCM_CONCENTRIC, PartitionA2, PartitionA3);
+        assm->EvaluateConstraints();*/
+    }
+
+   /* MtGeomArgument Partition2(MbSPartition[15]->GetFace(0), MbIPartition[15]);
+    MtGeomArgument PartitionR2(MbSPartition[15-1]->GetFace(1), MbIPartition[15 - 1]);
+    assm->AddConstraint(GCM_DISTANCE, Partition2, PartitionR2, 200.0);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument Partition3(MbSPartition[15]->GetFace(3), MbIPartition[15]);
+    MtGeomArgument PartitionR3(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_CONCENTRIC, Partition3, PartitionR3);
+    assm->EvaluateConstraints();*/
+
+    /*-------------------------------------------------------------------------*/
+
 
     MtGeomArgument TubeM1(mSTubeBundles->GetFace(1), p_IPTubeBundles);
     MtGeomArgument TubeMR1(mSMovable_Tube_Sheet->GetFace(1), p_IPMovable_Tube_Sheet);
@@ -267,6 +325,19 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
     InstanceSPtr iPHeat_Exchanger_Supports1(new MbInstance(*mSHeat_Exchanger_Supports1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     SPtr<MbInstance> p_IPHeat_Exchanger_Supports1(new MbInstance(*iPHeat_Exchanger_Supports1, lcs));
 
+    bool sliceSide = true;
+    vector<SPtr<MbSolid>> MbSPartition;
+    vector<SPtr<MbInstance>> MbIPartition;
+    for (int i = 0; i < 6; i++)
+    {
+        SPtr<MbSolid> mSPartition_HPG = Partition_HPG(params, sliceSide);
+        mSPartition_HPG->SetColor(190, 190, 190);
+        InstanceSPtr iPPartition_HPG(new MbInstance(*mSPartition_HPG, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+        SPtr<MbInstance> p_IPPartition_HPG(new MbInstance(*iPPartition_HPG, lcs));
+        MbSPartition.push_back(mSPartition_HPG);
+        MbIPartition.push_back(iPPartition_HPG);
+        sliceSide = !sliceSide;
+    }
 
     /*-------------------------------------------------------------------------*/
     SPtr<MbSolid> mSСasing = Casing_KP(params);
@@ -347,8 +418,10 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
     pair.push_back(p_IPFloating_Head_Cover);
     pair.push_back(p_IPGasket_Floating_Head);
 
-
-
+    for (int i = 0; i < 5; i++)
+    {
+        pair.push_back(MbIPartition[i]);
+    }
 
     MbAssembly* assm = new MbAssembly(pair);
     assm->SetPlacement(lcs);
@@ -381,7 +454,7 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
     MtGeomArgument SheetGaCa(mSStationary_Tube_Sheet->GetFace(5), p_IPStationary_Tube_Sheet);
     MtGeomArgument GasketRCa(mSGasket_Chamber_Casing1->GetFace(2), p_IPGasket_Chamber_Casing1);
     assm->AddConstraint(GCM_DISTANCE, SheetGaCa, GasketRCa, 0);
-    assm->EvaluateConstraints();
+    assm->EvaluateConstraints(); 
 
     MtGeomArgument CasingGaCo(mSСasing->GetFace(6), p_IPСasing);
     MtGeomArgument GasketCaCo(mSGasket_Casing_Cover->GetFace(2), p_IPGasket_Casing_Cover);
@@ -442,6 +515,43 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
     MtGeomArgument Supports3(mSHeat_Exchanger_Supports->GetFace(6), p_IPHeat_Exchanger_Supports);
     assm->AddConstraint(GCM_DISTANCE, Supports31, Supports3, params.l0.toDouble());
     assm->EvaluateConstraints();
+
+    MtGeomArgument Partition(MbSPartition[0]->GetFace(0), MbIPartition[0]);
+    MtGeomArgument PartitionR(mSStationary_Tube_Sheet->GetFace(1), p_IPStationary_Tube_Sheet);
+    assm->AddConstraint(GCM_DISTANCE, Partition, PartitionR, 900.0);
+    assm->EvaluateConstraints();
+
+    /*MtGeomArgument Partition1(MbSPartition[0]->GetFace(3), MbIPartition[0]);
+   MtGeomArgument PartitionR1(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
+   assm->AddConstraint(GCM_CONCENTRIC, Partition1, PartitionR1);
+   assm->EvaluateConstraints();*/
+
+   /*-------------------------------------------------------------------------*/
+
+    for (size_t i = 1; i < 5; i++)
+    {
+        MtGeomArgument PartitionA(MbSPartition[i]->GetFace(0), MbIPartition[i]);
+        MtGeomArgument PartitionA1(MbSPartition[i - 1]->GetFace(1), MbIPartition[i - 1]);
+        assm->AddConstraint(GCM_DISTANCE, PartitionA, PartitionA1, 900.0);
+        assm->EvaluateConstraints();
+
+        /* MtGeomArgument PartitionA2(MbSPartition[i]->GetFace(3), MbIPartition[i]);
+         MtGeomArgument PartitionA3(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
+         assm->AddConstraint(GCM_CONCENTRIC, PartitionA2, PartitionA3);
+         assm->EvaluateConstraints();*/
+    }
+
+    /* MtGeomArgument Partition2(MbSPartition[15]->GetFace(0), MbIPartition[15]);
+     MtGeomArgument PartitionR2(MbSPartition[15-1]->GetFace(1), MbIPartition[15 - 1]);
+     assm->AddConstraint(GCM_DISTANCE, Partition2, PartitionR2, 200.0);
+     assm->EvaluateConstraints();
+
+     MtGeomArgument Partition3(MbSPartition[15]->GetFace(3), MbIPartition[15]);
+     MtGeomArgument PartitionR3(mSStationary_Tube_Sheet->GetFace(11), p_IPStationary_Tube_Sheet);
+     assm->AddConstraint(GCM_CONCENTRIC, Partition3, PartitionR3);
+     assm->EvaluateConstraints();*/
+
+     /*-------------------------------------------------------------------------*/
 
     return assm;
 }

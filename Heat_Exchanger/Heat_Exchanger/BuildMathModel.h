@@ -210,6 +210,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_HPG(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Partition_HPG(BuildParams params,bool);
 
 		static SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params);

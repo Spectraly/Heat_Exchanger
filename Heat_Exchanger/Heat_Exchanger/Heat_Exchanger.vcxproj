@@ -143,12 +143,14 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="MoveSupHETY.cpp" />
     <ClCompile Include="ParamsWidget.cpp" />
     <ClCompile Include="Movable_Tube_Sheet_HPG.cpp" />
+    <ClCompile Include="Partition_HPG.cpp" />
     <ClCompile Include="PipeGridTY.cpp" />
     <ClCompile Include="Stationary_Tube_Sheet_HPG.cpp" />
     <ClCompile Include="Stationary_Tube_Sheet_KP.cpp" />
     <ClCompile Include="TubeBundles.cpp" />
     <ClCompile Include="TubeBundleTY.cpp" />
     <ClCompile Include="Viewer.cpp" />
+    <ClCompile Include="СalculationController.cpp" />
     <QtRcc Include="MainWindow.qrc" />
     <QtUic Include="MainWindow.ui" />
     <QtMoc Include="MainWindow.h" />
@@ -162,6 +164,7 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClInclude Include="BuildParams.h" />
     <ClInclude Include="colorDef.h" />
     <ClInclude Include="SceneParams.h" />
+    <ClInclude Include="СalculationController.h" />
     <QtMoc Include="ParamsWidget.h" />
     <ClInclude Include="FileController.h" />
     <ClInclude Include="resource.h" />

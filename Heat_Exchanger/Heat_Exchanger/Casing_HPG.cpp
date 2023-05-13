@@ -82,8 +82,6 @@ void CreateSketch2(RPArray<MbContour>& _arrContours, float RV, float L2,float A1
 
 void CreateSketch3(RPArray<MbContour>& _arrContours, float RV, float L2, float A, float Dy, float Ts)
 {
-
-
     float Ry = Dy / 2;
     float S = -L2 + A;//Формула для левой трубы
     // Размер массива - 8 точек

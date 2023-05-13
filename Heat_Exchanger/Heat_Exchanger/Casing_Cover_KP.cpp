@@ -9,13 +9,14 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
     DN = DV + DV / 100 * 8; //Внутренний диаметр
     L = params.length.toDouble();
     RV = DV / 2 + 30; //Внутренний радиус
-    LC = (L / 100) * 5;
+    if (DV < 900)
+        LC = (L / 100) * 6.25;
+    else if (DV >= 900)
+        LC = (L / 100) * 7.25;
     B1 = 5; //Правый бортик
     Ts = (DN - DV) / 2;//Толщина стенки
     Rm = (L / 100) * 1.7;
     Rb = Rm + Ts;
-    Rm = 116;
-
     
     const double DEG_TO_RAD = M_PI / 180.0;
 
@@ -24,9 +25,9 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
     MbCartPoint p1(-LC + 2 * B1, RV);
     MbCartPoint p2(-LC + 2 * B1, RV + Ts + 3 * B1);
     MbCartPoint p3(-LC, RV + Ts + 3 * B1);
-    MbCartPoint p4(-LC, RV + Ts + 7 * B1);
-    MbCartPoint p5(-LC + 5 * B1, RV + Ts + 7 * B1);
-    MbCartPoint p6(-LC + 5 * B1, RV + Ts);
+    MbCartPoint p4(-LC, RV + Ts * 1.5 + 6 * B1);
+    MbCartPoint p5(-LC + Ts + 3 * B1, RV + Ts * 1.5 + 6 * B1);
+    MbCartPoint p6(-LC + Ts + 3 * B1, RV + Ts);
     MbCartPoint p7(0, RV + Ts);
     MbCartPoint p8(Rb, 0);
     MbCartPoint p9(Rm, 0);

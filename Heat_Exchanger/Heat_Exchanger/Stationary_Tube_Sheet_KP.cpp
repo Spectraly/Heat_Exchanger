@@ -5,27 +5,27 @@ Faces facesStationaryKP;
 
 SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_KP(BuildParams params)
 {
-   float DV,RV,L,L2,D,R,B1;
+
+    float DV, RV, L, L2, D, R, B1, B2, d, bigD, offsets, t, n0, n, h;
     DV = params.diam.toDouble();//Наружный диаметр
-    RV = (DV + DV/100*19.5)/2; //Внутренний радиус
+    RV = (DV + DV / 100 * 19.5) / 2; //Внутренний радиус
     L = 40; //Длина
-    L2 = L/2; //Длина
+    L2 = L / 2; //Длина
     B1 = 5; //Левый бортик
-    float B2 = 8; //Правый бортик
+    B2 = 8; //Правый бортик
     D = DV - B1;
     R = D / 2;
 
-    float d = params.d.toDouble(); // D трубы
-    float bigD = DV - (DV / 100 *9); // D проверочной окружности
-    float offsets;
+    d = params.d.toDouble(); // D трубы
+    bigD = DV - (DV / 100 * 9); // D проверочной окружности
     if (d == 20)
         offsets = 6; //расстояние между окружностями
     else
         offsets = 7; //расстояние между окружностями
-    float t = (d + offsets); // Шаг между центрами
-    float n0 = floor(bigD / t); // Кол-во отверстий на 0 ряду
-    float n = n0 + 3; // Кол-во отверстий на 1 ряду
-    float h = bigD / 2 * sin(60 * M_PI / 180); // Высота 6 угольника
+    t = (d + offsets); // Шаг между центрами
+    n0 = floor(bigD / t); // Кол-во отверстий на 0 ряду
+    n = n0 + 3; // Кол-во отверстий на 1 ряду
+    h = bigD / 2 * sin(60 * M_PI / 180); // Высота 6 угольника
     
     const double DEG_TO_RAD = M_PI / 180.0;
 

@@ -32,7 +32,7 @@ void FileController::exportCurrentModel(c3d::path_string path, MbModel* ptrModel
 	if (ptrModel) {
 		MbeConvResType exportRes = c3d::ExportIntoFile(*ptrModel, path);
 		if (exportRes != MbeConvResType::cnv_Success)
-			QMessageBox::information(parentWidget, u8"Предупреждение", u8"Ошибка экспорта");
+			QMessageBox::information(parentWidget, u8"Предупреждение", u8"Ошибка сохранения");
 	}
 	else {
 		QMessageBox::information(parentWidget, u8"Предупреждение", u8"Нечего сохранять");

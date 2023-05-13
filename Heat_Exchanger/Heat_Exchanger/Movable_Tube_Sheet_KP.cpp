@@ -16,7 +16,6 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_KP(BuildParams params)
     {
     case 325:
         RV = (DV - 3) / 2;
-
         break;
     case 400:
         RV = (DV - 2) / 2;
@@ -53,8 +52,6 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_KP(BuildParams params)
         }
         break;
     }
-
-
     R = D / 2;
 
 

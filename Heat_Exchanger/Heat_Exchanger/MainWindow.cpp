@@ -30,7 +30,8 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(ui.action_params, &QAction::triggered, this, &MainWindow::showParamsSlot);
 
 	connect(ui.action_save, &QAction::triggered, this, &MainWindow::saveFileSlot);
-
+	ui.tabWidget->setCurrentIndex(0);
+	emit paramsWidget->buildSignal();
 }
 
 MainWindow::~MainWindow()
@@ -68,6 +69,7 @@ void MainWindow::setCurrentModel(MbModel* model)
 {
 	unsetCurrentModel();
 	if (model) currentMathModel = model;
+	//saveFileSlot();
 	drawMathModel();
 }
 
@@ -102,8 +104,8 @@ void MainWindow::showParamsSlot()
 void MainWindow::saveFileSlot()
 {
 	fileController.saveModel(currentMathModel);
-	//drawMathModel();-------------------------------------
-	makeExchangerMathModelSlot();
+	drawMathModel();
+
 }
 
 void MainWindow::changeTab(int tab)

@@ -2,7 +2,7 @@
 using namespace BuildMathModel;
 
 // Вспомогательная функция для построения образующей в виде квадрата со скруглениями.
-void CreateSketchCCKP(RPArray<MbContour>& _arrContours, float L, float RV, float DNK)
+void CreateSketchCCKP(RPArray<MbContour>& _arrContours, float L, float RV, float DNK, float Ts)
 {
     float B1 = 5; //Левый бортик
 
@@ -11,8 +11,8 @@ void CreateSketchCCKP(RPArray<MbContour>& _arrContours, float L, float RV, float
     arrPnts.Add(MbCartPoint(0, 0));
     arrPnts.Add(MbCartPoint(0, DNK));
     arrPnts.Add(MbCartPoint(L - 2 * B1, DNK));
-    arrPnts.Add(MbCartPoint(L - 2 * B1, DNK - 2 * B1));
-    arrPnts.Add(MbCartPoint(L - B1, DNK - 2 * B1));
+    arrPnts.Add(MbCartPoint(L - 2 * B1, DNK - 4 * B1 - 0.3 * Ts));
+    arrPnts.Add(MbCartPoint(L - B1, DNK - 4 * B1 - 0.3 * Ts));
     arrPnts.Add(MbCartPoint(L - B1, RV));
     arrPnts.Add(MbCartPoint(L, RV));
     arrPnts.Add(MbCartPoint(L, 0));
@@ -52,11 +52,12 @@ void CreateSketchCC1KP(RPArray<MbContour>& _arrContours, float L)
 
 SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover_KP(BuildParams params)
 {
-    float DV, DN, DNK, RV, L;
-    L = params.length.toDouble() / 100 * 0.6; //Длина
+    float DV, DN, DNK, RV, L, Ts;
+    L = params.length.toDouble() / 100; //Длина
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
-    DNK = (DV + DV / 100 * 19.5) / 2 + 20;//Наружный диаметр крышки
+    Ts = (DN - DV) / 2;//Толщина стенки
+    DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;//Наружный диаметр крышки
     RV = DV / 2; //Внутренний радиус
 
     // Множитель для преобразования угловых значений из градусов в радианы
@@ -67,7 +68,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover_KP(BuildParams 
 
     // Вызов функции для построения образующей (из примера 6)
     RPArray<MbContour> arrContours,arrContours1;
-    CreateSketchCCKP(arrContours, L, RV, DNK);
+    CreateSketchCCKP(arrContours, L, RV, DNK, Ts);
     CreateSketchCC1KP(arrContours1, L);
     
     

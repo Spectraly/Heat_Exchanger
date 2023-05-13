@@ -61,7 +61,6 @@ NodeKeyVector Viewer::addMathGeoms(MbItem * item,  VSN::SceneSegment * sceneSegm
 	else {
 		item->Transform(matrix);
 		SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
-		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
 		segSinSurface->SetObjectName(VSN::String(item->GetItemName()));
 		checkHideElement(segSinSurface);
 		keys.push_back(segSinSurface->GetUniqueKey());

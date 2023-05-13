@@ -118,9 +118,6 @@
     <ClCompile Include="Movable_Tube_Sheet_HPG.cpp">
       <Filter>Source Files\HPGDetails</Filter>
     </ClCompile>
-    <ClCompile Include="TubeBundles.cpp">
-      <Filter>Source Files\HPGDetails</Filter>
-    </ClCompile>
     <ClCompile Include="Gasket_Casing_Cover_KP.cpp">
       <Filter>Source Files\KPDetails</Filter>
     </ClCompile>
@@ -163,6 +160,15 @@
     <ClCompile Include="Kamera.cpp">
       <Filter>Source Files\TUDetails</Filter>
     </ClCompile>
+    <ClCompile Include="Partition_HPG.cpp">
+      <Filter>Source Files\HPGDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="TubeBundles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="СalculationController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">
@@ -181,6 +187,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="СalculationController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

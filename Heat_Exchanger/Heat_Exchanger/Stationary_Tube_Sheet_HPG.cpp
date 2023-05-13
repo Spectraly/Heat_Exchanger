@@ -43,7 +43,6 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams para
     MbCartPoint p11(L2, R);
     MbCartPoint p12(L2, 0);
 
-    
     MbPlacement* pl = new MbPlacement();
 
     //Динамическое создание объектов отрезков
@@ -60,8 +59,6 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams para
     MbLineSegment* Seg11 = new MbLineSegment(p11, p12);
     MbLineSegment* Seg12 = new MbLineSegment(p12, p1);
 
-
-
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
     
@@ -77,9 +74,6 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams para
     ptrContour->AddSegment(Seg10);
     ptrContour->AddSegment(Seg11);
     ptrContour->AddSegment(Seg12);
-    
-
-   
 
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();

@@ -4,9 +4,12 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_KP(BuildParams params)
 {
-   float DV,RV,B1;
+    float DV, RV, R, B1, DR, RR;
     DV = params.diam.toDouble();//Наружный диаметр
+    R = DV / 2;//Наружный диаметр
     B1 = 5; //Левый бортик
+    DR = DV - (DV / 100 * 9);
+    RR = DR / 2;
 
     switch ((int)DV)
     {
@@ -53,16 +56,16 @@ SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_KP(BuildParams params)
 
     //Создание двумерные точки на осях X и Y
    
-    MbCartPoint p1(-30,RV+3*B1);
-    MbCartPoint p2(0,RV+3*B1); 
-    
-    MbCartPoint p3(0, RV+B1);
+    MbCartPoint p1(-20, R + 3 * B1);
+    MbCartPoint p2(0, R + 3 * B1);
+
+    MbCartPoint p3(0, RV);
     MbCartPoint p4(65, 0);
     MbCartPoint p5(45, 0);
-    MbCartPoint p6(-15, RV-3*B1);
-    
-    MbCartPoint p7(-15,RV);
-    MbCartPoint p8(-30,RV);
+    MbCartPoint p6(-15, RR);
+
+    MbCartPoint p7(-15, RV);
+    MbCartPoint p8(-20, RV);
 
     
     MbPlacement* pl = new MbPlacement();
@@ -71,12 +74,12 @@ SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_KP(BuildParams params)
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
     MbLineSegment* Seg2 = new MbLineSegment(p2, p3);
- 
-    MbArc* Seg3 = new MbArc(65, RV+B1, *pl, p3, p4 ,-1);
+
+    MbArc* Seg3 = new MbArc(65, RV, *pl, p3, p4, -1);
     MbLineSegment* Seg4 = new MbLineSegment(p4, p5);
-    MbArc* Seg5 = new MbArc(60, RV-3*B1, *pl1, p5, p6 ,1);
+    MbArc* Seg5 = new MbArc(60, RR, *pl1, p5, p6, 1);
     MbLineSegment* Seg6 = new MbLineSegment(p6, p7);
-    
+
     MbLineSegment* Seg7 = new MbLineSegment(p7, p8);
     MbLineSegment* Seg8 = new MbLineSegment(p8, p1);
 
@@ -93,9 +96,6 @@ SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_KP(BuildParams params)
     ptrContour->AddSegment(Seg6);
     ptrContour->AddSegment(Seg7);
     ptrContour->AddSegment(Seg8);
-
-    
-   
 
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();

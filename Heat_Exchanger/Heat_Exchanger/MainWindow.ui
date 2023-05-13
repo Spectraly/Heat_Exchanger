@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1161</width>
-    <height>610</height>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -70,20 +70,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="MainWindow.qrc">:/mainwindow/res/HPGCase.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelKamHPG">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="MainWindow.qrc">:/mainwindow/res/HPGKam.png</pixmap>
+           <pixmap>res/HPG.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -103,20 +90,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="MainWindow.qrc">:/mainwindow/res/KPCase.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelKamKP">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="MainWindow.qrc">:/mainwindow/res/KPKam.png</pixmap>
+           <pixmap resource="MainWindow.qrc">:/mainwindow/res/KP.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
