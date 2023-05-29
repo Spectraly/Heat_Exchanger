@@ -2,11 +2,11 @@
 using namespace BuildMathModel;
 
 
-SPtr<MbSolid> ParametricModelCreator::Partition_HPG(BuildParams params, bool slicePlace)
+SPtr<MbSolid> ParametricModelCreator::Partition(BuildParams params, bool slicePlace)
 {
     float DV, RV, L, L2, B1;
-    DV = params.diam.toDouble();//Наружный диаметр
-    RV = (DV-3) / 2;//Наружный диаметр
+    DV = params.diam.toDouble();//Внутренний диаметр
+    RV = (DV-3) / 2;//Внутренний радиус
     L = 4; //Длина
     L2 = L / 2; //Длина
     B1 = 5; //Левый бортик
@@ -26,7 +26,6 @@ SPtr<MbSolid> ParametricModelCreator::Partition_HPG(BuildParams params, bool sli
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
-
     MbCartPoint p1(-L2, 0);
     MbCartPoint p2(-L2, RV);
     MbCartPoint p3(L2, RV);
@@ -171,7 +170,7 @@ SPtr<MbSolid> ParametricModelCreator::Partition_HPG(BuildParams params, bool sli
 
     // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid* m_pResSolid = nullptr;
-    RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
+    ::RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
 
     MbSNameMaker cylNames(ct_ElementarySolid, MbSNameMaker::i_SideNone);
     MbVector3D dir(1, 0, 0);

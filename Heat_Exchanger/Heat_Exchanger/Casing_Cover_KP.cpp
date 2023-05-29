@@ -14,7 +14,7 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
     else if (DV >= 900)
         LC = (L / 100) * 7.25;
     B1 = 5; //Правый бортик
-    Ts = (DN - DV) / 2;//Толщина стенки
+    Ts = params.TsE;//Толщина стенки
     Rm = (L / 100) * 1.7;
     Rb = Rm + Ts;
     
@@ -69,7 +69,6 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();
     MbPlane* ptrSurface = new MbPlane(*place);
-
 
     //Создание образующей для тела вращения
     RPArray<MbContour>* ptrContours = new RPArray<MbContour>();

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>417</width>
-    <height>667</height>
+    <width>464</width>
+    <height>839</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,7 +23,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_model_hpg">
       <attribute name="title">
@@ -46,66 +46,43 @@
         </widget>
        </item>
        <item>
-        <layout class="QFormLayout" name="formLayout">
+        <layout class="QGridLayout" name="gridLayout">
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
-         <property name="fieldGrowthPolicy">
-          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-         </property>
-         <property name="rowWrapPolicy">
-          <enum>QFormLayout::DontWrapRows</enum>
-         </property>
-         <property name="formAlignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="horizontalSpacing">
+         <property name="spacing">
           <number>7</number>
          </property>
-         <property name="verticalSpacing">
-          <number>7</number>
-         </property>
-         <item row="0" column="0">
-          <widget class="QRadioButton" name="radioButtonGOST">
+         <item row="11" column="0">
+          <widget class="QLabel" name="label_H">
            <property name="text">
-            <string>Построение по госту</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
+            <string>H, мм</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QRadioButton" name="radioButtonManual">
+         <item row="18" column="0">
+          <widget class="QLabel" name="label_l0">
            <property name="text">
-            <string>Построение вручную</string>
+            <string>l0, мм</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QComboBox" name="comboBoxExchangerType"/>
+         <item row="7" column="1">
+          <widget class="QLineEdit" name="lineEdit_Fi"/>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_Dvg">
-           <property name="text">
-            <string>Dv, мм</string>
-           </property>
-          </widget>
+         <item row="19" column="1">
+          <widget class="QLineEdit" name="lineEdit_l1"/>
          </item>
-         <item row="2" column="1">
-          <widget class="QComboBox" name="comboBox_Diam"/>
+         <item row="15" column="1">
+          <widget class="QLineEdit" name="lineEdit_Dy1"/>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_Pg">
-           <property name="text">
-            <string>Давление Py МПа не более</string>
-           </property>
-          </widget>
+         <item row="16" column="1">
+          <widget class="QLineEdit" name="lineEdit_Dy2"/>
          </item>
-         <item row="3" column="1">
-          <widget class="QComboBox" name="comboBox_Pressure"/>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="lineEdit_Ro"/>
          </item>
-         <item row="5" column="0">
+         <item row="9" column="0">
           <widget class="QLabel" name="label_Dv">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -118,141 +95,139 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="lineEdit_Diam"/>
-         </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="label_L">
-           <property name="text">
-            <string>L, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QLineEdit" name="lineEdit_Length"/>
-         </item>
-         <item row="7" column="0">
-          <widget class="QLabel" name="label_H">
-           <property name="text">
-            <string>H, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1">
-          <widget class="QLineEdit" name="lineEdit_Height"/>
-         </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="label_A">
-           <property name="text">
-            <string>A, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="1">
-          <widget class="QLineEdit" name="lineEdit_A"/>
-         </item>
-         <item row="9" column="0">
-          <widget class="QLabel" name="label_A1">
-           <property name="text">
-            <string>A1, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="1">
-          <widget class="QLineEdit" name="lineEdit_A1"/>
-         </item>
-         <item row="10" column="0">
-          <widget class="QLabel" name="label_Dy">
-           <property name="text">
-            <string>Dy, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="1">
-          <widget class="QLineEdit" name="lineEdit_Dy"/>
-         </item>
-         <item row="11" column="0">
-          <widget class="QLabel" name="label_Dy1">
-           <property name="text">
-            <string>Dy1, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="1">
-          <widget class="QLineEdit" name="lineEdit_Dy1"/>
-         </item>
-         <item row="12" column="0">
-          <widget class="QLabel" name="label_Dy2">
-           <property name="text">
-            <string>Dy2, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="1">
-          <widget class="QLineEdit" name="lineEdit_Dy2"/>
-         </item>
-         <item row="13" column="0">
-          <widget class="QLabel" name="label_l">
-           <property name="text">
-            <string>l, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="1">
-          <widget class="QLineEdit" name="lineEdit_l"/>
-         </item>
-         <item row="14" column="0">
-          <widget class="QLabel" name="label_l0">
-           <property name="text">
-            <string>l0, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="1">
-          <widget class="QLineEdit" name="lineEdit_l0"/>
-         </item>
-         <item row="15" column="0">
-          <widget class="QLabel" name="label_l1">
-           <property name="text">
-            <string>l1, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="15" column="1">
-          <widget class="QLineEdit" name="lineEdit_l1"/>
-         </item>
-         <item row="16" column="0">
-          <widget class="QLabel" name="label_l2">
-           <property name="text">
-            <string>l2, мм</string>
-           </property>
-          </widget>
-         </item>
-         <item row="16" column="1">
-          <widget class="QLineEdit" name="lineEdit_l2"/>
-         </item>
-         <item row="17" column="1">
-          <widget class="QLineEdit" name="lineEdit_l3"/>
-         </item>
-         <item row="18" column="1">
-          <widget class="QLineEdit" name="lineEdit_h"/>
-         </item>
-         <item row="17" column="0">
+         <item row="21" column="0">
           <widget class="QLabel" name="label_l3">
            <property name="text">
             <string>l3, мм</string>
            </property>
           </widget>
          </item>
-         <item row="18" column="0">
+         <item row="20" column="1">
+          <widget class="QLineEdit" name="lineEdit_l2"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_Dvg">
+           <property name="text">
+            <string>Dv, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="label_Fi">
+           <property name="text">
+            <string>φ - Коэффицент прочностисварочного шва</string>
+           </property>
+          </widget>
+         </item>
+         <item row="24" column="0">
+          <widget class="QLabel" name="label_S1">
+           <property name="text">
+            <string>S1, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_Pg">
+           <property name="text">
+            <string>Давление Py МПа не более</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QComboBox" name="comboBoxExchangerType"/>
+         </item>
+         <item row="25" column="0">
           <widget class="QLabel" name="label_h">
            <property name="text">
             <string>h, мм</string>
            </property>
           </widget>
          </item>
+         <item row="15" column="0">
+          <widget class="QLabel" name="label_Dy1">
+           <property name="text">
+            <string>Dy1, мм</string>
+           </property>
+          </widget>
+         </item>
          <item row="4" column="1">
           <widget class="QComboBox" name="comboBox_d"/>
+         </item>
+         <item row="10" column="1">
+          <widget class="QLineEdit" name="lineEdit_Length"/>
+         </item>
+         <item row="18" column="1">
+          <widget class="QLineEdit" name="lineEdit_l0"/>
+         </item>
+         <item row="23" column="0">
+          <widget class="QLabel" name="label_S">
+           <property name="text">
+            <string>S, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="22" column="0">
+          <widget class="QLabel" name="label_l4">
+           <property name="text">
+            <string>l4, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="19" column="0">
+          <widget class="QLabel" name="label_l1">
+           <property name="text">
+            <string>l1, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="21" column="1">
+          <widget class="QLineEdit" name="lineEdit_l3"/>
+         </item>
+         <item row="13" column="1">
+          <widget class="QLineEdit" name="lineEdit_A1"/>
+         </item>
+         <item row="17" column="0">
+          <widget class="QLabel" name="label_l">
+           <property name="text">
+            <string>l, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="lineEdit_Sig"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="radioButtonGOST">
+           <property name="text">
+            <string>Построение по таблице</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1">
+          <widget class="QLineEdit" name="lineEdit_A"/>
+         </item>
+         <item row="14" column="1">
+          <widget class="QLineEdit" name="lineEdit_Dy"/>
+         </item>
+         <item row="11" column="1">
+          <widget class="QLineEdit" name="lineEdit_Height"/>
+         </item>
+         <item row="14" column="0">
+          <widget class="QLabel" name="label_Dy">
+           <property name="text">
+            <string>Dy, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="label_A">
+           <property name="text">
+            <string>A, мм</string>
+           </property>
+          </widget>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="label">
@@ -260,6 +235,89 @@
             <string>Диаметр труб d, мм</string>
            </property>
           </widget>
+         </item>
+         <item row="17" column="1">
+          <widget class="QLineEdit" name="lineEdit_l"/>
+         </item>
+         <item row="20" column="0">
+          <widget class="QLabel" name="label_l2">
+           <property name="text">
+            <string>l2, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="22" column="1">
+          <widget class="QLineEdit" name="lineEdit_l4"/>
+         </item>
+         <item row="25" column="1">
+          <widget class="QLineEdit" name="lineEdit_h"/>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_Ro">
+           <property name="text">
+            <string>ρ, кг/м^3 - Плотность</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="comboBox_Diam"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QRadioButton" name="radioButtonManual">
+           <property name="text">
+            <string>Построение вручную</string>
+           </property>
+          </widget>
+         </item>
+         <item row="23" column="1">
+          <widget class="QLineEdit" name="lineEdit_S"/>
+         </item>
+         <item row="13" column="0">
+          <widget class="QLabel" name="label_A1">
+           <property name="text">
+            <string>A1, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QLineEdit" name="lineEdit_Diam"/>
+         </item>
+         <item row="3" column="1">
+          <widget class="QComboBox" name="comboBox_Pressure"/>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_Sig">
+           <property name="text">
+            <string>σ, МПа - Допускаемое напряжение стали</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="label_L">
+           <property name="text">
+            <string>L, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="24" column="1">
+          <widget class="QLineEdit" name="lineEdit_S1"/>
+         </item>
+         <item row="16" column="0">
+          <widget class="QLabel" name="label_Dy2">
+           <property name="text">
+            <string>Dy2, мм</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0">
+          <widget class="QLabel" name="label_P">
+           <property name="text">
+            <string>Давление Py МПа не более</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QLineEdit" name="lineEdit_Preassure"/>
          </item>
         </layout>
        </item>
@@ -299,227 +357,6 @@
          </item>
          <item>
           <widget class="QPushButton" name="HpushButton_reset">
-           <property name="text">
-            <string>Сбросить</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>Расчеты</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <layout class="QFormLayout" name="formLayout_5">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
-         </property>
-         <property name="fieldGrowthPolicy">
-          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-         </property>
-         <property name="rowWrapPolicy">
-          <enum>QFormLayout::DontWrapRows</enum>
-         </property>
-         <property name="formAlignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="horizontalSpacing">
-          <number>7</number>
-         </property>
-         <property name="verticalSpacing">
-          <number>7</number>
-         </property>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_25">
-           <property name="text">
-            <string>t вх</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_11"/>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_26">
-           <property name="text">
-            <string>t вых</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_12"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_29">
-           <property name="text">
-            <string>ρ</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_15"/>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Qm</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>c</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_4"/>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>55</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QLabel" name="label_13">
-           <property name="text">
-            <string>t - конечные предпочтительные температуры</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>ρ - плотность передаваемого вещества</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_12">
-           <property name="text">
-            <string>Qm - объёмный расход вещества</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_14">
-           <property name="text">
-            <string>с - удельная теплоемкость вещества</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>55</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QFormLayout" name="formLayout_3">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_15">
-           <property name="text">
-            <string>Q</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_6">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_16">
-           <property name="text">
-            <string>F</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_7">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>55</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Q - размер теплового потока</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>F - площадь рабочей поверхности</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QPushButton" name="pushButton_build_3">
-           <property name="text">
-            <string>Рассчитать</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="HpushButton_reset_3">
            <property name="text">
             <string>Сбросить</string>
            </property>

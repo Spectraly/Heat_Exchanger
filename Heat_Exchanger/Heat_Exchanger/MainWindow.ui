@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1161</width>
-    <height>665</height>
+    <width>1350</width>
+    <height>881</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -141,7 +141,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1161</width>
+     <width>1350</width>
      <height>26</height>
     </rect>
    </property>
@@ -246,7 +246,7 @@
     <string>О программе</string>
    </property>
    <property name="shortcut">
-    <string>F8</string>
+    <string>F7</string>
    </property>
   </action>
   <action name="action_aboutqt">
@@ -254,7 +254,7 @@
     <string>О Qt</string>
    </property>
    <property name="shortcut">
-    <string>F9</string>
+    <string>F8</string>
    </property>
   </action>
   <action name="action_centralyze">
@@ -278,7 +278,7 @@
     <string>Окно параметров</string>
    </property>
    <property name="shortcut">
-    <string>F5</string>
+    <string>F6</string>
    </property>
   </action>
   <action name="action_section">
@@ -286,7 +286,7 @@
     <string>Рассечь</string>
    </property>
    <property name="shortcut">
-    <string>F5</string>
+    <string>F4</string>
    </property>
   </action>
   <action name="action_changeSectionPlane">
@@ -294,7 +294,7 @@
     <string>Другое сечение</string>
    </property>
    <property name="shortcut">
-    <string>F4</string>
+    <string>F5</string>
    </property>
   </action>
   <action name="action_transp">

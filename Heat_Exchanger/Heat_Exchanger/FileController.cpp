@@ -17,7 +17,7 @@ void FileController::setParentWidget(QWidget* parent)
 c3d::path_string FileController::getFilePath(bool save)
 {
 	const QString defaultPath = "D:/C3D_files/MyModel.c3d";
-	const QString fileFilter = "Geometric models (*.c3d *.stp *.step *.STEP *.IGES *.SAT *.X_T *.X_B *.STL *.VRML *.JT)";
+	const QString fileFilter = "Geometric models (*.c3d *.stp *.step *.STEP *.SAT *.STL)";
 	QString fileName = save
 		? QFileDialog::getSaveFileName(parentWidget, u8"Сохранить в файл", defaultPath, fileFilter)
 		: QFileDialog::getOpenFileName(parentWidget, u8"Открыть из файла", defaultPath, fileFilter);

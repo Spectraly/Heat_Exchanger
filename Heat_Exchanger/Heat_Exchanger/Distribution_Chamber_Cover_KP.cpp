@@ -56,7 +56,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover_KP(BuildParams 
     L = params.length.toDouble() / 100; //Длина
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
-    Ts = (DN - DV) / 2;//Толщина стенки
+    Ts = params.TsS;//Толщина стенки
     DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;//Наружный диаметр крышки
     RV = DV / 2; //Внутренний радиус
 

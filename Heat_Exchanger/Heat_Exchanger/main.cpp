@@ -28,6 +28,7 @@ int main(int argc, char* argv[])
 
 	MainWindow mainWindow;
 	QtVision::setWindowPosition(mainWindow);
+	mainWindow.setWindowState(Qt::WindowMaximized);
 	mainWindow.show();
 
 	return app.exec();

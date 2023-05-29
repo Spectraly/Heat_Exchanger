@@ -15,9 +15,8 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_HPG(BuildParams params)
         LC = (L / 100) * 8.25;
     else if (DV >= 900)
         LC = (L / 100) * 9.25;
-
     B1 = 5; //Правый бортик
-    Ts = (DN - DV) / 2;//Толщина стенки
+    Ts = params.TsE;//Толщина стенки
     Rm = (L / 100) * 1.25;
     Rb = Rm + Ts;
     const double DEG_TO_RAD = M_PI / 180.0;

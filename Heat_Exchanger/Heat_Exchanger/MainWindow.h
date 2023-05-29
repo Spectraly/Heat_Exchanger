@@ -44,5 +44,4 @@ private slots:
 	void aboutQtSlot();
 	void showParamsSlot();
 	void saveFileSlot();
-	void changeTab(int);
 };

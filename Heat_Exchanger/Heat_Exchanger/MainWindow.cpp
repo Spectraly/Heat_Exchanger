@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget* parent)
 	//запуск создания сцены
 	connect(paramsWidget, &ParamsWidget::buildSignal, this, &MainWindow::makeExchangerMathModelSlot);
 	connect(paramsWidget, &ParamsWidget::setupSceneSignal, this, &MainWindow::setupViewerSceneSlot);
-	connect(paramsWidget, SIGNAL(tabSignal(int i)), this, SLOT(changeTab(int i)));
 	connect(ui.action_build_heatex, &QAction::triggered, this, &MainWindow::makeExchangerMathModelSlot);
 	connect(ui.action_clear, &QAction::triggered, this, &MainWindow::clearModelSlot);
 
@@ -69,7 +68,6 @@ void MainWindow::setCurrentModel(MbModel* model)
 {
 	unsetCurrentModel();
 	if (model) currentMathModel = model;
-	//saveFileSlot();
 	drawMathModel();
 }
 
@@ -103,14 +101,7 @@ void MainWindow::showParamsSlot()
 
 void MainWindow::saveFileSlot()
 {
-	fileController.saveModel(currentMathModel);
-	drawMathModel();
-
-}
-
-void MainWindow::changeTab(int tab)
-{
-	
-	QMessageBox::warning(this, u8"Внимание", (QString)tab);
-
+	BuildMathModel::BuildParams modelParams = paramsWidget->getParams_model();
+	MbModel* exchangerModel = BuildMathModel::ParametricModelCreator::CreateHeatExchangerModel(modelParams);
+	fileController.saveModel(exchangerModel);
 }

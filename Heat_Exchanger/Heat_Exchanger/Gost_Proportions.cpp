@@ -3,6 +3,7 @@
 
 int ParamsWidget::checkPreassure(QString pres)
 {
+	modelParams.pressure == pres;
 	if (pres == "1,0")
 		return 0;
 	if (pres == "1,6")

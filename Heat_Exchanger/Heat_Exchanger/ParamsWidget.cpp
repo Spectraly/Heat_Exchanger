@@ -20,8 +20,6 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 
 	setupForm_model();
 	setupForm_scene();
-	//ui.comboBox_HDiam->setDisabled(!PARAMETRIZE);
-	//ui.comboBox_HPress->setDisabled(!PARAMETRIZE);
 	connect(ui.HpushButton_build, &QPushButton::clicked, this, &ParamsWidget::build);
 	connect(ui.HpushButton_reset, &QPushButton::clicked, this, &ParamsWidget::reset);
 	connect(ui.comboBox_lighttype, &QComboBox::currentTextChanged, this, &ParamsWidget::sceneset);
@@ -74,6 +72,7 @@ void ParamsWidget::updateParams_modelHPG()
 		getGostData(ui.comboBox_Diam->itemText(ui.comboBox_Diam->currentIndex()).toInt(), modelParams.type);
 	else
 	{
+		modelParams.pressure = ui.lineEdit_Preassure->text();
 		modelParams.diam = ui.lineEdit_Diam->text();
 		modelParams.length = ui.lineEdit_Length->text();
 		modelParams.height = ui.lineEdit_Height->text();
@@ -86,7 +85,14 @@ void ParamsWidget::updateParams_modelHPG()
 		modelParams.l1 = ui.lineEdit_l1->text();
 		modelParams.l2 = ui.lineEdit_l2->text();
 		modelParams.l3 = ui.lineEdit_l3->text();
+		modelParams.l4 = ui.lineEdit_l4->text();
+		modelParams.S = ui.lineEdit_S->text();
+		modelParams.S1 = ui.lineEdit_S1->text();
 		modelParams.h = ui.lineEdit_h->text();
+
+		modelParams.ro = ui.lineEdit_Ro->text();
+		modelParams.sig = ui.lineEdit_Sig->text();
+		modelParams.fi = ui.lineEdit_Fi->text();
 
 	}
 }
@@ -97,6 +103,7 @@ void ParamsWidget::updateParams_modelKP()
 		getGostData(ui.comboBox_Diam->itemText(ui.comboBox_Diam->currentIndex()).toInt(), modelParams.type);
 	else
 	{
+		modelParams.pressure = ui.lineEdit_Preassure->text();
 		modelParams.diam = ui.lineEdit_Diam->text();
 		modelParams.length = ui.lineEdit_Length->text();
 		modelParams.height = ui.lineEdit_Height->text();
@@ -110,7 +117,14 @@ void ParamsWidget::updateParams_modelKP()
 		modelParams.l1 = ui.lineEdit_l1->text();
 		modelParams.l2 = ui.lineEdit_l2->text();
 		modelParams.l3 = ui.lineEdit_l3->text();
+		modelParams.l4 = ui.lineEdit_l4->text();
+		modelParams.S = ui.lineEdit_S->text();
+		modelParams.S1 = ui.lineEdit_S1->text();
 		modelParams.h = ui.lineEdit_h->text();
+
+		modelParams.ro = ui.lineEdit_Ro->text();
+		modelParams.sig = ui.lineEdit_Sig->text();
+		modelParams.fi = ui.lineEdit_Fi->text();
 	}
 }
 
@@ -120,6 +134,7 @@ void ParamsWidget::updateParams_modelTU()
 		getGostData(ui.comboBox_Diam->itemText(ui.comboBox_Diam->currentIndex()).toInt(), modelParams.type);
 	else
 	{
+		modelParams.pressure = ui.lineEdit_Preassure->text();
 		modelParams.diam = ui.lineEdit_Diam->text();
 		modelParams.length = ui.lineEdit_Length->text();
 		modelParams.height = ui.lineEdit_Height->text();
@@ -131,7 +146,14 @@ void ParamsWidget::updateParams_modelTU()
 		modelParams.l1 = ui.lineEdit_l1->text();
 		modelParams.l2 = ui.lineEdit_l2->text();
 		modelParams.l3 = ui.lineEdit_l3->text();
+		modelParams.l4 = ui.lineEdit_l4->text();
+		modelParams.S = ui.lineEdit_S->text();
+		modelParams.S1 = ui.lineEdit_S1->text();
 		modelParams.h = ui.lineEdit_h->text();
+
+		modelParams.ro = ui.lineEdit_Ro->text();
+		modelParams.sig = ui.lineEdit_Sig->text();
+		modelParams.fi = ui.lineEdit_Fi->text();
 	}
 }	
 
@@ -141,6 +163,7 @@ void ParamsWidget::setupForm_model()
 	{
 	case HPG_MODEL:
 		modelParams = BuildMathModel::BuildParams();
+		ui.lineEdit_Preassure->setText(modelParams.pressure);
 		ui.lineEdit_Diam->setText(modelParams.diam);
 		ui.lineEdit_Length->setText(modelParams.length);
 		ui.lineEdit_Height->setText(modelParams.height);
@@ -154,39 +177,62 @@ void ParamsWidget::setupForm_model()
 		ui.lineEdit_l1->setText(modelParams.l1);
 		ui.lineEdit_l2->setText(modelParams.l2);
 		ui.lineEdit_l3->setText(modelParams.l3);
+		ui.lineEdit_l4->setText(modelParams.l4);
+		ui.lineEdit_S->setText(modelParams.S);
+		ui.lineEdit_S1->setText(modelParams.S1);
 		ui.lineEdit_h->setText(modelParams.h);
+
+		ui.lineEdit_Ro->setText(modelParams.ro);
+		ui.lineEdit_Sig->setText(modelParams.sig);
+		ui.lineEdit_Fi->setText(modelParams.fi);
 		break;
 	case KP_MODEL:
-		ui.lineEdit_Diam->setText("600");
-		ui.lineEdit_Length->setText("6800");
-		ui.lineEdit_Height->setText("1060");
-		ui.lineEdit_A->setText("1100");
-		ui.lineEdit_A1->setText("4500");
-		ui.lineEdit_Dy->setText("200");
-		ui.lineEdit_Dy1->setText("300");
-		ui.lineEdit_Dy2->setText("100");
-		ui.lineEdit_l->setText("6000");
-		ui.lineEdit_l0->setText("3000");
-		ui.lineEdit_l1->setText("290");
-		ui.lineEdit_l2->setText("650");
-		ui.lineEdit_l3->setText("900");
-		ui.lineEdit_h->setText("525");
+		ui.lineEdit_Preassure->setText("1.0");
+		ui.lineEdit_Diam->setText("600.0");
+		ui.lineEdit_Length->setText("6800.0");
+		ui.lineEdit_Height->setText("1060.0");
+		ui.lineEdit_A->setText("1100.0");
+		ui.lineEdit_A1->setText("4500.0");
+		ui.lineEdit_Dy->setText("200.0");
+		ui.lineEdit_Dy1->setText("300.0");
+		ui.lineEdit_Dy2->setText("100.0");
+		ui.lineEdit_l->setText("6000.0");
+		ui.lineEdit_l0->setText("3000.0");
+		ui.lineEdit_l1->setText("290.0");
+		ui.lineEdit_l2->setText("650.0");
+		ui.lineEdit_l3->setText("900.0");
+		ui.lineEdit_l4->setText("3600.0");
+		ui.lineEdit_S->setText("40.0");
+		ui.lineEdit_S1->setText("10.0");
+		ui.lineEdit_h->setText("525.0");
+
+		ui.lineEdit_Ro->setText("1040.0");
+		ui.lineEdit_Sig->setText("132.0");
+		ui.lineEdit_Fi->setText("0.9");
 		break;
 	case TU_MODEL:
-		ui.lineEdit_Diam->setText("325");
-		ui.lineEdit_Length->setText("3800");
-		ui.lineEdit_Height->setText("600");
-		ui.lineEdit_A->setText("450");
-		ui.lineEdit_A1->setText("2500");
-		ui.lineEdit_Dy->setText("100");
-		ui.lineEdit_Dy1->setText("100");
-		ui.lineEdit_Dy2->setText("100");
-		ui.lineEdit_l->setText("3000");
-		ui.lineEdit_l0->setText("1500");
-		ui.lineEdit_l1->setText("230");
-		ui.lineEdit_l2->setText("400");
-		ui.lineEdit_l3->setText("150");
-		ui.lineEdit_h->setText("292");
+		ui.lineEdit_Preassure->setText("2.5");
+		ui.lineEdit_Diam->setText("325.0");
+		ui.lineEdit_Length->setText("3800.0");
+		ui.lineEdit_Height->setText("600.0");
+		ui.lineEdit_A->setText("450.0");
+		ui.lineEdit_A1->setText("2500.0");
+		ui.lineEdit_Dy->setText("100.0");
+		ui.lineEdit_Dy1->setText("100.0");
+		ui.lineEdit_Dy2->setText("100.0");
+		ui.lineEdit_l->setText("3000.0");
+		ui.lineEdit_l0->setText("1500.0");
+		ui.lineEdit_l1->setText("230.0");
+		ui.lineEdit_l2->setText("400.0");
+		ui.lineEdit_l3->setText("150.0");
+		ui.lineEdit_l4->setText("2250.0");
+		ui.lineEdit_S->setText("45.0");
+		ui.lineEdit_S1->setText("4.0");
+		ui.lineEdit_h->setText("292.0");
+
+		ui.lineEdit_Ro->setText("1040.0");
+		ui.lineEdit_Sig->setText("132.0");
+		ui.lineEdit_Fi->setText("0.9");
 		break;
 	default:
 		break;
@@ -195,6 +241,7 @@ void ParamsWidget::setupForm_model()
 
 void ParamsWidget::setValidators()
 {
+	ui.lineEdit_Preassure->setValidator(valDouble);
 	ui.lineEdit_Diam->setValidator(valDouble);
 	ui.lineEdit_Length->setValidator(valDouble);
 	ui.lineEdit_Height->setValidator(valDouble);
@@ -208,7 +255,14 @@ void ParamsWidget::setValidators()
 	ui.lineEdit_l1->setValidator(valDouble);
 	ui.lineEdit_l2->setValidator(valDouble);
 	ui.lineEdit_l3->setValidator(valDouble);
+	ui.lineEdit_l4->setValidator(valDouble);
+	ui.lineEdit_S->setValidator(valDouble);
+	ui.lineEdit_S1->setValidator(valDouble);
 	ui.lineEdit_h->setValidator(valDouble);
+
+	ui.lineEdit_Ro->setValidator(valDouble);
+	ui.lineEdit_Sig->setValidator(valDouble);
+	ui.lineEdit_Fi->setValidator(valDouble);
 
 	ui.comboBoxExchangerType->addItem("Холодильник с плавающей головкой горизонтальный");
 	ui.comboBoxExchangerType->addItem("Конденсатор с плавающей головкой");
@@ -240,7 +294,8 @@ void ParamsWidget::setValidators()
 
 bool ParamsWidget::checkValidate()
 {
-	if (ui.lineEdit_Diam->text() != "" && 
+	if (ui.lineEdit_Preassure->text() != "" &&
+		ui.lineEdit_Diam->text() != "" && 
 		ui.lineEdit_Length->text() != "" &&
 		ui.lineEdit_Height->text() != "" &&
 		ui.lineEdit_A->text() != "" &&
@@ -251,7 +306,12 @@ bool ParamsWidget::checkValidate()
 		ui.lineEdit_l->text() != "" &&
 		ui.lineEdit_l0->text() != "" &&
 		ui.lineEdit_l1->text() != "" &&
-		ui.lineEdit_l2->text() != "")
+		ui.lineEdit_l2->text() != "" &&
+		ui.lineEdit_l3->text() != "" &&
+		ui.lineEdit_l4->text() != "" &&
+		ui.lineEdit_S->text() != "" &&
+		ui.lineEdit_S1->text() != "" &&
+		ui.lineEdit_h->text() != "")
 		return true;
 	else
 		return false;
@@ -267,6 +327,7 @@ void ParamsWidget::updateParams_scene()
 
 void ParamsWidget::hideManualFields(bool b)
 {
+	ui.lineEdit_Preassure->setHidden(b);
 	ui.lineEdit_Diam->setHidden(b);
 	ui.lineEdit_Length->setHidden(b);
 	ui.lineEdit_Height->setHidden(b);
@@ -280,8 +341,12 @@ void ParamsWidget::hideManualFields(bool b)
 	ui.lineEdit_l1->setHidden(b);
 	ui.lineEdit_l2->setHidden(b);
 	ui.lineEdit_l3->setHidden(b);
+	ui.lineEdit_l4->setHidden(b);
+	ui.lineEdit_S->setHidden(b);
+	ui.lineEdit_S1->setHidden(b);
 	ui.lineEdit_h->setHidden(b);
 
+	ui.label_P->setHidden(b);
 	ui.label_Dv->setHidden(b);
 	ui.label_L->setHidden(b);
 	ui.label_H->setHidden(b);
@@ -295,6 +360,9 @@ void ParamsWidget::hideManualFields(bool b)
 	ui.label_l1->setHidden(b);
 	ui.label_l2->setHidden(b);
 	ui.label_l3->setHidden(b);
+	ui.label_l4->setHidden(b);
+	ui.label_S->setHidden(b);
+	ui.label_S1->setHidden(b);
 	ui.label_h->setHidden(b);
 
 
@@ -401,12 +469,14 @@ void ParamsWidget::onTypeChanged()
 		ui.label_l0->setHidden(true);
 		ui.label_l2->setHidden(true);
 		ui.label_l3->setHidden(true);
+		ui.label_l4->setHidden(true);
 		ui.lineEdit_A->setHidden(true);
 		ui.lineEdit_A1->setHidden(true);
 		ui.lineEdit_l->setHidden(true);
 		ui.lineEdit_l0->setHidden(true);
 		ui.lineEdit_l2->setHidden(true);
 		ui.lineEdit_l3->setHidden(true);
+		ui.lineEdit_l4->setHidden(true);
 		combo->addItem("600");
 		combo->addItem("700");
 		combo->addItem("800");

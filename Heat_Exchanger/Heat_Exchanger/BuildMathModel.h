@@ -210,7 +210,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_HPG(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params);
-		static SPtr<MbSolid> ParametricModelCreator::Partition_HPG(BuildParams params,bool);
+		static SPtr<MbSolid> ParametricModelCreator::Partition(BuildParams params,bool);
 
 		static SPtr<MbSolid> ParametricModelCreator::Casing_KP(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params);
@@ -232,5 +232,9 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::FixedSupHETU(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::MoveSupHETU(BuildParams params);
 
+
+		static float ShellCalculation(BuildParams params);
+		static float EllipticalBottomCalculation(BuildParams params);
+		static float FlatBottomCalculation(BuildParams params);
 	};
 }

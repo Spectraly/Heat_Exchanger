@@ -3,9 +3,7 @@ using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params)
 {
-   
-
-
+  
     float DV = params.diam.toDouble();//Наружный диаметр
     float DN = DV + DV / 100 * 8; //Внутренний диаметр
     float B1 = 4; //Левый бортик
@@ -68,10 +66,9 @@ SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params)
         }
 
     }
-
-
+    MbPlacement3D pl;
     MbPlane* pPlaneXY = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0), MbCartPoint3D(0, 1, 0));
-
+    MbAxis3D axisY(pl.GetAxisY());
 
     MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
     PArray<MbSNameMaker> cNames(0, 1, false);
@@ -81,6 +78,8 @@ SPtr<MbSolid> ParametricModelCreator::TubeBundles(BuildParams params)
 
 
     ::ExtrusionSolid(sweptData, dir, nullptr, nullptr, false, extrusionParam, operNames, cNames, pSolid);
+
+    pSolid->Rotate(axisY, -90 * DEG_TO_RAD, nullptr);
 
     c3d::SolidSPtr MainSolid(pSolid);
 
