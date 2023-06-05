@@ -9,7 +9,7 @@ SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover_HPG(BuildParams params
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
     RV = DV / 2 + 30; //Внутренний радиус
-    Ts = (DN - DV) / 2;//Толщина стенки
+    Ts = params.TsE;//Толщина стенки
     
     const double DEG_TO_RAD = M_PI / 180.0;
 

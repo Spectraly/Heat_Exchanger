@@ -59,8 +59,8 @@ SPtr<MbSolid> ParametricModelCreator::Half_Ring_KP(BuildParams params)
     //Создание двумерные точки на осях X и Y
    
     MbCartPoint p1(0, RR);
-    MbCartPoint p2(0, RVP +3 * B1);
-    MbCartPoint p3(LP, RVP +3 * B1);
+    MbCartPoint p2(0, RV +3 * B1);
+    MbCartPoint p3(LP, RV +3 * B1);
     MbCartPoint p4(LP, RVP);
     MbCartPoint p5(LP-B1, RVP);
     MbCartPoint p6(LP-B1, RR);
@@ -76,8 +76,6 @@ SPtr<MbSolid> ParametricModelCreator::Half_Ring_KP(BuildParams params)
     MbLineSegment* Seg5 = new MbLineSegment(p5, p6);
     MbLineSegment* Seg6 = new MbLineSegment(p6, p1);
 
-
-
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
     
@@ -88,8 +86,6 @@ SPtr<MbSolid> ParametricModelCreator::Half_Ring_KP(BuildParams params)
     ptrContour->AddSegment(Seg5);
     ptrContour->AddSegment(Seg6);
     
-   
-
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();
     MbPlane* ptrSurface = new MbPlane(*place);

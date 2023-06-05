@@ -11,8 +11,10 @@ SPtr<MbSolid> ParametricModelCreator::Casing_Cover_KP(BuildParams params)
     RV = DV / 2 + 30; //Внутренний радиус
     if (DV < 900)
         LC = (L / 100) * 6.25;
-    else if (DV >= 900)
+    else if (DV >= 900 && DV < 1000)
         LC = (L / 100) * 7.25;
+    else if (DV >= 1000)
+        LC = (L / 100) * 10.25;
     B1 = 5; //Правый бортик
     Ts = params.TsE;//Толщина стенки
     Rm = (L / 100) * 1.7;

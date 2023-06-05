@@ -7,7 +7,8 @@ SPtr<MbSolid> ParametricModelCreator::Partition(BuildParams params, bool slicePl
     float DV, RV, L, L2, B1;
     DV = params.diam.toDouble();//Внутренний диаметр
     RV = (DV-3) / 2;//Внутренний радиус
-    L = 4; //Длина
+    L = params.S1.toDouble(); //Длина
+
     L2 = L / 2; //Длина
     B1 = 5; //Левый бортик
 

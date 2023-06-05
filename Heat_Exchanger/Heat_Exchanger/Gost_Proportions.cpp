@@ -3,16 +3,17 @@
 
 int ParamsWidget::checkPreassure(QString pres)
 {
-	modelParams.pressure == pres;
-	if (pres == "1,0")
+	pres = pres.replace(",", ".");
+	modelParams.pressure = pres;
+	if (pres == "1.0")
 		return 0;
-	if (pres == "1,6")
+	if (pres == "1.6")
 		return 1;
-	if (pres == "2,5")
+	if (pres == "2.5")
 		return 2;
-	if (pres == "4,0")
+	if (pres == "4.0")
 		return 3;
-	if (pres == "6,3")
+	if (pres == "6.3")
 		return 4;
 }
 
@@ -37,6 +38,10 @@ void ParamsWidget::gostDiam325(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "235";
 			modelParams.l2 = "400";
+			modelParams.l3 = "140";
+			modelParams.l4 = "2100";
+			modelParams.S = "40";
+			modelParams.S1 = "4";
 			modelParams.h = "292";
 			break;
 		case 4:

@@ -8,7 +8,6 @@ using namespace BuildMathModel;
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams params)
 {
-    ParametricModelCreator objFaces;
     MbPlacement3D lcs;
     vector<SPtr<MbInstance>> pair;
 
@@ -23,7 +22,6 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     InstanceSPtr iPMovable_Tube_Sheet(new MbInstance(*mSMovable_Tube_Sheet, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     SPtr<MbInstance> p_IPMovable_Tube_Sheet(new MbInstance(*iPMovable_Tube_Sheet, lcs));
 
-    BuildMathModel::Faces faces = objFaces.getParamsStationary_model();
 
     bool sliceSide = true;
     vector<SPtr<MbSolid>> MbSPartition;
@@ -125,9 +123,9 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     pair.push_back(p_IPHeat_Exchanger_Supports);
     pair.push_back(p_IPHeat_Exchanger_Supports1);
 
+    pair.push_back(p_IPСasing);
     pair.push_back(p_IPDistribution_Chamber);
     pair.push_back(p_IPDistribution_Chamber_Cover);
-    pair.push_back(p_IPСasing);
     pair.push_back(p_IPСasing_Cover);
     pair.push_back(p_IPGasket_Casing_Cover);
     pair.push_back(p_IPGasket_Chamber_Casing); 
@@ -261,12 +259,15 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     assm->AddConstraint(GCM_DISTANCE, Supports31, Supports3, -params.l0.toDouble());
     assm->EvaluateConstraints();   
 
+    MbCube cube;
+    assm->CalculateGabarit(cube);
+    assm->Move(MbVector3D(-cube.GetLengthX()/2, 0, 0));
+
 	return assm;
 }
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams params)
 {
-    ParametricModelCreator objFaces;
     MbPlacement3D lcs;
     vector<SPtr<MbInstance>> pair;
 
@@ -372,28 +373,28 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
 
     /*-------------------------------------------------------------------------*/
 
-    //pair.push_back(p_IPTubeBundles);
-    //pair.push_back(p_IPHeat_Exchanger_Supports);
-    //pair.push_back(p_IPHeat_Exchanger_Supports1);
+    pair.push_back(p_IPTubeBundles);
+    pair.push_back(p_IPHeat_Exchanger_Supports);
+    pair.push_back(p_IPHeat_Exchanger_Supports1);
 
-    //pair.push_back(p_IPСasing);
+    pair.push_back(p_IPСasing);
     pair.push_back(p_IPDistribution_Chamber);
-    //pair.push_back(p_IPDistribution_Chamber_Cover);
-    //pair.push_back(p_IPСasing_Cover);
-    //pair.push_back(p_IPGasket_Casing_Cover);
-    //pair.push_back(p_IPGasket_Chamber_Casing);
-    //pair.push_back(p_IPGasket_Chamber_Casing1);
-    //pair.push_back(p_IPGasket_Cover_Chamber);
-    //pair.push_back(p_IPStationary_Tube_Sheet);
-    //pair.push_back(p_IPMovable_Tube_Sheet);
-    //pair.push_back(p_IPHalf_Ring);
-    //pair.push_back(p_IPFloating_Head_Cover);
-    //pair.push_back(p_IPGasket_Floating_Head);
+    pair.push_back(p_IPDistribution_Chamber_Cover);
+    pair.push_back(p_IPСasing_Cover);
+    pair.push_back(p_IPGasket_Casing_Cover);
+    pair.push_back(p_IPGasket_Chamber_Casing);
+    pair.push_back(p_IPGasket_Chamber_Casing1);
+    pair.push_back(p_IPGasket_Cover_Chamber);
+    pair.push_back(p_IPStationary_Tube_Sheet);
+    pair.push_back(p_IPMovable_Tube_Sheet);
+    pair.push_back(p_IPHalf_Ring);
+    pair.push_back(p_IPFloating_Head_Cover);
+    pair.push_back(p_IPGasket_Floating_Head);
 
-    //for (int i = 0; i < 5; i++)
-    //{
-    //    pair.push_back(MbIPartition[i]);
-    //}
+    for (int i = 0; i < 5; i++)
+    {
+        pair.push_back(MbIPartition[i]);
+    }
 
     MbAssembly* assm = new MbAssembly(pair);
     assm->SetPlacement(lcs);
@@ -428,10 +429,21 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
     assm->AddConstraint(GCM_DISTANCE, SheetGaCa, GasketRCa, 0);
     assm->EvaluateConstraints(); 
 
-    MtGeomArgument CasingGaCo(mSСasing->GetFace(6), p_IPСasing);
-    MtGeomArgument GasketCaCo(mSGasket_Casing_Cover->GetFace(2), p_IPGasket_Casing_Cover);
-    assm->AddConstraint(GCM_DISTANCE, CasingGaCo, GasketCaCo, 0);
-    assm->EvaluateConstraints();
+    if ((params.diam.toDouble() == 900 && params.pressure.toDouble() == 1.0) || (params.diam.toDouble() == 1200 && params.pressure.toDouble() == 1.0) || (params.diam.toDouble() == 1200 && params.pressure.toDouble() == 2.5))
+    {
+        MtGeomArgument CasingGaCo(mSСasing->GetFace(5), p_IPСasing);
+        MtGeomArgument GasketCaCo(mSGasket_Casing_Cover->GetFace(2), p_IPGasket_Casing_Cover);
+        assm->AddConstraint(GCM_DISTANCE, CasingGaCo, GasketCaCo, 0);
+        assm->EvaluateConstraints();
+    }
+    else
+    {
+        MtGeomArgument CasingGaCo(mSСasing->GetFace(6), p_IPСasing);
+        MtGeomArgument GasketCaCo(mSGasket_Casing_Cover->GetFace(2), p_IPGasket_Casing_Cover);
+        assm->AddConstraint(GCM_DISTANCE, CasingGaCo, GasketCaCo, 0);
+        assm->EvaluateConstraints();
+    }
+   
 
     MtGeomArgument CoverGaCa(mSСasing_Cover->GetFace(6), p_IPСasing_Cover);
     MtGeomArgument GasketCoCa(mSGasket_Casing_Cover->GetFace(0), p_IPGasket_Casing_Cover);
@@ -463,20 +475,41 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
     assm->AddConstraint(GCM_DISTANCE, FloatGa1, FloatC, 0);
     assm->EvaluateConstraints();
 
-    MtGeomArgument Supports(mSHeat_Exchanger_Supports->GetFace(5), p_IPHeat_Exchanger_Supports);
-    MtGeomArgument SupportsC(mSСasing->GetFace(26), p_IPСasing);
-    assm->AddConstraint(GCM_CONCENTRIC, Supports, SupportsC);
-    assm->EvaluateConstraints();
+    if ((params.diam.toDouble() == 900 && params.pressure.toDouble() == 1.0)|| (params.diam.toDouble() == 1200 && params.pressure.toDouble() == 1.0) || (params.diam.toDouble() == 1200 && params.pressure.toDouble() == 2.5))
+    {
+        MtGeomArgument Supports(mSHeat_Exchanger_Supports->GetFace(5), p_IPHeat_Exchanger_Supports);
+        MtGeomArgument SupportsC(mSСasing->GetFace(25), p_IPСasing);
+        assm->AddConstraint(GCM_CONCENTRIC, Supports, SupportsC);
+        assm->EvaluateConstraints();
+    }
+    else
+    {
+        MtGeomArgument Supports(mSHeat_Exchanger_Supports->GetFace(5), p_IPHeat_Exchanger_Supports);
+        MtGeomArgument SupportsC(mSСasing->GetFace(26), p_IPСasing);
+        assm->AddConstraint(GCM_CONCENTRIC, Supports, SupportsC);
+        assm->EvaluateConstraints();
+    }
 
     MtGeomArgument Supports1(mSHeat_Exchanger_Supports->GetFace(4), p_IPHeat_Exchanger_Supports);
     MtGeomArgument SupportsC1(mSСasing->GetFace(8), p_IPСasing);
     assm->AddConstraint(GCM_DISTANCE, Supports1, SupportsC1, params.l2.toDouble() - params.Dy1.toDouble());
     assm->EvaluateConstraints();
 
-    MtGeomArgument Supports2(mSHeat_Exchanger_Supports1->GetFace(5), p_IPHeat_Exchanger_Supports1);
-    MtGeomArgument SupportsC2(mSСasing->GetFace(26), p_IPСasing);
-    assm->AddConstraint(GCM_CONCENTRIC, Supports2, SupportsC2);
-    assm->EvaluateConstraints();
+    if ((params.diam.toDouble() == 900 && params.pressure.toDouble() == 1.0) || (params.diam.toDouble() == 1200 && params.pressure.toDouble() == 1.0) || (params.diam.toDouble() == 1200 && params.pressure.toDouble() == 2.5))
+    {
+        MtGeomArgument Supports2(mSHeat_Exchanger_Supports1->GetFace(5), p_IPHeat_Exchanger_Supports1);
+        MtGeomArgument SupportsC2(mSСasing->GetFace(25), p_IPСasing);
+        assm->AddConstraint(GCM_CONCENTRIC, Supports2, SupportsC2);
+        assm->EvaluateConstraints();
+    }
+    else
+    {
+        MtGeomArgument Supports2(mSHeat_Exchanger_Supports1->GetFace(5), p_IPHeat_Exchanger_Supports1);
+        MtGeomArgument SupportsC2(mSСasing->GetFace(26), p_IPСasing);
+        assm->AddConstraint(GCM_CONCENTRIC, Supports2, SupportsC2);
+        assm->EvaluateConstraints();
+    }
+    
 
     MtGeomArgument Supports31(mSHeat_Exchanger_Supports1->GetFace(4), p_IPHeat_Exchanger_Supports1);
     MtGeomArgument Supports3(mSHeat_Exchanger_Supports->GetFace(6), p_IPHeat_Exchanger_Supports);
@@ -502,6 +535,10 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
 
 
      /*-------------------------------------------------------------------------*/
+
+    MbCube cube;
+    assm->CalculateGabarit(cube);
+    assm->Move(MbVector3D(-cube.GetLengthX() / 2, 0, 0));
 
     return assm;
 }
@@ -551,5 +588,10 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams pa
     pair.push_back(MoveSupHEComp);
 
     MbAssembly* assm = new MbAssembly(pair);
+
+    MbCube cube;
+    assm->CalculateGabarit(cube);
+    assm->Move(MbVector3D(-cube.GetLengthX() / 2, 0, 0));
+
     return assm;
 }

@@ -133,7 +133,7 @@ SPtr<MbSolid> ParametricModelCreator::Casing_HPG(BuildParams params)
     // Локальная СК (по умолчанию совпадает с мировой СК)
     MbPlacement3D pl,pl1,pl2;
 
-    // Вызов функции для построения образующей (из примера 6)
+    // Вызов функции для построения образующей 
     RPArray<MbContour> arrContours,arrContours1,arrContours2, arrContours3;
     CreateSketch(arrContours,RV,L2,DNK,Ts,B1);
     CreateSketch1(arrContours1, RV, L2,Dy,Ts,A,H2);

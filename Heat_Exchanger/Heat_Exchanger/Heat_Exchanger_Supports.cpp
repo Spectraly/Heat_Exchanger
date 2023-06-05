@@ -44,18 +44,18 @@ void CreateSketchSup1(RPArray<MbContour>& _arrContours, float L2, float B1, floa
     _arrContours.push_back(pContourPolyline);
 }
 
-void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours, float L2, float B1, float h,float DV)
+void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours, float L2, float B1, float h,float DV, float Ts)
 {
     float RV = DV / 2; //Внутренний радиус
     //Создание точек контура
-    MbCartPoint p1(0, h - RV + 2.5);
-    MbCartPoint p2(0, h - RV);
+    MbCartPoint p1(0, h - RV + 2.5-Ts);
+    MbCartPoint p2(0, h - RV - Ts);
     MbCartPoint p3(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180)); 
     MbCartPoint p4(-DV * sin(70 * M_PI / 180), DV * cos(70 * M_PI / 180) + 2.5); 
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
-    MbArc* Seg2 = new MbArc(MbCartPoint(0, h), RV, p2, p3, -1);
-    MbArc* Seg4 = new MbArc(MbCartPoint(0, h + 2.5), RV, p4, p1, 1);
+    MbArc* Seg2 = new MbArc(MbCartPoint(0, h), RV + Ts, p2, p3, -1);
+    MbArc* Seg4 = new MbArc(MbCartPoint(0, h + 2.5), RV + Ts, p4, p1, 1);
     MbCartPoint p5, p6;
     Seg2->GetEndPoint(p5);
     Seg4->GetStartPoint(p6);
@@ -74,7 +74,7 @@ void CreateSketchSupCurve(RPArray<MbContour>& _ptrContours, float L2, float B1, 
 
 SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params)
 {
-
+    float Ts = params.TsS;//Толщина стенки
     float DV = params.diam.toDouble();//Наружный диаметр
     float DN = DV + DV / 100 * 8; //Внутренний диаметр
     float L = DV / 100 * 90; //Длина
@@ -94,7 +94,7 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
     RPArray<MbContour> arrContours, arrContours1, ptrContours;
     CreateSketchSup(arrContours, L2, B1, h);
     CreateSketchSup1(arrContours1, L2, B1, h);
-    CreateSketchSupCurve(ptrContours, L2, B1, h, DN);
+    CreateSketchSupCurve(ptrContours, L2, B1, h, DV, Ts);
 
     // Подготовка параметров для вызова функции построения тела вращения.
     // sweptData - объект, в котором хранятся сведения об образующей.
@@ -151,7 +151,7 @@ SPtr<MbSolid> ParametricModelCreator::Heat_Exchanger_Supports(BuildParams params
     SArray<MbCartPoint3D> pCylSurf(3);
     pCylSurf.Add(MbCartPoint3D(0, h, -HEIGHT));
     pCylSurf.Add(MbCartPoint3D(0, h, HEIGHT));
-    pCylSurf.Add(MbCartPoint3D(0, h + DN/2, -HEIGHT));
+    pCylSurf.Add(MbCartPoint3D(0, h + DV/2 + Ts, -HEIGHT));
     ::ElementarySolid(pCylSurf, et_Cylinder, cylNames, pCyl);
     
     //---------------------------------------------------------//
