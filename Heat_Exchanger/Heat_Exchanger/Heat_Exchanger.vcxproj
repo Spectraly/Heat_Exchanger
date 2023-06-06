@@ -114,8 +114,10 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
   <ItemGroup>
     <ClCompile Include="Build_Assembly.cpp" />
     <ClCompile Include="Calculation.cpp" />
+    <ClCompile Include="CasingTY.cpp" />
     <ClCompile Include="Casing_Cover_KP.cpp" />
     <ClCompile Include="Casing_KP.cpp" />
+    <ClCompile Include="ChamberTY.cpp" />
     <ClCompile Include="Distribution_Chamber_Cover_KP.cpp" />
     <ClCompile Include="Distribution_Chamber_KP.cpp" />
     <ClCompile Include="FileController.cpp" />
@@ -123,9 +125,10 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="Casing_HPG.cpp" />
     <ClCompile Include="Distribution_Chamber_Cover_HPG.cpp" />
     <ClCompile Include="Casing_Cover_HPG.cpp" />
-    <ClCompile Include="FixedSupHETY.cpp" />
     <ClCompile Include="Floating_Head_Cover_HPG.cpp" />
     <ClCompile Include="Floating_Head_Cover_KP.cpp" />
+    <ClCompile Include="GasketCasingTY.cpp" />
+    <ClCompile Include="GasketChamberTY.cpp" />
     <ClCompile Include="Gasket_Casing_Cover_HPG.cpp" />
     <ClCompile Include="Gasket_Casing_Cover_KP.cpp" />
     <ClCompile Include="Gasket_Chamber_Casing_HPG.cpp" />
@@ -138,16 +141,15 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="Half_Ring_HPG.cpp" />
     <ClCompile Include="Half_Ring_KP.cpp" />
     <ClCompile Include="Heat_Exchanger_Supports.cpp" />
-    <ClCompile Include="Kamera.cpp" />
-    <ClCompile Include="Kozhuh.cpp" />
     <ClCompile Include="Movable_Tube_Sheet_KP.cpp" />
-    <ClCompile Include="MoveSupHETY.cpp" />
     <ClCompile Include="ParamsWidget.cpp" />
     <ClCompile Include="Movable_Tube_Sheet_HPG.cpp" />
     <ClCompile Include="Partition.cpp" />
+    <ClCompile Include="PartitionTY.cpp" />
     <ClCompile Include="PipeGridTY.cpp" />
     <ClCompile Include="Stationary_Tube_Sheet_HPG.cpp" />
     <ClCompile Include="Stationary_Tube_Sheet_KP.cpp" />
+    <ClCompile Include="SupHETY.cpp" />
     <ClCompile Include="TubeBundles.cpp" />
     <ClCompile Include="TubeBundleTY.cpp" />
     <ClCompile Include="Viewer.cpp" />

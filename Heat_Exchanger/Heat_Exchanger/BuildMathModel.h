@@ -225,12 +225,14 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_KP(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::Half_Ring_KP(BuildParams params);
 
-		static SPtr<MbSolid> ParametricModelCreator::CasingTY(BuildParams params);
-		static SPtr<MbSolid> ParametricModelCreator::Distribution_ChamberTY(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::CasingTU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Distribution_ChamberTU(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::PipeGrideTU(BuildParams params);
 		static SPtr<MbSolid> ParametricModelCreator::TubeBundleTU(BuildParams params);
-		static SPtr<MbSolid> ParametricModelCreator::FixedSupHETU(BuildParams params);
-		static SPtr<MbSolid> ParametricModelCreator::MoveSupHETU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::SupHETU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::PartitionTU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Gasket_Distribution_ChamberTU(BuildParams params);
+		static SPtr<MbSolid> ParametricModelCreator::Gasket_CasingTU(BuildParams params);
 
 
 		static float ShellCalculation(BuildParams params);

@@ -1,20 +1,19 @@
 #include "BuildMathModel.h"
 using namespace BuildMathModel;
 
-void CreateSketchTY(RPArray<MbContour>& _arrContours, float RV, float LK, float B1)
+void CreateSketchTY(RPArray<MbContour>& _arrContours, float RV, float LK, float B1, float Hse, float Tss)
 {
     // Размер массива - 9 точек
     SArray<MbCartPoint> arrPnts(9);
     arrPnts.Add(MbCartPoint(-LK + B1, 0));
     arrPnts.Add(MbCartPoint(-LK + B1, RV + RV * 0.20));
     arrPnts.Add(MbCartPoint(-LK, RV + RV * 0.20));
-    arrPnts.Add(MbCartPoint(-LK, RV + RV * 0.20 + 3 * B1));
-
-    arrPnts.Add(MbCartPoint(-LK + 3 * B1, RV + RV * 0.20 + 3 * B1));
-    arrPnts.Add(MbCartPoint(-LK + 3 * B1, RV + 4 * B1));
-    arrPnts.Add(MbCartPoint(-LK + 4 * B1, RV + 3 * B1));
-    arrPnts.Add(MbCartPoint(LK, RV + 3 * B1));
-    arrPnts.Add(MbCartPoint(LK, 0));
+    arrPnts.Add(MbCartPoint(-LK, RV + RV * 0.20 + Tss + B1));
+    arrPnts.Add(MbCartPoint(-LK + Tss, RV + RV * 0.20 + Tss + B1));
+    arrPnts.Add(MbCartPoint(-LK + Tss, RV + Tss + 2 * B1));
+    arrPnts.Add(MbCartPoint(-LK + Tss + B1, RV + Tss));
+    arrPnts.Add(MbCartPoint(LK - Hse, RV + Tss));
+    arrPnts.Add(MbCartPoint(LK - Hse, 0));
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -25,19 +24,19 @@ void CreateSketchTY(RPArray<MbContour>& _arrContours, float RV, float LK, float 
     _arrContours.push_back(pContourPolyline);
 }
 
-void CreateSketch1TY(RPArray<MbContour>& _arrContours, float LK, float A1, float H2, float Ry, float B2)
+void CreateSketch1TY(RPArray<MbContour>& _arrContours, float LK, float A1, float H2, float Ry, float B2, float Tss)
 {
     float S = -LK + A1;
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(S - Ry, H2 - 4 * Ry / 5));
     arrPnts.Add(MbCartPoint(S - Ry, H2));
-    arrPnts.Add(MbCartPoint(S - Ry - 1.5 * B2, H2));
-    arrPnts.Add(MbCartPoint(S - Ry - 2 * B2, H2 - Ry / 5));
-    arrPnts.Add(MbCartPoint(S - Ry - 4 * B2, H2 - Ry / 5));
-    arrPnts.Add(MbCartPoint(S - Ry - 4 * B2, H2 - 2 * Ry / 5));
-    arrPnts.Add(MbCartPoint(S - Ry - 2 * B2, H2 - 2 * Ry / 5));
-    arrPnts.Add(MbCartPoint(S - Ry - 1.5 * B2, H2 - 4 * Ry / 5));
+    arrPnts.Add(MbCartPoint(S - Ry - Tss, H2));
+    arrPnts.Add(MbCartPoint(S - Ry - Tss - 0.5 * B2, H2 - Ry / 5));
+    arrPnts.Add(MbCartPoint(S - Ry - Tss - 2.5 * B2, H2 - Ry / 5));
+    arrPnts.Add(MbCartPoint(S - Ry - Tss - 2.5 * B2, H2 - 2 * Ry / 5));
+    arrPnts.Add(MbCartPoint(S - Ry - Tss - 0.5 * B2, H2 - 2 * Ry / 5));
+    arrPnts.Add(MbCartPoint(S - Ry - Tss, H2 - 4 * Ry / 5));
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -47,7 +46,7 @@ void CreateSketch1TY(RPArray<MbContour>& _arrContours, float LK, float A1, float
 
     _arrContours.push_back(pContourPolyline);
 }
-void CreateSketch2TY(RPArray<MbContour>& _arrContours, float LK, float A1, float A2, float H2, float Ry, float B2)
+void CreateSketch2TY(RPArray<MbContour>& _arrContours, float LK, float A1, float A2, float H2, float Ry, float B2, float Tss)
 {
     float S = -LK + A1 + A2;
 
@@ -55,12 +54,12 @@ void CreateSketch2TY(RPArray<MbContour>& _arrContours, float LK, float A1, float
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(Ry + S, -H2 + 4 * Ry / 5));
     arrPnts.Add(MbCartPoint(Ry + S, -H2));
-    arrPnts.Add(MbCartPoint(Ry + 1.5 * B2 + S, -H2));
-    arrPnts.Add(MbCartPoint(Ry + 2 * B2 + S, -H2 + Ry / 5));
-    arrPnts.Add(MbCartPoint(Ry + 4 * B2 + S, -H2 + Ry / 5));
-    arrPnts.Add(MbCartPoint(Ry + 4 * B2 + S, -H2 + 2 * Ry / 5));
-    arrPnts.Add(MbCartPoint(Ry + 2 * B2 + S, -H2 + 2 * Ry / 5));
-    arrPnts.Add(MbCartPoint(Ry + 1.5 * B2 + S, -H2 + 4 * Ry / 5));
+    arrPnts.Add(MbCartPoint(Ry + Tss + S, -H2));
+    arrPnts.Add(MbCartPoint(Ry + Tss + 0.5 * B2 + S, -H2 + Ry / 5));
+    arrPnts.Add(MbCartPoint(Ry + Tss + 2.5 * B2 + S, -H2 + Ry / 5));
+    arrPnts.Add(MbCartPoint(Ry + Tss + 2.5 * B2 + S, -H2 + 2 * Ry / 5));
+    arrPnts.Add(MbCartPoint(Ry + Tss + 0.5 * B2 + S, -H2 + 2 * Ry / 5));
+    arrPnts.Add(MbCartPoint(Ry + Tss + S, -H2 + 4 * Ry / 5));
 
     // Построение единой ломаной внешнего контура по точкам
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -71,24 +70,24 @@ void CreateSketch2TY(RPArray<MbContour>& _arrContours, float LK, float A1, float
     _arrContours.push_back(pContourPolyline);
 }
 
-void CreateSketchCurve(RPArray<MbContour>& _ptrContours, float RV, float LK, float B1, float B2)
+void CreateSketchCurve(RPArray<MbContour>& _ptrContours, float RV, float LK, float Hse, float Tss, float Tsе)
 {
     //Динамическое создание контура
     MbContour* ptrContour = new MbContour();
     //Добавление в контур сегментов
 
-    MbCartPoint p1(LK, RV);
-    MbCartPoint p2(LK, RV + 3 * B1);
-    MbCartPoint p3(LK + RV / 2, 0);
-    MbCartPoint p4(LK + RV / 2 - 1.5 * B2, 0);
+    MbCartPoint p1(LK - Hse, RV);
+    MbCartPoint p2(LK - Hse, RV + Tss);
+    MbCartPoint p3(LK, 0);
+    MbCartPoint p4(LK - Tsе, 0);
 
-    MbPlacement* plCurve = new MbPlacement(MbCartPoint(LK, 0), MbDirection(0.0));
+    MbPlacement* plCurve = new MbPlacement(MbCartPoint(LK - Hse, 0), MbDirection(0.0));
 
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
-    MbArc* Seg2 = new MbArc(RV / 2, RV + 3 * B1, *plCurve, p2, p3, -1);
+    MbArc* Seg2 = new MbArc(Hse, RV + Tss, *plCurve, p2, p3, -1);
     MbLineSegment* Seg3 = new MbLineSegment(p3, p4);
-    MbArc* Seg4 = new MbArc(RV / 2 - 1.5 * B2, RV, *plCurve, p4, p1, 1);
+    MbArc* Seg4 = new MbArc(Hse - Tsе, RV, *plCurve, p4, p1, 1);
 
     ptrContour->AddSegment(Seg1);
     ptrContour->AddSegment(Seg2);
@@ -98,9 +97,11 @@ void CreateSketchCurve(RPArray<MbContour>& _ptrContours, float RV, float LK, flo
     _ptrContours.push_back(ptrContour);
 }
 
-SPtr<MbSolid> ParametricModelCreator::CasingTY(BuildParams params)
+SPtr<MbSolid> ParametricModelCreator::CasingTU(BuildParams params)
 {
     float DV = params.diam.toDouble(); //Внутренний диамерт
+    if (DV == 325)
+        DV = 300;
     float l = params.l.toDouble(); //Длина
     float L = params.length.toDouble(); //Длина
     float Dy = params.Dy.toDouble(); //Диамерт штуцеров
@@ -108,20 +109,18 @@ SPtr<MbSolid> ParametricModelCreator::CasingTY(BuildParams params)
     float A2 = params.A1.toDouble(); //Правый штуцер (A1)
     float A1 = params.A.toDouble() / 2; //Левый штуцер (A)
     float l1 = params.l1.toDouble(); //Длина до первого штуцера
+    float Tss = params.TsS;//Толщина стенки
+    float Tsе = params.TsE;//Толщина днища
 
-    float RV = DV / 2; //Внутренний радиус
-    float h = (DV - 30) / 2 * sin(60 * M_PI / 180); // Высота 6 угольника
-    
-    //float LK = (l + h)/2;
     float LK1 = l1 + A1; //Длина камеры
     float LK = (L - LK1) / 2; //Длина кожуха пополам
-
+    float Hse = 0.25 * DV;
+    float RV = DV / 2; //Внутренний радиус
     float B1 = 5; //Левый бортик
     float B2 = 10; //Правый бортик
     float H2 = H / 2; //Высота штуцеров пополам
     float Ry = Dy / 2; //Диамерт штуцеров пополам
 
-    // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
     // Локальная СК (по умолчанию совпадает с мировой СК)
@@ -129,10 +128,10 @@ SPtr<MbSolid> ParametricModelCreator::CasingTY(BuildParams params)
 
     // Вызов функции для построения образующей (из примера 6)
     RPArray<MbContour> arrContours, arrContours1, arrContours2, ptrContours;
-    CreateSketchTY(arrContours, RV, LK, B1);
-    CreateSketch1TY(arrContours1, LK, A1, H2, Ry, B2);
-    CreateSketch2TY(arrContours2, LK, A1, A2, H2, Ry, B2);
-    CreateSketchCurve(ptrContours, RV, LK, B1, B2);
+    CreateSketchTY(arrContours, RV, LK, B1, Hse, Tss);
+    CreateSketch1TY(arrContours1, LK, A1, H2, Ry, B2, Tss);
+    CreateSketch2TY(arrContours2, LK, A1, A2, H2, Ry, B2, Tss);
+    CreateSketchCurve(ptrContours, RV, LK, Hse, Tss, Tsе);
 
     //for (int i = 0; i < arrContours1.size(); i++)
         //show(Style(1, RGB(0, 0, 255)), arrContours1[i], &pl);
@@ -179,14 +178,14 @@ SPtr<MbSolid> ParametricModelCreator::CasingTY(BuildParams params)
     SArray<MbCartPoint3D> pntsCyl1(3);
     pntsCyl1.Add(MbCartPoint3D(-LK + A1, 0, 0));
     pntsCyl1.Add(MbCartPoint3D(-LK + A1, H2 - 4 * Ry / 5, 0));
-    pntsCyl1.Add(MbCartPoint3D(-LK + A1, 0, Ry + 1.5 * B2));
+    pntsCyl1.Add(MbCartPoint3D(-LK + A1, 0, Ry + Tss));
     // Построение элементарного тела - цилиндра - по трем точкам
     ::ElementarySolid(pntsCyl1, et_Cylinder, cylNames, pCyl1);
 
     SArray<MbCartPoint3D> pntsCyl2(3);
     pntsCyl2.Add(MbCartPoint3D(-LK + A1 + A2, 0, 0));
     pntsCyl2.Add(MbCartPoint3D(-LK + A1 + A2, -H2 + 4 * Ry / 5, 0));
-    pntsCyl2.Add(MbCartPoint3D(-LK + A1 + A2, 0, Ry + 1.5 * B2));
+    pntsCyl2.Add(MbCartPoint3D(-LK + A1 + A2, 0, Ry + Tss));
     ::ElementarySolid(pntsCyl2, et_Cylinder, cylNames, pCyl2);
 
     SArray<MbCartPoint3D> pntsCyl3(3);

@@ -544,53 +544,126 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
 
 MbAssembly* ParametricModelCreator::CreateHeatExchangerTUAssembly(BuildParams params)
 {
-    SPtr<MbSolid> Kozh = CasingTY(params);
-    Kozh->SetColor(190, 190, 190);
-    SPtr<MbSolid> Kam = Distribution_ChamberTY(params);
-    Kam->SetColor(190, 190, 190);
-    SPtr<MbSolid> PipeGr = PipeGrideTU(params);
-    PipeGr->SetColor(190, 190, 190);
-    SPtr<MbSolid> TubeBund = TubeBundleTU(params);
-    TubeBund->SetColor(190, 190, 190);
-    SPtr<MbSolid> FixedSup = FixedSupHETU(params);
+    float Ry = params.Dy.toDouble() / 2; //Радиус штуцера
+    float l2 = params.l2.toDouble(); //Расстояние до подвижной опоры
+    float l0 = params.l0.toDouble(); //Расстояние от подвижной до неподвижной опоры
+
+    vector<SPtr<MbInstance>> pair;
+    MbPlacement3D lcs;
+
+    SPtr<MbSolid> Kozhuh = CasingTU(params);
+    Kozhuh->SetColor(190, 190, 190);
+    SPtr<MbSolid> Kamera = Distribution_ChamberTU(params);
+    Kamera->SetColor(190, 190, 190);
+    SPtr<MbSolid> PipeGrid = PipeGrideTU(params);
+    PipeGrid->SetColor(190, 190, 190);
+    SPtr<MbSolid> TubeBundle = TubeBundleTU(params);
+    TubeBundle->SetColor(190, 190, 190);
+    SPtr<MbSolid> FixedSup = SupHETU(params);
     FixedSup->SetColor(190, 190, 190);
-    SPtr<MbSolid> MoveSup = MoveSupHETU(params);
+    SPtr<MbSolid> MoveSup = SupHETU(params);
     MoveSup->SetColor(190, 190, 190);
 
-    /*-------------------------------------------------------------------------*/
+    SPtr<MbSolid> GasketDCTY = Gasket_Distribution_ChamberTU(params);
+    GasketDCTY->SetColor(0, 0, 0);
+    SPtr<MbSolid> GasketCTY = Gasket_CasingTU(params);
+    GasketCTY->SetColor(0, 0, 0);
 
-    MbPlacement3D lcs;
-    InstanceSPtr Kozhu(new MbInstance(*Kozh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr Kame(new MbInstance(*Kam, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr PipeGri(new MbInstance(*PipeGr, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr TubeBundl(new MbInstance(*TubeBund, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    SPtr<MbSolid> Partit = PartitionTU(params);
+    Partit->SetColor(190, 190, 190);
+
+
+    /*----------------------------------------------*/
+
+
+    InstanceSPtr KozhuhHE(new MbInstance(*Kozhuh, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr KameraHE(new MbInstance(*Kamera, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr PipeGridHE(new MbInstance(*PipeGrid, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr TubeBundleHE(new MbInstance(*TubeBundle, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr FixedSupHE(new MbInstance(*FixedSup, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr MoveSupHE(new MbInstance(*MoveSup, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
 
-    /*-------------------------------------------------------------------------*/
+    InstanceSPtr GasketDCTYHE(new MbInstance(*GasketDCTY, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr GasketCTYHE(new MbInstance(*GasketCTY, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
 
-    SPtr<MbInstance> KozhuComp(new MbInstance(*Kozhu, lcs));
-    SPtr<MbInstance> KameComp(new MbInstance(*Kame, lcs));
-    SPtr<MbInstance> PipeGriComp(new MbInstance(*PipeGri, lcs));
-    SPtr<MbInstance> TubeBundlComp(new MbInstance(*TubeBundl, lcs));
+    InstanceSPtr PartitHE(new MbInstance(*Partit, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
+    /*----------------------------------------------*/
+
+    SPtr<MbInstance> KozhuhHEComp(new MbInstance(*KozhuhHE, lcs));
+    SPtr<MbInstance> KameraHEComp(new MbInstance(*KameraHE, lcs));
+    SPtr<MbInstance> PipeGridHEComp(new MbInstance(*PipeGridHE, lcs));
+    SPtr<MbInstance> TubeBundleHEComp(new MbInstance(*TubeBundleHE, lcs));
     SPtr<MbInstance> FixedSupHEComp(new MbInstance(*FixedSupHE, lcs));
     SPtr<MbInstance> MoveSupHEComp(new MbInstance(*MoveSupHE, lcs));
 
-    /*-------------------------------------------------------------------------*/
+    SPtr<MbInstance> GasketDCTYHEComp(new MbInstance(*GasketDCTYHE, lcs));
+    SPtr<MbInstance> GasketCTYHEComp(new MbInstance(*GasketCTYHE, lcs));
 
-    vector<SPtr<MbInstance>> pair;
-    pair.push_back(KozhuComp);
-    pair.push_back(KameComp);
-    pair.push_back(PipeGriComp);
-    pair.push_back(TubeBundlComp);
+    SPtr<MbInstance> PartitHEComp(new MbInstance(*PartitHE, lcs));
+
+    /*----------------------------------------------*/
+
+    pair.push_back(KameraHEComp);
+    pair.push_back(PipeGridHEComp);
+    pair.push_back(KozhuhHEComp);
+    pair.push_back(TubeBundleHEComp);
     pair.push_back(FixedSupHEComp);
     pair.push_back(MoveSupHEComp);
 
-    MbAssembly* assm = new MbAssembly(pair);
+    pair.push_back(GasketDCTYHEComp);
+    pair.push_back(GasketCTYHEComp);
 
-    MbCube cube;
-    assm->CalculateGabarit(cube);
-    assm->Move(MbVector3D(-cube.GetLengthX() / 2, 0, 0));
+    pair.push_back(PartitHEComp);
+
+    /*----------------------------------------------*/
+    MbAssembly* assm = new MbAssembly(pair);
+    assm->SetPlacement(lcs);
+
+    MtGeomArgument KameraGasket(Kamera->GetFace(0), KameraHEComp);
+    MtGeomArgument GasketKamera(GasketDCTY->GetFace(2), GasketDCTYHEComp);
+    assm->AddConstraint(GCM_COINCIDENT, KameraGasket, GasketKamera);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument GasketPG(GasketDCTY->GetFace(0), GasketDCTYHEComp);
+    MtGeomArgument PipeGridGas(PipeGrid->GetFace(4), PipeGridHEComp);
+    assm->AddConstraint(GCM_COINCIDENT, GasketPG, PipeGridGas);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument PipeGridGas1(PipeGrid->GetFace(5), PipeGridHEComp);
+    MtGeomArgument GasketPG1(GasketCTY->GetFace(2), GasketCTYHEComp);
+    assm->AddConstraint(GCM_COINCIDENT, PipeGridGas1, GasketPG1);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument GasketCasing(GasketCTY->GetFace(0), GasketCTYHEComp);
+    MtGeomArgument CasingGasket(Kozhuh->GetFace(8), KozhuhHEComp);
+    assm->AddConstraint(GCM_COINCIDENT, GasketCasing, CasingGasket);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument PipeGridTB(PipeGrid->GetFace(0), PipeGridHEComp);
+    MtGeomArgument TubeBundlePG(TubeBundle->GetFace(0), TubeBundleHEComp);
+    assm->AddConstraint(GCM_COINCIDENT, PipeGridTB, TubeBundlePG);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument MoveSupCas(MoveSup->GetFace(5), MoveSupHEComp);
+    MtGeomArgument CasingMS(Kozhuh->GetFace(0), KozhuhHEComp);
+    assm->AddConstraint(GCM_CONCENTRIC, MoveSupCas, CasingMS);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument MoveSupCas1(MoveSup->GetFace(1), MoveSupHEComp);
+    MtGeomArgument CasingMS1(Kozhuh->GetFace(9), KozhuhHEComp);
+    assm->AddConstraint(GCM_DISTANCE, MoveSupCas1, CasingMS1, -90 - Ry + l2);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument FixedSupCas(FixedSup->GetFace(5), FixedSupHEComp);
+    MtGeomArgument CasingFS(Kozhuh->GetFace(0), KozhuhHEComp);
+    assm->AddConstraint(GCM_CONCENTRIC, FixedSupCas, CasingFS);
+    assm->EvaluateConstraints();
+
+    MtGeomArgument FixedSupMS(FixedSup->GetFace(1), FixedSupHEComp);
+    MtGeomArgument MoveSupFS(MoveSup->GetFace(1), MoveSupHEComp);
+    assm->AddConstraint(GCM_DISTANCE, FixedSupMS, MoveSupFS, l0);
+    assm->EvaluateConstraints();
 
     return assm;
 }

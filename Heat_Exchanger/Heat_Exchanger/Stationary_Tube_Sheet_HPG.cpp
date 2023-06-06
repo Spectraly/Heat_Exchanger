@@ -104,7 +104,7 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams para
 
     MbSNameMaker cylNames(ct_ElementarySolid, MbSNameMaker::i_SideNone);
     MbVector3D dir(1, 0, 0);
-    ExtrusionValues extrusionParam(1000, 1000);
+    ExtrusionValues extrusionParam(params.l.toDouble(), params.l.toDouble());
     MbSNameMaker plateNames(MbSNameMaker::i_SideNone);
     RPArray<MbContour>* ptrContoursR = new RPArray<MbContour>();
     MbPlane* pPlane = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(0, 1, 0), MbCartPoint3D(0, 0, 1));

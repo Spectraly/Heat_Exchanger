@@ -142,24 +142,6 @@
     <ClCompile Include="Movable_Tube_Sheet_KP.cpp">
       <Filter>Source Files\KPDetails</Filter>
     </ClCompile>
-    <ClCompile Include="FixedSupHETY.cpp">
-      <Filter>Source Files\TUDetails</Filter>
-    </ClCompile>
-    <ClCompile Include="Kozhuh.cpp">
-      <Filter>Source Files\TUDetails</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveSupHETY.cpp">
-      <Filter>Source Files\TUDetails</Filter>
-    </ClCompile>
-    <ClCompile Include="PipeGridTY.cpp">
-      <Filter>Source Files\TUDetails</Filter>
-    </ClCompile>
-    <ClCompile Include="TubeBundleTY.cpp">
-      <Filter>Source Files\TUDetails</Filter>
-    </ClCompile>
-    <ClCompile Include="Kamera.cpp">
-      <Filter>Source Files\TUDetails</Filter>
-    </ClCompile>
     <ClCompile Include="Partition.cpp">
       <Filter>Source Files\HPGDetails</Filter>
     </ClCompile>
@@ -168,6 +150,30 @@
     </ClCompile>
     <ClCompile Include="Calculation.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TubeBundleTY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="CasingTY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="ChamberTY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="GasketCasingTY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="GasketChamberTY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="PartitionTY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeGridTY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="SupHETY.cpp">
+      <Filter>Source Files\TUDetails</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

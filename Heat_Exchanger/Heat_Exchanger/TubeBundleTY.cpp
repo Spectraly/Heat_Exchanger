@@ -4,6 +4,8 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::TubeBundleTU(BuildParams params)
 {
     float DV = params.diam.toDouble(); //Внутренний диамерт
+    if (DV == 325)
+        DV = 300;
     float d = params.d.toDouble(); // D трубы
     float l = params.l.toDouble(); //Длина труб
 
@@ -14,9 +16,6 @@ SPtr<MbSolid> ParametricModelCreator::TubeBundleTU(BuildParams params)
         offsets = 7;
 
     float RV = DV / 2; //Внутренний радиус
-    float B1 = 4; //Левый бортик
-    float B2 = 8; //Правый бортик
-
     float bigD = DV - (DV / 100 * 9); // D проверочной окружности
     float t = (d + offsets); // Шаг между центрами
     float n0 = floor(bigD / t); // Кол-во отверстий на 0 ряду
@@ -104,14 +103,8 @@ SPtr<MbSolid> ParametricModelCreator::TubeBundleTU(BuildParams params)
     ::EvolutionSolid(sweptData, *ptrContour1, param, operNames, contourNames, splineNames, pSolid);
 
     MbPlacement3D pl;
-    MbAxis3D axis(pl.GetAxisY());
-    pSolid->Rotate(axis, 90 * DEG_TO_RAD, nullptr);
-
-    float L = params.length.toDouble(); //Длина аппарата
-    float A1 = params.A.toDouble() / 2; //Левый штуцер (A)
-    float l1 = params.l1.toDouble(); //Длина до первого штуцера
-    float LK = (L - l1 - A1) / 2; //Длина кожуха пополам
-    pSolid->Move(MbVector3D(-LK - 4 - 2 * B2, 0, 0));
+    MbAxis3D axisY(pl.GetAxisY());
+    pSolid->Rotate(axisY, 90 * DEG_TO_RAD, nullptr);
 
     c3d::SolidSPtr MainSolid(pSolid);
 

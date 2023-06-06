@@ -314,24 +314,46 @@ bool ParamsWidget::checkValidate()
 		ui.lineEdit_S1->text() != "" &&
 		ui.lineEdit_h->text() != "")//проверки на пустые поля
 	{
-		if (ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy->text().toDouble() &&
-			ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy1->text().toDouble() &&
-			ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy2->text().toDouble() &&
-			ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_h->text().toDouble() &&
-			ui.lineEdit_Diam->text().toDouble() < ui.lineEdit_Height->text().toDouble())//проверки на значение диаметра
+		if (ui.lineEdit_Preassure->text().toDouble() != 0 &&
+			ui.lineEdit_Diam->text().toDouble() != 0 &&
+			ui.lineEdit_Length->text().toDouble() != 0 &&
+			ui.lineEdit_Height->text().toDouble() != 0 &&
+			ui.lineEdit_A->text().toDouble() != 0 &&
+			ui.lineEdit_A1->text().toDouble() != 0 &&
+			ui.lineEdit_Dy->text().toDouble() != 0 &&
+			ui.lineEdit_Dy1->text().toDouble() != 0 &&
+			ui.lineEdit_Dy2->text().toDouble() != 0 &&
+			ui.lineEdit_l->text().toDouble() != 0 &&
+			ui.lineEdit_l0->text().toDouble() != 0 &&
+			ui.lineEdit_l1->text().toDouble() != 0 &&
+			ui.lineEdit_l2->text().toDouble() != 0 &&
+			ui.lineEdit_l3->text().toDouble() != 0 &&
+			ui.lineEdit_l4->text().toDouble() != 0 &&
+			ui.lineEdit_S->text().toDouble() != 0 &&
+			ui.lineEdit_S1->text().toDouble() != 0 &&
+			ui.lineEdit_h->text().toDouble() != 0)
 		{
-			if (ui.lineEdit_Length->text().toDouble() > ui.lineEdit_A->text().toDouble() &&
-				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_A1->text().toDouble() &&
-				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l->text().toDouble() &&
-				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l0->text().toDouble() &&
-				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l1->text().toDouble() &&
-				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l2->text().toDouble() &&
-				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l3->text().toDouble() &&
-				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l4->text().toDouble())//проверки на значение длины
+			if (ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy->text().toDouble() &&
+				ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy1->text().toDouble() &&
+				ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy2->text().toDouble() &&
+				ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_h->text().toDouble() &&
+				ui.lineEdit_Diam->text().toDouble() < ui.lineEdit_Height->text().toDouble())//проверки на значение диаметра
 			{
-				if (ui.lineEdit_l3->text().toDouble() > ui.lineEdit_S->text().toDouble() &&
-					ui.lineEdit_l3->text().toDouble() > ui.lineEdit_S1->text().toDouble())//проверки на толщину перегородок и решеток
-					return true;
+				if (ui.lineEdit_Length->text().toDouble() > ui.lineEdit_A->text().toDouble() &&
+					ui.lineEdit_Length->text().toDouble() > ui.lineEdit_A1->text().toDouble() &&
+					ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l->text().toDouble() &&
+					ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l0->text().toDouble() &&
+					ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l1->text().toDouble() &&
+					ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l2->text().toDouble() &&
+					ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l3->text().toDouble() &&
+					ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l4->text().toDouble())//проверки на значение длины
+				{
+					if (ui.lineEdit_l3->text().toDouble() > ui.lineEdit_S->text().toDouble() &&
+						ui.lineEdit_l3->text().toDouble() > ui.lineEdit_S1->text().toDouble())//проверки на толщину перегородок и решеток
+						return true;
+					else
+						return false;
+				}
 				else
 					return false;
 			}
