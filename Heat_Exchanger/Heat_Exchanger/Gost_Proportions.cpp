@@ -56,6 +56,10 @@ void ParamsWidget::gostDiam325(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "235";
 			modelParams.l2 = "350";
+			modelParams.l3 = "140";
+			modelParams.l4 = "1820";
+			modelParams.S = "50";
+			modelParams.S1 = "4";
 			modelParams.h = "292";
 			break;
 		default:
@@ -78,6 +82,10 @@ void ParamsWidget::gostDiam325(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "230";
 			modelParams.l2 = "400";
+			modelParams.l3 = "150";
+			modelParams.l4 = "2250";
+			modelParams.S = "45";
+			modelParams.S1 = "4";
 			modelParams.h = "292";
 			break;
 		case 3:
@@ -91,6 +99,10 @@ void ParamsWidget::gostDiam325(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "230";
 			modelParams.l2 = "400";
+			modelParams.l3 = "150";
+			modelParams.l4 = "2250";
+			modelParams.S = "55";
+			modelParams.S1 = "4";
 			modelParams.h = "292";
 			break;
 		default:
@@ -121,6 +133,10 @@ void ParamsWidget::gostDiam400(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "250";
 			modelParams.l2 = "400";
+			modelParams.l3 = "210";
+			modelParams.l4 = "1890";
+			modelParams.S = "50";
+			modelParams.S1 = "6";
 			modelParams.h = "352";
 			break;
 		case 4:
@@ -135,6 +151,10 @@ void ParamsWidget::gostDiam400(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "250";
 			modelParams.l2 = "400";
+			modelParams.l3 = "210";
+			modelParams.l4 = "1890";
+			modelParams.S = "55";
+			modelParams.S1 = "6";
 			modelParams.h = "352";
 			break;
 		default:
@@ -157,6 +177,10 @@ void ParamsWidget::gostDiam400(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "270";
 			modelParams.l2 = "400";
+			modelParams.l3 = "200";
+			modelParams.l4 = "2200";
+			modelParams.S = "55";
+			modelParams.S1 = "6";
 			modelParams.h = "352";
 			break;
 		case 3:
@@ -170,6 +194,10 @@ void ParamsWidget::gostDiam400(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "270";
 			modelParams.l2 = "400";
+			modelParams.l3 = "200";
+			modelParams.l4 = "2200";
+			modelParams.S = "65";
+			modelParams.S1 = "6";
 			modelParams.h = "352";
 			break;
 		case 4:
@@ -183,6 +211,10 @@ void ParamsWidget::gostDiam400(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "280";
 			modelParams.l2 = "400";
+			modelParams.l3 = "200";
+			modelParams.l4 = "2200";
+			modelParams.S = "75";
+			modelParams.S1 = "6";
 			modelParams.h = "352";
 			break;
 		default:
@@ -213,6 +245,10 @@ void ParamsWidget::gostDiam500(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "310";
 			modelParams.l2 = "400";
+			modelParams.l3 = "260";
+			modelParams.l4 = "1820";
+			modelParams.S = "55";
+			modelParams.S1 = "6";
 			modelParams.h = "472";
 			break;
 		case 4:
@@ -227,6 +263,10 @@ void ParamsWidget::gostDiam500(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "310";
 			modelParams.l2 = "350";
+			modelParams.l3 = "260";
+			modelParams.l4 = "1820";
+			modelParams.S = "70";
+			modelParams.S1 = "6";
 			modelParams.h = "472";
 			break;
 		default:
@@ -249,6 +289,10 @@ void ParamsWidget::gostDiam500(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "325";
 			modelParams.l2 = "400";
+			modelParams.l3 = "250";
+			modelParams.l4 = "2250";
+			modelParams.S = "60";
+			modelParams.S1 = "6";
 			modelParams.h = "472";
 			break;
 		case 3:
@@ -262,6 +306,10 @@ void ParamsWidget::gostDiam500(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "325";
 			modelParams.l2 = "400";
+			modelParams.l3 = "250";
+			modelParams.l4 = "2250";
+			modelParams.S = "75";
+			modelParams.S1 = "6";
 			modelParams.h = "472";
 			break;
 		case 4:
@@ -275,6 +323,10 @@ void ParamsWidget::gostDiam500(int type, QString pres)
 			modelParams.l0 = "1500";
 			modelParams.l1 = "345";
 			modelParams.l2 = "400";
+			modelParams.l3 = "250";
+			modelParams.l4 = "2250";
+			modelParams.S = "90";
+			modelParams.S1 = "6";
 			modelParams.h = "472";
 			break;
 		default:
@@ -305,6 +357,10 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "310";
 			modelParams.l2 = "1100";
+			modelParams.l3 = "300";
+			modelParams.l4 = "4800";
+			modelParams.S = "55";
+			modelParams.S1 = "6";
 			modelParams.h = "525";
 			break;
 		case 3:
@@ -319,6 +375,10 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "310";
 			modelParams.l2 = "1100";
+			modelParams.l3 = "320";
+			modelParams.l4 = "4800";
+			modelParams.S = "65";
+			modelParams.S1 = "6";
 			modelParams.h = "525";
 			break;
 		case 4:
@@ -333,6 +393,10 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "340";
 			modelParams.l2 = "900";
+			modelParams.l3 = "320";
+			modelParams.l4 = "4160";
+			modelParams.S = "80";
+			modelParams.S1 = "6";
 			modelParams.h = "532";
 			break;
 		default:
@@ -357,6 +421,8 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "290";
 			modelParams.l2 = "650";
+			modelParams.S = "40";
+			modelParams.S1 = "10";
 			modelParams.h = "525";
 			break;
 		case 1:
@@ -372,6 +438,8 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "290";
 			modelParams.l2 = "650";
+			modelParams.S = "45";
+			modelParams.S1 = "10";
 			modelParams.h = "525";
 			break;
 		case 2:
@@ -387,6 +455,8 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "310";
 			modelParams.l2 = "650";
+			modelParams.S = "55";
+			modelParams.S1 = "10";
 			modelParams.h = "525";
 			break;
 		default:
@@ -408,6 +478,10 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "370";
 			modelParams.l2 = "1100";
+			modelParams.l3 = "335";
+			modelParams.l4 = "5025";
+			modelParams.S = "60";
+			modelParams.S1 = "6";
 			modelParams.h = "525";
 			break;
 		case 2:
@@ -421,6 +495,10 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "400";
 			modelParams.l2 = "1100";
+			modelParams.l3 = "335";
+			modelParams.l4 = "5025";
+			modelParams.S = "70";
+			modelParams.S1 = "6";
 			modelParams.h = "525";
 			break;
 		case 3:
@@ -434,6 +512,10 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "400";
 			modelParams.l2 = "1100";
+			modelParams.l3 = "335";
+			modelParams.l4 = "5025";
+			modelParams.S = "85";
+			modelParams.S1 = "6";
 			modelParams.h = "525";
 			break;
 		case 4:
@@ -447,6 +529,10 @@ void ParamsWidget::gostDiam600(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "440";
 			modelParams.l2 = "900";
+			modelParams.l3 = "335";
+			modelParams.l4 = "5025";
+			modelParams.S = "105";
+			modelParams.S1 = "6";
 			modelParams.h = "532";
 			break;
 		default:
@@ -476,6 +562,10 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "310";
 			modelParams.l2 = "1000";
+			modelParams.l3 = "360";
+			modelParams.l4 = "4680";
+			modelParams.S = "60";
+			modelParams.S1 = "8";
 			modelParams.h = "562";
 			break;
 		case 3:
@@ -490,6 +580,10 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "340";
 			modelParams.l2 = "1000";
+			modelParams.l3 = "360";
+			modelParams.l4 = "4680";
+			modelParams.S = "70";
+			modelParams.S1 = "8";
 			modelParams.h = "568";
 			break;
 		case 4:
@@ -504,6 +598,10 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "380";
 			modelParams.l2 = "850";
+			modelParams.l3 = "360";
+			modelParams.l4 = "3960";
+			modelParams.S = "85";
+			modelParams.S1 = "8";
 			modelParams.h = "576";
 			break;
 		default:
@@ -528,6 +626,8 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "320";
 			modelParams.l2 = "650";
+			modelParams.S = "45";
+			modelParams.S1 = "12";
 			modelParams.h = "562";
 			break;
 		case 1:
@@ -543,6 +643,8 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "320";
 			modelParams.l2 = "650";
+			modelParams.S = "50";
+			modelParams.S1 = "12";
 			modelParams.h = "562";
 			break;
 		case 2:
@@ -558,6 +660,8 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "340";
 			modelParams.l2 = "650";
+			modelParams.S = "60";
+			modelParams.S1 = "12";
 			modelParams.h = "562";
 			break;
 		default:
@@ -579,6 +683,10 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "410";
 			modelParams.l2 = "1100";
+			modelParams.l3 = "380";
+			modelParams.l4 = "4940";
+			modelParams.S = "65";
+			modelParams.S1 = "8";
 			modelParams.h = "562";
 			break;
 		case 2:
@@ -592,6 +700,10 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "430";
 			modelParams.l2 = "1000";
+			modelParams.l3 = "380";
+			modelParams.l4 = "4940";
+			modelParams.S = "80";
+			modelParams.S1 = "8";
 			modelParams.h = "562";
 			break;
 		case 3:
@@ -605,6 +717,10 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "460";
 			modelParams.l2 = "1000";
+			modelParams.l3 = "380";
+			modelParams.l4 = "4940";
+			modelParams.S = "95";
+			modelParams.S1 = "8";
 			modelParams.h = "568";
 			break;
 		case 4:
@@ -618,6 +734,10 @@ void ParamsWidget::gostDiam700(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "490";
 			modelParams.l2 = "850";
+			modelParams.l3 = "380";
+			modelParams.l4 = "4940";
+			modelParams.S = "115";
+			modelParams.S1 = "8";
 			modelParams.h = "576";
 			break;
 		default:
@@ -648,6 +768,10 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "330";
 			modelParams.l2 = "1100";
+			modelParams.l3 = "390";
+			modelParams.l4 = "4290";
+			modelParams.S = "55";
+			modelParams.S1 = "8";
 			modelParams.h = "677";
 			break;
 		case 2:
@@ -662,6 +786,10 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "360";
 			modelParams.l2 = "950";
+			modelParams.l3 = "390";
+			modelParams.l4 = "4290";
+			modelParams.S = "65";
+			modelParams.S1 = "8";
 			modelParams.h = "677";
 			break;
 		case 3:
@@ -676,6 +804,10 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "380";
 			modelParams.l2 = "950";
+			modelParams.l3 = "390";
+			modelParams.l4 = "4290";
+			modelParams.S = "75";
+			modelParams.S1 = "8";
 			modelParams.h = "677";
 			break;
 		case 4:
@@ -690,6 +822,11 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "450";
 			modelParams.l2 = "715";
+			modelParams.l3 = "385";
+			modelParams.l4 = "4235";
+			modelParams.S = "95";
+			modelParams.S1 = "8";
+			modelParams.h = "622";
 			break;
 		default:
 			break;
@@ -713,6 +850,8 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "340";
 			modelParams.l2 = "650";
+			modelParams.S = "50";
+			modelParams.S1 = "12";
 			modelParams.h = "612";
 			break;
 		case 1:
@@ -728,6 +867,8 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "340";
 			modelParams.l2 = "650";
+			modelParams.S = "55";
+			modelParams.S1 = "12";
 			modelParams.h = "612";
 			break;
 		case 2:
@@ -743,6 +884,8 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "370";
 			modelParams.l2 = "650";
+			modelParams.S = "65";
+			modelParams.S1 = "12";
 			modelParams.h = "616";
 			break;
 		default:
@@ -764,6 +907,10 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "460";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "420";
+			modelParams.l4 = "4620";
+			modelParams.S = "75";
+			modelParams.S1 = "8";
 			modelParams.h = "612";
 			break;
 		case 2:
@@ -777,6 +924,10 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "490";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "420";
+			modelParams.l4 = "4620";
+			modelParams.S = "90";
+			modelParams.S1 = "8";
 			modelParams.h = "616";
 			break;
 		case 3:
@@ -790,6 +941,10 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "530";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "420";
+			modelParams.l4 = "4620";
+			modelParams.S = "110";
+			modelParams.S1 = "8";
 			modelParams.h = "616";
 			break;
 		case 4:
@@ -803,6 +958,10 @@ void ParamsWidget::gostDiam800(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "550";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "420";
+			modelParams.l4 = "4620";
+			modelParams.S = "135";
+			modelParams.S1 = "8";
 			modelParams.h = "622";
 			break;
 		default:
@@ -833,6 +992,10 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "360";
 			modelParams.l2 = "950";
+			modelParams.l3 = "445";
+			modelParams.l4 = "4005";
+			modelParams.S = "60";
+			modelParams.S1 = "8";
 			modelParams.h = "666";
 			break;
 		case 2:
@@ -847,6 +1010,10 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "390";
 			modelParams.l2 = "950";
+			modelParams.l3 = "445";
+			modelParams.l4 = "4005";
+			modelParams.S = "70";
+			modelParams.S1 = "8";
 			modelParams.h = "666";
 			break;
 		case 3:
@@ -861,6 +1028,10 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "420";
 			modelParams.l2 = "850";
+			modelParams.l3 = "445";
+			modelParams.l4 = "4005";
+			modelParams.S = "80";
+			modelParams.S1 = "8";
 			modelParams.h = "672";
 			break;
 		case 4:
@@ -875,6 +1046,10 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "450";
 			modelParams.l2 = "700";
+			modelParams.l3 = "445";
+			modelParams.l4 = "4005";
+			modelParams.S = "110";
+			modelParams.S1 = "8";
 			modelParams.h = "680";
 			break;
 		default:
@@ -899,6 +1074,8 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "360";
 			modelParams.l2 = "650";
+			modelParams.S = "55";
+			modelParams.S1 = "12";
 			modelParams.h = "666";
 			break;
 		case 1:
@@ -914,6 +1091,8 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "360";
 			modelParams.l2 = "650";
+			modelParams.S = "60";
+			modelParams.S1 = "12";
 			modelParams.h = "666";
 			break;
 		case 2:
@@ -929,6 +1108,8 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "400";
 			modelParams.l2 = "650";
+			modelParams.S = "70";
+			modelParams.S1 = "12";
 			modelParams.h = "666";
 			break;
 		default:
@@ -950,6 +1131,10 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "490";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "445";
+			modelParams.l4 = "4895";
+			modelParams.S = "85";
+			modelParams.S1 = "8";
 			modelParams.h = "666";
 			break;
 		case 2:
@@ -963,6 +1148,10 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "540";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "445";
+			modelParams.l4 = "4895";
+			modelParams.S = "95";
+			modelParams.S1 = "8";
 			modelParams.h = "666";
 			break;
 		case 3:
@@ -976,6 +1165,10 @@ void ParamsWidget::gostDiam900(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "560";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "445";
+			modelParams.l4 = "4895";
+			modelParams.S = "120";
+			modelParams.S1 = "8";
 			modelParams.h = "672";
 			break;
 		default:
@@ -1005,6 +1198,10 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "410";
 			modelParams.l2 = "950";
+			modelParams.l3 = "500";
+			modelParams.l4 = "4500";
+			modelParams.S = "65";
+			modelParams.S1 = "8";
 			modelParams.h = "712";
 			break;
 		case 2:
@@ -1019,6 +1216,10 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "430";
 			modelParams.l2 = "950";
+			modelParams.l3 = "500";
+			modelParams.l4 = "4500";
+			modelParams.S = "75";
+			modelParams.S1 = "8";
 			modelParams.h = "716";
 			break;
 		case 3:
@@ -1033,6 +1234,10 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "460";
 			modelParams.l2 = "750";
+			modelParams.l3 = "490";
+			modelParams.l4 = "4410";
+			modelParams.S = "90";
+			modelParams.S1 = "8";
 			modelParams.h = "716";
 			break;
 		case 4:
@@ -1047,6 +1252,10 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "480";
 			modelParams.l2 = "600";
+			modelParams.l3 = "500";
+			modelParams.l4 = "3500";
+			modelParams.S = "115";
+			modelParams.S1 = "8";
 			modelParams.h = "726";
 			break;
 		default:
@@ -1071,6 +1280,8 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "410";
 			modelParams.l2 = "650";
+			modelParams.S = "55";
+			modelParams.S1 = "12";
 			modelParams.h = "712";
 			break;
 		case 1:
@@ -1086,6 +1297,8 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "410";
 			modelParams.l2 = "650";
+			modelParams.S = "65";
+			modelParams.S1 = "12";
 			modelParams.h = "712";
 			break;
 		case 2:
@@ -1101,6 +1314,8 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "430";
 			modelParams.l2 = "650";
+			modelParams.S = "70";
+			modelParams.S1 = "12";
 			modelParams.h = "716";
 			break;
 		default:
@@ -1122,6 +1337,10 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "570";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "500";
+			modelParams.l4 = "4500";
+			modelParams.S = "85";
+			modelParams.S1 = "8";
 			modelParams.h = "712";
 			break;
 		case 2:
@@ -1135,6 +1354,10 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "610";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "500";
+			modelParams.l4 = "4500";
+			modelParams.S = "105";
+			modelParams.S1 = "8";
 			modelParams.h = "716";
 			break;
 		case 3:
@@ -1148,6 +1371,10 @@ void ParamsWidget::gostDiam1000(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "630";
 			modelParams.l2 = "1450";
+			modelParams.l3 = "500";
+			modelParams.l4 = "4500";
+			modelParams.S = "135";
+			modelParams.S1 = "8";
 			modelParams.h = "716";
 			break;
 		default:
@@ -1177,6 +1404,10 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "450";
 			modelParams.l2 = "800";
+			modelParams.l3 = "615";
+			modelParams.l4 = "4305";
+			modelParams.S = "70";
+			modelParams.S1 = "10";
 			modelParams.h = "822";
 			break;
 		case 2:
@@ -1191,6 +1422,10 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "470";
 			modelParams.l2 = "800";
+			modelParams.l3 = "615";
+			modelParams.l4 = "4305";
+			modelParams.S = "85";
+			modelParams.S1 = "10";
 			modelParams.h = "822";
 			break;
 		case 3:
@@ -1205,6 +1440,10 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "500";
 			modelParams.l2 = "700";
+			modelParams.l3 = "615";
+			modelParams.l4 = "3075";
+			modelParams.S = "100";
+			modelParams.S1 = "10";
 			modelParams.h = "824";
 			break;
 		case 4:
@@ -1219,6 +1458,10 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "2550";
 			modelParams.l1 = "530";
 			modelParams.l2 = "700";
+			modelParams.l3 = "615";
+			modelParams.l4 = "3075";
+			modelParams.S = "125";
+			modelParams.S1 = "10";
 			modelParams.h = "836";
 			break;
 
@@ -1244,6 +1487,8 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "430";
 			modelParams.l2 = "650";
+			modelParams.S = "60";
+			modelParams.S1 = "12";
 			modelParams.h = "822";
 			break;
 		case 1:
@@ -1259,6 +1504,8 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "430";
 			modelParams.l2 = "650";
+			modelParams.S = "70";
+			modelParams.S1 = "12";
 			modelParams.h = "822";
 			break;
 		case 2:
@@ -1274,6 +1521,8 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "470";
 			modelParams.l2 = "650";
+			modelParams.S = "85";
+			modelParams.S1 = "12";
 			modelParams.h = "822";
 			break;
 		default:
@@ -1295,6 +1544,10 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "630";
 			modelParams.l2 = "1400";
+			modelParams.l3 = "615";
+			modelParams.l4 = "4305";
+			modelParams.S = "100";
+			modelParams.S1 = "10";
 			modelParams.h = "822";
 			break;
 		case 2:
@@ -1308,6 +1561,10 @@ void ParamsWidget::gostDiam1200(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "680";
 			modelParams.l2 = "1400";
+			modelParams.l3 = "615";
+			modelParams.l4 = "4305";
+			modelParams.S = "120";
+			modelParams.S1 = "10";
 			modelParams.h = "822";
 			break;
 		default:
@@ -1336,6 +1593,10 @@ void ParamsWidget::gostDiam1400(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "750";
 			modelParams.l2 = "1300";
+			modelParams.l3 = "670";
+			modelParams.l4 = "4690";
+			modelParams.S = "115";
+			modelParams.S1 = "10";
 			modelParams.h = "922";
 			break;
 		case 2:
@@ -1349,6 +1610,10 @@ void ParamsWidget::gostDiam1400(int type, QString pres)
 			modelParams.l0 = "3000";
 			modelParams.l1 = "790";
 			modelParams.l2 = "1300";
+			modelParams.l3 = "670";
+			modelParams.l4 = "4690";
+			modelParams.S = "140";
+			modelParams.S1 = "10";
 			modelParams.h = "922";
 			break;
 		default:
