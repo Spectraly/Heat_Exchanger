@@ -112,11 +112,11 @@ SPtr<MbSolid> ParametricModelCreator::Casing_HPG(BuildParams params)
     float H = params.height.toDouble(); //Внутренний диамерт
     float LK;
     if (DV < 600)
-        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 14.5); //Длина
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 13.5 + params.TsF); //Длина
     else if (DV >= 600 && DV < 900)
-        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 11.5); //Длина
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 10.5 + params.TsF); //Длина
     else if (DV >= 900)
-        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 12.5); //Длина
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 11.5 + params.TsF); //Длина
 
     float H2 = H/2 - Dy/2; //Внутренний диамерт
     float Ry = Dy / 2; //Внутренний диамерт

@@ -26,7 +26,8 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     bool sliceSide = true;
     vector<SPtr<MbSolid>> MbSPartition;
     vector<SPtr<MbInstance>> MbIPartition;
-    for (int i = 0; i < 16; i++)
+    int partitions = params.l4.toDouble() / params.l3.toDouble();
+    for (int i = 0; i < partitions+2; i++)
     {
         SPtr<MbSolid> mSPartition_HPG = Partition(params, sliceSide);
         mSPartition_HPG->SetColor(190, 190, 190);
@@ -138,7 +139,7 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
     pair.push_back(p_IPGasket_Floating_Head);
     pair.push_back(p_IPFloating_Head_Cover);
 
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < partitions + 2; i++)
     {
         pair.push_back(MbIPartition[i]);
     }
@@ -199,11 +200,11 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerHPGAssembly(BuildParams p
 
     /*-------------------------------------------------------------------------*/
 
-    for (size_t i = 1; i < 15 ; i++)
+    for (size_t i = 1; i < partitions + 2; i++)
     {
         MtGeomArgument PartitionA(MbSPartition[i]->GetFace(0), MbIPartition[i]);
         MtGeomArgument PartitionA1(MbSPartition[i-1]->GetFace(1), MbIPartition[i-1]);
-        assm->AddConstraint(GCM_DISTANCE, PartitionA, PartitionA1, 140.0);
+        assm->AddConstraint(GCM_DISTANCE, PartitionA, PartitionA1, params.l3.toDouble());
         assm->EvaluateConstraints();
     }
 
@@ -532,8 +533,6 @@ MbAssembly* ParametricModelCreator::CreateHeatExchangerKPAssembly(BuildParams pa
         assm->EvaluateConstraints();
 
     }
-
-
      /*-------------------------------------------------------------------------*/
 
     MbCube cube;

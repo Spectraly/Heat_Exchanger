@@ -8,7 +8,7 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams para
    float DV,RV,L,L2,D,R,B1,B2,d,bigD,offsets,t,n0,n,h;
     DV = params.diam.toDouble();//Наружный диаметр
     RV = (DV + DV/100*19.5)/2; //Внутренний радиус
-    L = 40; //Длина
+    L = params.S.toDouble(); //Длина
     L2 = L/2; //Длина
     B1 = 5; //Левый бортик
     B2 = 8; //Правый бортик

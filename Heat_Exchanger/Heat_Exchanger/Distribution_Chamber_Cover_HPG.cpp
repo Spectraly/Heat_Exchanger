@@ -55,7 +55,7 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover_HPG(BuildParams
 {
 
     float DV,DN,DNK,RV,L,Ts;
-    L = params.length.toDouble() /100; //Длина
+    L = params.TsF; //Длина
     DV = params.diam.toDouble();//Наружный диаметр
     DN = DV + DV / 100 * 8; //Внутренний диаметр
     Ts = params.TsS;//Толщина стенки

@@ -38,10 +38,10 @@ float BuildMathModel::ParametricModelCreator::FlatBottomCalculation(BuildParams 
 	float K, K0, C, S,Piz;
 	C = 1;
 	K = 0.5;
-	K0 = 1.1;
+	K0 = 1.0;
 	Piz = 0.4;
 	S = K * K0 * params.diam.toDouble() * sqrt(Piz/ params.sig.toDouble() * params.fi.toDouble());
 
-	TsF = (S + C);
+	TsF = (S + C) * 3;
 	return TsF;
 }

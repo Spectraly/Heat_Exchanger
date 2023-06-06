@@ -6,7 +6,7 @@ SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_KP(BuildParams params)
 {
     float DV, RV, L, L2, D, R, B1;
     DV = params.diam.toDouble();//Наружный диаметр
-    L = 40; //Длина
+    L = params.S.toDouble(); //Длина
     L2 = L / 2; //Длина
     B1 = 5; //Левый бортик
     float B2 = 8; //Правый бортик

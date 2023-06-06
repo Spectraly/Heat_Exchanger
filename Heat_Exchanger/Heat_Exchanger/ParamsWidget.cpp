@@ -294,6 +294,7 @@ void ParamsWidget::setValidators()
 
 bool ParamsWidget::checkValidate()
 {
+	bool check = true;
 	if (ui.lineEdit_Preassure->text() != "" &&
 		ui.lineEdit_Diam->text() != "" && 
 		ui.lineEdit_Length->text() != "" &&
@@ -311,10 +312,38 @@ bool ParamsWidget::checkValidate()
 		ui.lineEdit_l4->text() != "" &&
 		ui.lineEdit_S->text() != "" &&
 		ui.lineEdit_S1->text() != "" &&
-		ui.lineEdit_h->text() != "")
-		return true;
+		ui.lineEdit_h->text() != "")//проверки на пустые поля
+	{
+		if (ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy->text().toDouble() &&
+			ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy1->text().toDouble() &&
+			ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_Dy2->text().toDouble() &&
+			ui.lineEdit_Diam->text().toDouble() > ui.lineEdit_h->text().toDouble() &&
+			ui.lineEdit_Diam->text().toDouble() < ui.lineEdit_Height->text().toDouble())//проверки на значение диаметра
+		{
+			if (ui.lineEdit_Length->text().toDouble() > ui.lineEdit_A->text().toDouble() &&
+				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_A1->text().toDouble() &&
+				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l->text().toDouble() &&
+				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l0->text().toDouble() &&
+				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l1->text().toDouble() &&
+				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l2->text().toDouble() &&
+				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l3->text().toDouble() &&
+				ui.lineEdit_Length->text().toDouble() > ui.lineEdit_l4->text().toDouble())//проверки на значение длины
+			{
+				if (ui.lineEdit_l3->text().toDouble() > ui.lineEdit_S->text().toDouble() &&
+					ui.lineEdit_l3->text().toDouble() > ui.lineEdit_S1->text().toDouble())//проверки на толщину перегородок и решеток
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
 	else
 		return false;
+	
 }
 
 void ParamsWidget::updateParams_scene()

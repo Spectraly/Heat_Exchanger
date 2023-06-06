@@ -24,14 +24,14 @@ namespace BuildMathModel {
 		QString l0 = "1500.0";//HT
 		QString l1 = "235.0";//HKT
 		QString l2 = "400.0";//HT
-		QString l3 = "140.0";//HT //todo
-		QString l4 = "2100.0";//HT //todo
-		QString S = "4.0";//HKT //todo
-		QString S1 = "40.0";//HKT //todo
+		QString l3 = "140.0";//HT
+		QString l4 = "2100.0";//HT
+		QString S = "4.0";//HKT
+		QString S1 = "40.0";//HKT
 		QString h = "292.0";//HKT
 		QString d = "20.0";//HKT
 
-		QString ro = "1040.0";
+		QString ro = "7850.0";
 		QString sig = "132.0";
 		QString fi = "0.9";
 
