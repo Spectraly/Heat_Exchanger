@@ -5,7 +5,7 @@ using namespace BuildMathModel;
 void CreateSketchKK(RPArray<MbContour>& _arrContours, float L, float RV, float DNK,float Ts)
 {
 
-    float B1 = 5; //Левый бортик
+    float B1 = 5;
 
     // Размер массива - 10 точек
     SArray<MbCartPoint> arrPnts(8);
@@ -31,7 +31,7 @@ void CreateSketchKK(RPArray<MbContour>& _arrContours, float L, float RV, float D
 void CreateSketch1KK(RPArray<MbContour>& _arrContours, float L)
 {
 
-    float B1 = 5; //Левый бортик
+    float B1 = 5;
 
     // Размер массива - 4 точек
     SArray<MbCartPoint> arrPnts(4);
@@ -55,19 +55,19 @@ SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_Cover_HPG(BuildParams
 {
 
     float DV,DN,DNK,RV,L,Ts;
-    L = params.TsF; //Длина
-    DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
-    Ts = params.TsS;//Толщина стенки
-    DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;//Наружный диаметр крышки
-    RV = DV / 2; //Внутренний радиус
+    L = params.TsF;
+    DV = params.diam.toDouble();
+    DN = DV + DV / 100 * 8;
+    Ts = params.TsS;
+    DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;
+    RV = DV / 2;
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 
     // Локальная СК (по умолчанию совпадает с мировой СК)
     MbPlacement3D pl;
 
-    // Вызов функции для построения образующей (из примера 6)
+    // Вызов функции для построения образующей
     RPArray<MbContour> arrContours, arrContours1;
     CreateSketchKK(arrContours,L,RV, DNK, Ts);
     CreateSketch1KK(arrContours1,L);

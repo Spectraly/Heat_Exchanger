@@ -5,11 +5,11 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Gasket_Casing_Cover_HPG(BuildParams params)
 {
    float B1,DN,DV,RV,Ts;
-    B1 = 5; //Левый бортик
-    DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
-    RV = DV / 2 + 30; //Внутренний радиус
-    Ts = params.TsE;//Толщина стенки
+    B1 = 5;
+    DV = params.diam.toDouble();
+    DN = DV + DV / 100 * 8;
+    RV = DV / 2 + 30;
+    Ts = params.TsE;
     
     const double DEG_TO_RAD = M_PI / 180.0;
 

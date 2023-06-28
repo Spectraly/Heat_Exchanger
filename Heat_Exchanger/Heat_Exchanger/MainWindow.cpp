@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget* parent)
 
 	connect(ui.action_save, &QAction::triggered, this, &MainWindow::saveFileSlot);
 	ui.tabWidget->setCurrentIndex(0);
+
+	
 	emit paramsWidget->buildSignal();
 }
 

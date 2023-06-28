@@ -1,9 +1,8 @@
 <RCC>
     <qresource prefix="/mainwindow">
         <file>res/crystal.ico</file>
-        <file>res/TYCase.png</file>
-        <file>res/TYKam.png</file>
         <file>res/HPG.png</file>
         <file>res/KP.png</file>
+        <file>res/TU.png</file>
     </qresource>
 </RCC>

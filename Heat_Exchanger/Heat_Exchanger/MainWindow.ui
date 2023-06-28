@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1350</width>
+    <width>1424</width>
     <height>881</height>
    </rect>
   </property>
@@ -43,7 +43,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -70,7 +70,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap>res/HPG.png</pixmap>
+           <pixmap resource="MainWindow.qrc">:/mainwindow/res/HPG.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -95,6 +95,9 @@
           <property name="scaledContents">
            <bool>true</bool>
           </property>
+          <property name="wordWrap">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
        </layout>
@@ -105,25 +108,12 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QLabel" name="labelKamTY">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="MainWindow.qrc">:/mainwindow/res/TYCase.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="labelCaseTY">
           <property name="text">
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="MainWindow.qrc">:/mainwindow/res/TYKam.png</pixmap>
+           <pixmap resource="MainWindow.qrc">:/mainwindow/res/TU.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -141,7 +131,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1350</width>
+     <width>1424</width>
      <height>26</height>
     </rect>
    </property>

@@ -5,8 +5,8 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Gasket_Floating_Head_HPG(BuildParams params)
 {
     float DVP,RVP,DR,RR,B1;
-    DVP = params.diam.toDouble(); //Внутренний диаметр
-    B1 = 5; //Левый бортик
+    DVP = params.diam.toDouble();
+    B1 = 5;
     DR = DVP - (DVP / 100 * 9);
     RR=DR/2;
 

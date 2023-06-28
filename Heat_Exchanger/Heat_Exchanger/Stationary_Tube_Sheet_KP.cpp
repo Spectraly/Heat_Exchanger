@@ -80,8 +80,6 @@ SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_KP(BuildParams param
     ptrContour->AddSegment(Seg12);
     
 
-   
-
     // Создание плоскости - она совпадает с плоскостью XY локальной СК
     MbPlacement3D* place = new MbPlacement3D();
     MbPlane* ptrSurface = new MbPlane(*place);

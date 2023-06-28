@@ -5,18 +5,18 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Casing_Cover_HPG(BuildParams params)
 {
    float DV,RV,LC,L, DN, Ts,B1, Rb, Rm;
-    DV = params.diam.toDouble() ;//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
+    DV = params.diam.toDouble() ;
+    DN = DV + DV / 100 * 8; 
     L = params.length.toDouble();
-    RV = DV/2+30; //Внутренний радиус
+    RV = DV/2+30; 
     if (DV < 600)
         LC = (L / 100) * 11.25;
     else if(DV >= 600 && DV <= 900)
         LC = (L / 100) * 8.25;
     else if (DV >= 900)
         LC = (L / 100) * 9.25;
-    B1 = 5; //Правый бортик
-    Ts = params.TsE;//Толщина стенки
+    B1 = 5;
+    Ts = params.TsE;
     Rm = (L / 100) * 1.25;
     Rb = Rm + Ts;
     const double DEG_TO_RAD = M_PI / 180.0;

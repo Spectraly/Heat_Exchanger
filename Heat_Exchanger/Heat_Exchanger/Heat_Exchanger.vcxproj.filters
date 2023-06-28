@@ -142,9 +142,6 @@
     <ClCompile Include="Movable_Tube_Sheet_KP.cpp">
       <Filter>Source Files\KPDetails</Filter>
     </ClCompile>
-    <ClCompile Include="Partition.cpp">
-      <Filter>Source Files\HPGDetails</Filter>
-    </ClCompile>
     <ClCompile Include="TubeBundles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -174,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="SupHETY.cpp">
       <Filter>Source Files\TUDetails</Filter>
+    </ClCompile>
+    <ClCompile Include="Partition.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

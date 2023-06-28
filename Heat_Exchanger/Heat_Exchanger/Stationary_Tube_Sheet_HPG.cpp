@@ -6,25 +6,25 @@ Faces facesStationary;
 SPtr<MbSolid> ParametricModelCreator::Stationary_Tube_Sheet_HPG(BuildParams params)
 {
    float DV,RV,L,L2,D,R,B1,B2,d,bigD,offsets,t,n0,n,h;
-    DV = params.diam.toDouble();//Наружный диаметр
-    RV = (DV + DV/100*19.5)/2; //Внутренний радиус
-    L = params.S.toDouble(); //Длина
-    L2 = L/2; //Длина
-    B1 = 5; //Левый бортик
-    B2 = 8; //Правый бортик
+    DV = params.diam.toDouble();
+    RV = (DV + DV/100*19.5)/2;
+    L = params.S.toDouble();
+    L2 = L/2;
+    B1 = 5;
+    B2 = 8;
     D = DV - B1;
     R = D / 2;
 
-    d = params.d.toDouble(); // D трубы
-    bigD = DV - (DV / 100 *9); // D проверочной окружности
+    d = params.d.toDouble();
+    bigD = DV - (DV / 100 *9);
     if (d == 20)
-        offsets = 6; //расстояние между окружностями
+        offsets = 6;
     else
-        offsets = 7; //расстояние между окружностями
-    t = (d + offsets); // Шаг между центрами
-    n0 = floor(bigD / t); // Кол-во отверстий на 0 ряду
-    n = n0 + 3; // Кол-во отверстий на 1 ряду
-    h = bigD / 2 * sin(60 * M_PI / 180); // Высота 6 угольника
+        offsets = 7;
+    t = (d + offsets);
+    n0 = floor(bigD / t);
+    n = n0 + 3;
+    h = bigD / 2 * sin(60 * M_PI / 180);
     
     const double DEG_TO_RAD = M_PI / 180.0;
 

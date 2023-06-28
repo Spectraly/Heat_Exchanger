@@ -5,11 +5,11 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Movable_Tube_Sheet_HPG(BuildParams params)
 {
     float DV, RV, L, L2, D, R, B1;
-    DV = params.diam.toDouble();//Наружный диаметр
-    L = params.S.toDouble(); //Длина
-    L2 = L / 2; //Длина
-    B1 = 5; //Левый бортик
-    float B2 = 8; //Правый бортик
+    DV = params.diam.toDouble();
+    L = params.S.toDouble();
+    L2 = L / 2;
+    B1 = 5;
+    float B2 = 8;
     D = DV - (DV / 100 * 9);
 
     switch ((int)DV)

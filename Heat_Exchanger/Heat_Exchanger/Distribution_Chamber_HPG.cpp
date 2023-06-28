@@ -30,7 +30,7 @@ void CreateSketchK(RPArray<MbContour>& _arrContours,float RV, float DNK, float T
 }
 void CreateSketchK1(RPArray<MbContour>& _arrContours, float RV, float Dy1, float Ts,float H2)
 {
-    float Ry1 = Dy1 / 2; //Внутренний диамерт
+    float Ry1 = Dy1 / 2;
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(Ry1 + Ts, H2));
@@ -53,7 +53,7 @@ void CreateSketchK1(RPArray<MbContour>& _arrContours, float RV, float Dy1, float
 }
 void CreateSketchK2(RPArray<MbContour>& _arrContours, float RV, float Dy1, float Ts, float H2)
 {
-    float Ry1 = Dy1 / 2; //Внутренний диамерт
+    float Ry1 = Dy1 / 2;
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(Ry1 + Ts, -H2));
@@ -114,20 +114,20 @@ void CreateSketchK3(RPArray<MbContour>& _arrContours,float L2, float B1)
 
 SPtr<MbSolid> ParametricModelCreator::Distribution_Chamber_HPG(BuildParams params)
 {
-    float Dy = params.Dy1.toDouble(); //Внутренний диамерт
-    float DV = params.diam.toDouble();//Наружный диаметр
-    float L = params.length.toDouble(); //Длина
-    float H = params.height.toDouble(); //Длина
-    float A1 = params.A.toDouble();; //Левый бортик
-    float Ry = Dy / 2; //Внутренний диамерт
-    float DN = DV + DV / 100 * 8; //Внутренний диаметр
-    float H2 = H/2 - Dy / 2; //Длина
-    float LK = (params.l1.toDouble() - L/100) * 2; //Длина
-    float L2 = LK/2; //Длина
-    float RV = DV / 2; //Внутренний радиус
-    float Ts = params.TsS;//Толщина стенки
-    float DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;//Наружный диаметр крышки
-    float B1 = 5; //Левый бортик
+    float Dy = params.Dy1.toDouble();
+    float DV = params.diam.toDouble();
+    float L = params.length.toDouble();
+    float H = params.height.toDouble();
+    float A1 = params.A.toDouble();
+    float Ry = Dy / 2;
+    float DN = DV + DV / 100 * 8;
+    float H2 = H/2 - Dy / 2;
+    float LK = (params.l1.toDouble() - L/100) * 2;
+    float L2 = LK/2;
+    float RV = DV / 2;
+    float Ts = params.TsS;
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;
+    float B1 = 5;
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;
 

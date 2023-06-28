@@ -5,9 +5,9 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Floating_Head_Cover_HPG(BuildParams params)
 {
    float DV,RV,R,B1, DR, RR;
-    DV = params.diam.toDouble();//Наружный диаметр
-    R = DV/2;//Наружный диаметр
-    B1 = 5; //Левый бортик
+    DV = params.diam.toDouble();
+    R = DV/2;
+    B1 = 5;
     DR = DV - (DV / 100 * 9);
     RR = DR / 2;
 

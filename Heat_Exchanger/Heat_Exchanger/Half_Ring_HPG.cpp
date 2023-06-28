@@ -5,11 +5,11 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Half_Ring_HPG(BuildParams params)
 {
    float DV, RV, DVP,RVP,LP,DR,RR,B1;
-    DV = params.diam.toDouble(); //Внутренний диаметр
-    RV = DV/2; //Внутренний диаметр
-    DVP = params.diam.toDouble() - 6; //Внутренний диаметр
-    LP = 25; //Длина
-    B1 = 5; //Левый бортик
+    DV = params.diam.toDouble();
+    RV = DV/2;
+    DVP = params.diam.toDouble() - 6;
+    LP = 25;
+    B1 = 5;
     DR = DV - (DV / 100 * 9);
     RR=DR/2;
 

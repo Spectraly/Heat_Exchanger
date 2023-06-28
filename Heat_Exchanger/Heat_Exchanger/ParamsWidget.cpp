@@ -206,7 +206,7 @@ void ParamsWidget::setupForm_model()
 		ui.lineEdit_S1->setText("10.0");
 		ui.lineEdit_h->setText("525.0");
 
-		ui.lineEdit_Ro->setText("1040.0");
+		ui.lineEdit_Ro->setText("7850.0");
 		ui.lineEdit_Sig->setText("132.0");
 		ui.lineEdit_Fi->setText("0.9");
 		break;
@@ -230,7 +230,7 @@ void ParamsWidget::setupForm_model()
 		ui.lineEdit_S1->setText("4.0");
 		ui.lineEdit_h->setText("292.0");
 
-		ui.lineEdit_Ro->setText("1040.0");
+		ui.lineEdit_Ro->setText("7850.0");
 		ui.lineEdit_Sig->setText("132.0");
 		ui.lineEdit_Fi->setText("0.9");
 		break;

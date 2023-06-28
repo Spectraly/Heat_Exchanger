@@ -30,7 +30,7 @@ void CreateSketch(RPArray<MbContour>& _arrContours,float RV,float L2, float DNK,
 }
 void CreateSketch1(RPArray<MbContour>& _arrContours, float RV, float L2, float Dy, float Ts, float A,float H2)
 {
-    float Ry = Dy / 2; //Внутренний диамерт
+    float Ry = Dy / 2;
     float  S = -L2 + A;
    
     // Размер массива - 8 точек
@@ -56,7 +56,7 @@ void CreateSketch1(RPArray<MbContour>& _arrContours, float RV, float L2, float D
 
 void CreateSketch2(RPArray<MbContour>& _arrContours, float RV, float L2,float A1, float A, float Dy, float Ts, float H2)
 {
-    float Ry = Dy / 2; //Внутренний диамерт
+    float Ry = Dy / 2;
     float S = -L2 + A + A1;
 
     // Размер массива - 8 точек
@@ -83,7 +83,7 @@ void CreateSketch2(RPArray<MbContour>& _arrContours, float RV, float L2,float A1
 void CreateSketch3(RPArray<MbContour>& _arrContours, float RV, float L2, float A, float Dy, float Ts)
 {
     float Ry = Dy / 2;
-    float S = -L2 + A;//Формула для левой трубы
+    float S = -L2 + A;
     // Размер массива - 8 точек
     SArray<MbCartPoint> arrPnts(8);
     arrPnts.Add(MbCartPoint(S - Ry - Ts, RV - (RV / 100 * 9) - 5));
@@ -104,28 +104,27 @@ void CreateSketch3(RPArray<MbContour>& _arrContours, float RV, float L2, float A
 SPtr<MbSolid> ParametricModelCreator::Casing_HPG(BuildParams params)
 {
 
-    float DV = params.diam.toDouble();//Наружный диаметр
-    float L = params.length.toDouble(); //Длина
-    float A1 = params.A1.toDouble(); //Левый бортик
-    float A = params.A.toDouble() - (params.l1.toDouble() - L / 100); //Левый бортик
-    float Dy = params.Dy.toDouble(); //Внутренний диамерт
-    float H = params.height.toDouble(); //Внутренний диамерт
+    float DV = params.diam.toDouble();
+    float L = params.length.toDouble();
+    float A1 = params.A1.toDouble();
+    float A = params.A.toDouble() - (params.l1.toDouble() - L / 100);
+    float Dy = params.Dy.toDouble();
+    float H = params.height.toDouble();
     float LK;
     if (DV < 600)
-        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 13.5 + params.TsF); //Длина
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 13.5 + params.TsF);
     else if (DV >= 600 && DV < 900)
-        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 10.5 + params.TsF); //Длина
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 10.5 + params.TsF);
     else if (DV >= 900)
-        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 11.5 + params.TsF); //Длина
-
-    float H2 = H/2 - Dy/2; //Внутренний диамерт
-    float Ry = Dy / 2; //Внутренний диамерт
-    float DN = DV + DV / 100 * 8; //Внутренний диаметр
-    float RV = DV / 2; //Внутренний радиус
-    float L2 = LK / 2; //Длина пополам
-    float Ts = params.TsS;//Толщина стенки
-    float DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;//Наружный диаметр крышки
-    float B1 = 5; //Левый бортик
+        LK = L - ((params.l1.toDouble() - L / 100) * 2 + (L / 100) * 11.5 + params.TsF);
+    float H2 = H/2 - Dy/2;
+    float Ry = Dy / 2;
+    float DN = DV + DV / 100 * 8;
+    float RV = DV / 2;
+    float L2 = LK / 2;
+    float Ts = params.TsS;
+    float DNK = (DV + DV / 100 * 19.5) / 2 + 20 + 0.3 * Ts;
+    float B1 = 5;
    
     // Множитель для преобразования угловых значений из градусов в радианы
     const double DEG_TO_RAD = M_PI / 180.0;

@@ -5,10 +5,10 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::Gasket_Cover_Chamber_HPG(BuildParams params)
 {
     float B1, DN,DV, DNK;
-    DV = params.diam.toDouble();//Наружный диаметр
-    DN = DV + DV / 100 * 8; //Внутренний диаметр
+    DV = params.diam.toDouble();
+    DN = DV + DV / 100 * 8;
     DNK = (DV + DV / 100 * 19.5);
-    B1 = 5; //Левый бортик
+    B1 = 5;
 
 
     
